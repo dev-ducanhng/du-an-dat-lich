@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'postLogin']);
+
+Route::prefix('service')->name('service.')->group(function () {
+    Route::get('/', [ServiceController::class, 'getService'])->name('index');
+    Route::get('/add', [ServiceController::class, 'addForm'])->name('add');
+    Route::post('/add', [ServiceController::class, 'saveAdd']);
+    Route::get('/edit/{id}', [ServiceController::class, 'editForm'])->name('edit');
+    Route::post('/edit/{id}', [ServiceController::class, 'saveEdit']);
 });
