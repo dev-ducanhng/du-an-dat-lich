@@ -36,4 +36,5 @@ Route::prefix('staff')->name('staff.')->group(function () {
     Route::post('/add', [StaffController::class, 'saveAdd']);
     Route::get('/edit/{id}', [StaffController::class, 'editForm'])->name('edit');
     Route::post('/edit/{id}', [StaffController::class, 'saveEdit']);
+    Route::get('/remove/{id}', [StaffController::class, 'remove'])->name('remove');
 });

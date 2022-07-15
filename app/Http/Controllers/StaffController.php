@@ -11,7 +11,7 @@ class StaffController extends Controller
     public function getService()
     {
         $staffs = User::where('role_id', User::STAFF_ROLE)->get();
-        dd($staffs);
+        return view('staff.index', compact('staffs'));
     }
 
     public function addForm()
@@ -26,7 +26,29 @@ class StaffController extends Controller
         $staff->password = Hash::make('12345678');
         $staff->role_id = User::STAFF_ROLE;
         $staff->save();
-
         return redirect()->route('staff.index')->with('message', 'Thêm nhân viên mới thành công!');
+    }
+
+    public function editForm($id)
+    {
+        $model = User::find($id);
+        return view('staff.edit', compact('model'));
+    }
+
+    public function saveEdit($id, Request $request)
+    {
+        $model = User::find($id);
+        $model->fill($request->all());
+        $model->save();
+        return redirect()->route('staff.edit', ['id' => $id])->with('message', 'Sửa thông tin nhân viên ' . $model->last_name . ' ' . $model->first_name . ' thành công!');
+    }
+
+    public function remove($id)
+    {
+        $model = User::find($id);
+        $model_last_name = $model->last_name;
+        $model_first_name = $model->first_name;
+        $model->delete();
+        return redirect()->route('staff.index')->with('message', 'Xóa thông tin nhân viên ' . $model->last_name . ' ' . $model->first_name . ' thành công!');
     }
 }
