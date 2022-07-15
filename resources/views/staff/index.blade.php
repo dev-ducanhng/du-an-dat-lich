@@ -10,6 +10,7 @@
             <th>Ngày sinh</th>
             <th>Avatar</th>
             <th>Trạng thái</th>
+            <th>Ngày tạo tài khoản</th>
             <th>
                 <a href="{{ route('staff.add') }}">Thêm mới</a>
             </th>
@@ -28,6 +29,7 @@
                     <img src="{{ asset($item->avatar) }}" alt="avatar">
                 </td>
                 <td>{{ $item->status == 1 ? 'Đang hoạt động' : 'Không hoạt động' }}</td>
+                <td>{{ date('d/m/Y H:i', strtotime($item->created_at)) }}</td>
                 <td>
                     <a href="{{ route('staff.edit', ['id' => $item->id]) }}">Sửa</a>
                     <a href="{{ route('staff.remove', ['id' => $item->id]) }}">Xóa</a>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
 {
@@ -48,7 +49,10 @@ class StaffController extends Controller
         $model = User::find($id);
         $model_last_name = $model->last_name;
         $model_first_name = $model->first_name;
+        if(!empty($model->avatar)) {
+            Storage::delete($model->avatar);
+        }
         $model->delete();
-        return redirect()->route('staff.index')->with('message', 'Xóa thông tin nhân viên ' . $model->last_name . ' ' . $model->first_name . ' thành công!');
+        return redirect()->route('staff.index')->with('message', 'Xóa thông tin nhân viên ' . $model_last_name . ' ' . $model_first_name . ' thành công!');
     }
 }
