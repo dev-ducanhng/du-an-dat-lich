@@ -14,8 +14,16 @@ class HomeController extends Controller
     {
         return view('home.booking');
     }
-    public function service()
+    public function listService()
     {
-        return view('home.service');
+        return view('home.listService');
+    }
+    public function history()
+    {
+        return view('home.history');
+    }
+    public function cart()
+    {
+        return view('home.cart');
     }
 }

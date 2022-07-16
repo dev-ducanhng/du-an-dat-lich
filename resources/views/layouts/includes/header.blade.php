@@ -6,7 +6,7 @@
                     <!-- logo -->
                     <div class="site-logo">
                         <a href="{{route('index')}}">
-                          ISALON
+                            ISALON
                         </a>
                     </div>
                     <!-- logo -->
@@ -15,10 +15,7 @@
                     <nav class="main-menu">
                         <ul>
                             <li class="current-list-item"><a href="#">Home</a>
-                                <ul class="sub-menu">
-                                    <li><a href="{{route('index')}}">Static Home</a></li>
-                                    <li><a href="index_2.html">Slider Home</a></li>
-                                </ul>
+
                             </li>
                             <li><a href="about.html">Giới thiệu</a></li>
                             <li><a href="">Dịch vụ</a>
@@ -47,19 +44,27 @@
                                     <li><a href="cart.html">Cart</a></li>
                                 </ul>
                             </li>
-                            <li>
+                            <li class="float-right">
                                 <div class="header-icons">
-                                    <a class="shopping-cart" href="cart.html"><i class="fa fa-user-circle-o w-20 h-20"></i></a>
+                                    <a class="shopping-cart" href="cart.html"><i
+                                            class="fa fa-user-circle-o w-20 h-20"></i>
+                                    </a>
                                     <ul class="sub-menu">
-                                        <li><a href="shop.html">Thông tin</a></li>
-                                        <li><a href="checkout.html">Quản trị</a></li>
-                                        <li><a href="single-product.html">Lịch sử</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
+
+                                        <li><a href="{{route('history')}}">Lịch sử</a></li>
                                     </ul>
-                                    <a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-                                    <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
                                 </div>
                             </li>
+
+                            <li>
+                                <div class="header-icons">
+                                    <a class="shopping-cart" href="{{route('cart')}}"><i
+                                            class="fas fa-shopping-cart"></i></a>
+                                    <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                </div>
+
+                            </li>
+
                         </ul>
                     </nav>
                     <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
@@ -70,4 +75,4 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+

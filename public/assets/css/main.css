@@ -583,7 +583,68 @@ ul.navbar-nav li.nav-item a.nav-link, ul.navbar-nav li.nav-item.active a.nav-lin
 a.navbar-brand img {
   max-width: 150px;
 }
+.group-profile>img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: -15%;
+    z-index: 1;
+}
+.group-profile{
+    margin: 20px 0;
+    display: flex;
+}
+.text{
+    margin: 0 30px;
+}
+.text>h3{
+    font-size: 18px;
+    color: #555555;
+}
+.text>p{
+    color: #88878F;
+    font-size: 16px;
+    font-weight: 500;
+}
+.gr-button{
+    float: right;
+    margin: 30px;
 
+}
+.gr-button>button>i{
+   padding: 0 10px;
+
+}
+.gr-title{
+    margin: 30px 0;
+}
+.stt{
+    background-color: #272522;
+    color: #fff;
+    border: none;
+    margin-right: 30px;
+    padding: 15px;
+}
+.lout{
+    background-color: #E7A356;
+    border: none;
+    padding: 15px;
+}
+.table>thead>tr{
+    background-color: #F0F0F0;
+}
+.gr-his{
+    border-radius: 25px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 30px;
+    display: flex;
+}
+.gr-his>i{
+  padding: 10px ;
+}
+.gr-his>p{
+    font-size: 18px;
+}
 nav.main-menu ul {
   margin: 0;
   padding: 0;
@@ -2565,8 +2626,12 @@ ul.product-share li a {
 table.cart-table {
   border: 1px solid #f9f9f9;
   width: 100%;
+    margin: 30px 0;
 }
-
+.gr-date{
+    float: right;
+    margin: 30px 0;
+}
 thead {
   border-bottom: 1px solid #eee;
 }

@@ -20,7 +20,9 @@ Route::get('/', function () {
 });
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
-Route::get('/service', [HomeController::class, 'service'])->name('service');
+Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
+Route::get('/history', [HomeController::class, 'history'])->name('history');
+Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
