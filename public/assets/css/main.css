@@ -206,15 +206,19 @@ p:last-child {
 }
 .form-group>button{
     width: 100%;
-    border: 2px solid #FF0000;
+    border: 1px solid #FF0000;
     border-radius: 15px;
     text-align: center;
+    margin-top: 15px;
 }
 .form-group>button>p{
     padding-top: 10px;
     font-size: 16px;
     font-weight: 600;
     margin: 0;
+}
+.form-control{
+    height: calc(2.5em + 0.75rem + 2px);
 }
 .form-group>button>span{
     padding-bottom: 10px;
@@ -226,6 +230,9 @@ p:last-child {
     border: 1px solid #FF0000;
    padding: 20px;
     text-align: center;
+}
+.form-book{
+    margin: 20px 0 ;
 }
 .circle:before {
   content: '';
@@ -588,7 +595,7 @@ nav.main-menu ul li {
 }
 
 nav.main-menu ul li a {
-  color: #000000;
+  color: #F28123;
   font-weight: 700;
   display: block;
   padding: 15px;

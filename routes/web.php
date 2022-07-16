@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
-
+Route::get('/service', [HomeController::class, 'service'])->name('service');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
