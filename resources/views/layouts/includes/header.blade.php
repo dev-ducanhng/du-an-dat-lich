@@ -50,8 +50,8 @@
                                             class="fa fa-user-circle-o w-20 h-20"></i>
                                     </a>
                                     <ul class="sub-menu">
-
                                         <li><a href="{{route('history')}}">Lịch sử</a></li>
+                                        <li><a href="{{route('history')}}">Quản trị</a></li>
                                     </ul>
                                 </div>
                             </li>

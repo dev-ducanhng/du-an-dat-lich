@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -33,4 +34,8 @@ Route::prefix('service')->name('service.')->group(function () {
     Route::post('/add', [ServiceController::class, 'saveAdd']);
     Route::get('/edit/{id}', [ServiceController::class, 'editForm'])->name('edit');
     Route::post('/edit/{id}', [ServiceController::class, 'saveEdit']);
+});
+Route::prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+
 });
