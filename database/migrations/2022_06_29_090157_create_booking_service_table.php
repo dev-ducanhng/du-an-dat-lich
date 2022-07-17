@@ -31,7 +31,6 @@ class CreateBookingServiceTable extends Migration
             $table->date('booking_date');
             $table->time('bokking_time');
 
-
             $table->timestamps();
         });
     }
