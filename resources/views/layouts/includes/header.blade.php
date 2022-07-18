@@ -51,7 +51,7 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li><a href="{{route('history')}}">Lịch sử</a></li>
-                                        <li><a href="{{route('history')}}">Quản trị</a></li>
+                                        <li><a href="">Quản trị</a></li>
                                     </ul>
                                 </div>
                             </li>
