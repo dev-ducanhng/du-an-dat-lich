@@ -37,7 +37,7 @@ Route::prefix('service')->name('service.')->group(function () {
     Route::post('/edit/{id}', [ServiceController::class, 'saveEdit']);
 });
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'dashboard'])->name('index');
 });
 
 
