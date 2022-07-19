@@ -2,34 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 
 use Illuminate\Support\Facades\Auth;
+
 class LoginController extends Controller
 {
-    public function login(){
+    /**
+     * @return Application|Factory|View
+     */
+    public function login()
+    {
         return view('auth.login');
     }
 
-    public function postLogin(LoginRequest $request){
-        // validate dữ liệu
-       
+    /**
+     * @param LoginRequest $request
+     * @return RedirectResponse
+     */
+    public function postLogin(LoginRequest $request): RedirectResponse
+    {
         $email = $request->email;
         $password = $request->password;
-        if (strlen(strstr($email, '@')) > 0) {
-            if(Auth::attempt(['email' => $email, 'password' => $password], $request->remember)){
-            
-                return redirect(route('service.index'));
-            }
-            }
-            else{
-                if(Auth::attempt(['phone' => $email, 'password' => $password], $request->remember)){
-            
-                    return redirect(route('service.index'));
-                }
-            }
-      
-        return back()->with('msg', 'Tài khoản/mật khẩu không chính xác');
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            return redirect()->intended();
+        } else {
+            return redirect()->back()->with('msg', 'Tài khoản/mật khẩu không chính xác');
+        }
+    }
+
+    /**
+     * @return RedirectResponse
+     */
+    public function logOut(): RedirectResponse
+    {
+        Auth::logout();
+        return redirect()->route('index');
     }
 }
