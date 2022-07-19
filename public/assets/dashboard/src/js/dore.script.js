@@ -1,4 +1,4 @@
-/* Dore Main Script 
+/* Dore Main Script
 
 Table of Contents
 
@@ -40,7 +40,7 @@ Table of Contents
   03.33. Showing Body
   03.34. Keyboard Shortcuts
   03.35. Context Menu
-  03.36. Select from Library 
+  03.36. Select from Library
   03.37. Feedback
   03.38. Smart Wizard
   03.39. Countdown
@@ -670,7 +670,7 @@ $.dore = function (element, options) {
           $(event.target).hasClass("sidebar")
         )
       ) {
-        // Prevent sub menu closing on collapse click 
+        // Prevent sub menu closing on collapse click
         if ($(event.target).parents("a[data-toggle='collapse']").length > 0 || $(event.target).attr("data-toggle") == 'collapse') {
           return;
         }
@@ -3041,12 +3041,12 @@ $.dore = function (element, options) {
         event.preventDefault();
         $dataTableRows.buttons(1).trigger();
       });
-      
+
       $("#dataTablesCsv").on("click", function(event) {
         event.preventDefault();
         $dataTableRows.buttons(2).trigger();
       });
-      
+
       $("#dataTablesPdf").on("click", function(event) {
         event.preventDefault();
         $dataTableRows.buttons(3).trigger();
@@ -4496,16 +4496,6 @@ $.dore = function (element, options) {
       $.validator.setDefaults({
         ignore: [],
         errorElement: "div",
-        submitHandler: function () {
-          alert("submitted!");
-        },
-        errorPlacement: function (error, element) {
-          if (element.attr("class").indexOf("custom-control") != -1) {
-            error.insertAfter(element.parent());
-          } else {
-            error.insertAfter(element);
-          }
-        }
       });
 
       $("#exampleForm").validate();
