@@ -10,3 +10,6 @@
 @enderror
     <button type="submit">OK</button>
 </form>
+@if(Session::has('msg'))
+            <p class="login-box-msg text-danger">{{Session::get('msg')}}</p>      
+        @endif

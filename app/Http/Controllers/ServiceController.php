@@ -28,7 +28,16 @@ class ServiceController extends Controller
     public function saveAdd (SeviceRequest $request){
        $model= new Service();
        $model->fill($request->all());
+       if($request->hasFile('image')){
+        $imgPath = $request->file('image')->store('services');
+        $imgPath = str_replace('public/', '', $imgPath);
+        $model->image = $imgPath;
+    }
+   
+      
+      
        $model->save();
+       
        return redirect(route('service.index'));
     }
     public function editForm($id){

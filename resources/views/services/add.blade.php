@@ -1,4 +1,4 @@
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     @csrf
     <div>
         <label for="">Tên</label>
@@ -32,6 +32,10 @@
             <p class="text-danger">{{$message}}</p>
     @enderror
         </select>
+    </div>
+    <div>
+        <label for="">Ảnh</label>
+        <input type="file" name="image">
     </div>
     <button type="submit">OK</button>
 </form>

@@ -33,7 +33,7 @@
         <td>{{$item->status}}</td>
         <td>{{$item->price}}</td>
         <td>{{$item->discount}}</td>
-        <td>{{$item->image}}</td>
+        <td><img src="{{asset($item->image)}}" width="100px" alt=""> </td>
         <td>
             <a href="{{route('service.edit', ['id' => $item->id])}}" >Sửa</a>
             
