@@ -65,5 +65,13 @@ Route::middleware('checkLogin')->group(function () {
             Route::post('add-role', [\App\Http\Controllers\RoleController::class, 'postAddRole']);
             Route::get('list-role', [\App\Http\Controllers\RoleController::class, 'getListRole'])->name('list');
         });
+
+        Route::prefix('discount-management')->name('discount.')->group(function () {
+            Route::get('list-discount', [\App\Http\Controllers\DiscountController::class, 'getListDiscount'])->name('list');
+            Route::get('add-discount', [\App\Http\Controllers\DiscountController::class, 'addDiscount'])->name('create');
+            Route::post('add-discount', [\App\Http\Controllers\DiscountController::class, 'postAddDiscount']);
+            Route::get('edit-discount/{discountId}', [\App\Http\Controllers\DiscountController::class, 'editDiscount'])->name('edit');
+            Route::post('edit-discount/{discountId}', [\App\Http\Controllers\DiscountController::class, 'postEditDiscount']);
+        });
     });
 });

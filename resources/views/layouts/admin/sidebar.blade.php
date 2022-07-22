@@ -50,6 +50,14 @@
                     </a>
                 </li>
             </ul>
+
+            <ul class="list-unstyled" data-link="discount">
+                <li class="active">
+                    <a href="{{route('dashboard.discount.list')}}">
+                        <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Quản lý mã giảm giá</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
