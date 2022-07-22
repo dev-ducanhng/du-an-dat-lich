@@ -18,7 +18,7 @@ class RoleSeeder extends Seeder
             ['name' => 'Admin'],
             ['name' => 'Stylish'],
             ['name' => 'Nhân viên'],
-            ['name' => 'Người dùng'],
+            ['name' => 'Khách hàng'],
         ];
 
         DB::table('roles')->insert($roles_default);
