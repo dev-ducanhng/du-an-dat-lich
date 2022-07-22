@@ -15,10 +15,10 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('price');
+            $table->string('name')->comment('Tên dịch vụ');
+            $table->integer('price')->default(0)->comment('Giá dịch vụ');
             $table->tinyInteger('discount')->default(0);
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(0)->comment('Trạng thái');
             $table->string('image')->nullable();
             $table->timestamps();
         });
