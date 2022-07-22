@@ -15,11 +15,11 @@ class CreateFeedbacksTable extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone_number')->nullable();
-            $table->text('content');
-            $table->string('image')->nullable();
-            $table->tinyInteger('rating');
+            $table->string('name')->comment('Tên phản hồi');
+            $table->string('phone_number')->nullable()->comment('Số điện thoại');
+            $table->text('content')->comment('Nội dung phản hồi');
+            $table->string('image')->nullable()->comment('Đường dẫn ảnh');
+            $table->tinyInteger('rating')->nullable()->comment('Điểm đánh giá');
             $table->timestamps();
         });
     }

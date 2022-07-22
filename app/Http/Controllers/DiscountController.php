@@ -44,6 +44,6 @@ class DiscountController extends Controller
         $discount->start_date = $start_date;
         $discount->end_date = $end_date;
         $discount->save();
-        return redirect()->route('dashboard.discount.edit', ['discountId' => $discountId])->with('message', 'Sửa thông tin mã giảm giá thành công!');
+        return redirect()->route('dashboard.discount.list')->with('message', 'Sửa thông tin mã giảm giá thành công!');
     }
 }

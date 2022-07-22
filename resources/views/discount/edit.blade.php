@@ -12,16 +12,26 @@
                                 @csrf
                                 <div class="form-group position-relative error-l-50">
                                     <label>Tên mã giảm giá</label>
-                                    <input type="text" name="name" class="input-sm form-control" value="{{$discount->name}}" required="">
+                                    <input type="text" name="name" id="name" class="input-sm form-control" value="{{$discount->name}}" required="">
+                                    @error('name')
+                                        <p class="text-danger mt-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group position-relative error-l-50">
                                     <label>Mã giảm giá</label>
-                                    <input type="text" name="code_discount" class="input-sm form-control" value="{{$discount->code_discount}}" required="">
+                                    <input type="text" name="code_discount" id="code_discount" class="input-sm form-control" value="{{$discount->code_discount}}" required="">
+                                    <a href="javascript:;" onclick="makeid(8)">Tạo mã giảm giá ngẫu nhiên</a>
+                                    @error('code_discount')
+                                        <p class="text-danger mt-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group position-relative error-l-50">
                                     <label>Phần trăm giảm giá (%)</label>
                                     <input type="number" name="percent" min="0" max="100"
                                         class="input-sm form-control" value="{{$discount->percent}}" required="">
+                                        @error('percent')
+                                        <p class="text-danger mt-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label>Thời hạn giảm giá</label>
@@ -45,6 +55,14 @@
 @endsection
 @push('javascript')
     <script>
+        function makeid(length) {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for (var i = 0; i < length; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            document.getElementById('code_discount').setAttribute('value', text);
+        }
+        
         mobiscroll.setOptions({
             theme: 'windows',
             themeVariant: 'light'

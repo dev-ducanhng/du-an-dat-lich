@@ -21,7 +21,7 @@ class CreateBookingServiceTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->tinyInteger('quantity')->default(1);
+            $table->tinyInteger('quantity')->default(1)->comment('Số lượng');
 
             $table->unsignedBigInteger('booking_id');
             $table->foreign('booking_id')->references('id')->on('bookings')
