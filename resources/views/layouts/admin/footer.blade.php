@@ -33,6 +33,8 @@
         toastr.error('{{ \Illuminate\Support\Facades\Session::get('error') }}');
         @elseif(\Illuminate\Support\Facades\Session::has('success'))
         toastr.success('{{ \Illuminate\Support\Facades\Session::get('success') }}');
+        @elseif(\Illuminate\Support\Facades\Session::has('checkRole'))
+        toastr.warning('{{ \Illuminate\Support\Facades\Session::get('checkRole') }}');
         @endif
     });
 </script>

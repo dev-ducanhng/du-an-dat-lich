@@ -28,9 +28,6 @@ class CreateBookingServiceTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->date('booking_date');
-            $table->time('bokking_time');
-
             $table->timestamps();
         });
     }
