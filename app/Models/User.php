@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -11,19 +12,22 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
     const ADMIN_ROLE = 1;
     const STYLISH_ROLE = 2;
     const STAFF_ROLE = 3;
     const MEMBER_ROLE = 4;
-
+    const MALE = 1;
+    const FEMALE = 2;
+    const ACTIVE = 0;
+    const INACTIVE = 1;
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'phone',
         'password',
@@ -31,6 +35,7 @@ class User extends Authenticatable
         'dob',
         'status',
         'role_id',
+        'avatar',
     ];
 
     /**
@@ -51,4 +56,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role(): HasOne
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
+    }
 }

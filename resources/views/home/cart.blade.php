@@ -17,145 +17,336 @@
     <!-- check out section -->
     <div class="checkout-section mt-150 mb-150">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="checkout-accordion-wrap">
-                        <div class="accordion" id="accordionExample">
-                            <div class="card single-accordion">
-                                <div class="card-header" id="headingOne">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Billing Address
-                                        </button>
-                                    </h5>
-                                </div>
+            <form action="" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="checkout-accordion-wrap">
+                            <div class="accordion" id="accordionExample">
+                                <div class="card single-accordion">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                    data-target="#collapseOne" aria-expanded="true"
+                                                    aria-controls="collapseOne">
+                                                Thông tin dịch vụ
+                                            </button>
+                                        </h5>
+                                    </div>
 
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        <div class="billing-address-form">
-                                            <form action="index.html">
-                                                <p><input type="text" placeholder="Name"></p>
-                                                <p><input type="email" placeholder="Email"></p>
-                                                <p><input type="text" placeholder="Address"></p>
-                                                <p><input type="tel" placeholder="Phone"></p>
-                                                <p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Say Something"></textarea></p>
-                                            </form>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                         data-parent="#accordionExample">
+                                        <div class="card-body mx-auto" style="width: 95%">
+                                            <div class="row bill">
+                                                <div
+                                                    class="col-md-3 bill-info bill-info-left p-2 text-center text-white font-weight-bold">
+                                                    Tên người đặt lịch
+                                                </div>
+                                                <div class="col-md-6 bill-info bill-info-right p-2 font-weight-bold">
+                                                    {{$bookingDetail->customer_name}}
+                                                </div>
+                                            </div>
+                                            <div class="row bill mt-1">
+                                                <div
+                                                    class="col-md-3 bill-info bill-info-left p-2 text-center text-white font-weight-bold">
+                                                    Số điện thoại
+                                                </div>
+                                                <div class="col-md-6 bill-info bill-info-right p-2 font-weight-bold">
+                                                    {{$bookingDetail->phone_number}}
+                                                </div>
+                                            </div>
+                                            <div class="row bill mt-1">
+                                                <div
+                                                    class="col-md-3 bill-info bill-info-left p-2 text-center text-white font-weight-bold">
+                                                    Ngày
+                                                </div>
+                                                <div class="col-md-6 bill-info bill-info-right p-2 font-weight-bold">
+                                                    {{$dateBooking}}
+                                                </div>
+                                            </div>
+                                            <div class="row bill mt-1">
+                                                <div
+                                                    class="col-md-3 bill-info bill-info-left p-2 text-center text-white font-weight-bold">
+                                                    Giờ
+                                                </div>
+                                                <div class="col-md-6 bill-info bill-info-right p-2 font-weight-bold">
+                                                    {{date('G:i', strtotime($bookingDetail->booking_time))}}
+                                                </div>
+                                            </div>
+                                            <div class="row bill mt-1">
+                                                <div
+                                                    class="col-md-3 bill-info bill-info-left p-2 text-center text-white font-weight-bold">
+                                                    Stylish
+                                                </div>
+                                                <div class="col-md-6 bill-info bill-info-right p-2 font-weight-bold">
+                                                    {{$stylish->name}}
+                                                </div>
+                                            </div>
+                                            @if($bookingDetail->multiple_booking == \App\Models\Booking::MULTIPLE)
+                                                <div class="row bill mt-1">
+                                                    <div
+                                                        class="col-md-3 bill-info bill-info-left p-2 text-center text-white font-weight-bold">
+                                                        Mã nhóm
+                                                    </div>
+                                                    <div
+                                                        class="col-md-6 bill-info bill-info-right p-2 font-weight-bold">
+                                                        {{$bookingDetail->booking_code}}
+                                                    </div>
+                                                </div>
+                                                <div class="text-center py-1">
+                                                    <span>(Bạn chia sẻ mã này cho bạn bè của bạn để có thể sử dụng dịch vụ của chúng tôi)</span>
+                                                </div>
+                                                <div class="row bill mt-1">
+                                                    <div
+                                                        class="col-md-3 bill-info bill-info-left p-2 text-center text-white font-weight-bold">
+                                                        Số lượng
+                                                    </div>
+                                                    <div
+                                                        class="col-md-6 bill-info bill-info-right p-2 font-weight-bold">
+                                                        {{$bookingDetail->amount_number_booking}} người
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            <div class="row bill mt-1">
+                                                <div
+                                                    class="col-md-3 bill-info bill-info-left p-2 text-center text-white font-weight-bold">
+                                                    Ghi chú
+                                                </div>
+                                                <div class="col-md-6 bill-info bill-info-right p-2 font-weight-bold">
+                                                    {{$bookingDetail->note}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card single-accordion">
+                                    <div class="card-header" id="headingThree">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                                    data-target="#collapseThree" aria-expanded="false"
+                                                    aria-controls="collapseThree">
+                                                Hình thức thanh toán
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                         data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="card-details">
+                                                <div class="radio-list">
+                                                    <label class="radio">
+                                                        <input class="radio-input" type="radio" checked="checked"
+                                                               name="payment_method"
+                                                               value="{{\App\Models\Booking::PAYMENT_WITH_CASH}}">
+                                                        <span class="radio-checkmark-box">
+                                                            <span class="radio-checkmark"></span>
+                                                        </span>
+                                                        <span class="ml-3">Thanh toán khi đến cửa hàng</span>
+                                                    </label>
+                                                    <label class="radio">
+                                                        <input class="radio-input" type="radio" name="payment_method"
+                                                               value="{{\App\Models\Booking::PAYMENT_WITH_CARD}}">
+                                                        <span class="radio-checkmark-box">
+                                                            <span class="radio-checkmark"></span>
+                                                        </span>
+                                                        <span class="ml-3">Thanh toán trực tuyến</span>
+                                                    </label>
+                                                    <p>Bạn nên lưu ý về quy định về các trường hợp thanh toán nhưng không đến cửa hàng để
+                                                        làm dịch vụ:</p>
+                                                    <ul>
+                                                        <li> Hủy dịch vụ trước 4 - 6 ngày: Hoàn trả 80% chi phí dich vụ
+                                                            đã đóng
+                                                        </li>
+                                                        <li> Hủy dịch vụ trước 2 - 3 ngày: Hoàn trả 60% chi phí dich vụ
+                                                            đã đóng
+                                                        </li>
+                                                        <li> Hủy dịch vụ trước 1 ngày: Hoàn trả 40% chi phí dich vụ đã
+                                                            đóng
+                                                        </li>
+                                                        <li> Hủy dịch vụ trong ngày đặt: Không được hoàn trả phí
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card single-accordion">
-                                <div class="card-header" id="headingTwo">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Shipping Address
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        <div class="shipping-address-form">
-                                            <p>Your shipping address form is here.</p>
+
+                        </div>
+                        <div class="mt-5">
+                            <a href="{{route('edit.booking', $bookingDetail->id)}}" class="btn btn-cancel">Chỉnh sửa
+                                thông tin đặt lịch</a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 w-100">
+                        <div class="order-details-wrap w-100">
+                            <table class="order-details w-100">
+                                <thead>
+                                <tr>
+                                    <th colspan="2" style="background: #F28123"
+                                        class="text-center font-weight-bold text-white">Chi tiết dịch vụ
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody class="order-details-body">
+                                <tr class="text-center text-white" style="background: #F28123 ">
+                                    <td>Dịch vụ</td>
+                                    <td>Giá</td>
+                                </tr>
+                                @foreach($bookingDetail->bookingService as $detail)
+                                    <tr>
+                                        <td>{{$detail->service->name}}</td>
+                                        <td>{{number_format($detail->service->price, 0, "", ",") . ' VNĐ'}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tbody class="checkout-details">
+                                </tbody>
+                            </table>
+                            <button type="submit" name="redirect" class="btn btn-order py-2 font-weight-bold mt-4">Xác
+                                nhận đặt lịch
+                            </button>
+                            <button type="button" class="btn btn-cancel py-2 font-weight-bold mt-3" data-toggle="modal"
+                                    data-target="#exampleModalCenter">Hủy
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content text-center p-5">
+                                        <p class="font-weight-bold">
+                                            Bạn có chắc chắn muốn hủy đặt lịch không?
+                                        </p>
+                                        <div class="d-flex row align-items-center justify-content-between mt-5">
+                                            <button type="button" class="btn  btn-cancel col-5" data-dismiss="modal">
+                                                Huỷ
+                                            </button>
+                                            <a href="{{route('cancel', $bookingDetail->id)}}"
+                                               class="btn btn-order col-5">Xác nhận</a>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card single-accordion">
-                                <div class="card-header" id="headingThree">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Card Details
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        <div class="card-details">
-                                            <p>Your card details goes here.</p>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-                <div class="col-lg-4">
-                    <div class="order-details-wrap">
-                        <table class="order-details">
-                            <thead>
-                            <tr>
-                                <th>Your order Details</th>
-                                <th>Price</th>
-                            </tr>
-                            </thead>
-                            <tbody class="order-details-body">
-                            <tr>
-                                <td>Product</td>
-                                <td>Total</td>
-                            </tr>
-                            <tr>
-                                <td>Strawberry</td>
-                                <td>$85.00</td>
-                            </tr>
-                            <tr>
-                                <td>Berry</td>
-                                <td>$70.00</td>
-                            </tr>
-                            <tr>
-                                <td>Lemon</td>
-                                <td>$35.00</td>
-                            </tr>
-                            </tbody>
-                            <tbody class="checkout-details">
-                            <tr>
-                                <td>Subtotal</td>
-                                <td>$190</td>
-                            </tr>
-                            <tr>
-                                <td>Shipping</td>
-                                <td>$50</td>
-                            </tr>
-                            <tr>
-                                <td>Total</td>
-                                <td>$240</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <a href="#" class="boxed-btn">Place Order</a>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
-    <!-- end check out section -->
-
-    <!-- logo carousel -->
-    <div class="logo-carousel-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="logo-carousel-inner">
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/1.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/2.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/3.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/4.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/5.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 @endsection
+@push('style')
+    <style>
+        .bill-info-left {
+            background: #F28123;
+        }
+
+        .bill {
+            border: 1px solid #F28123;
+        }
+
+        .btn-order {
+            background: #F28123;
+            width: 100%;
+            color: white;
+        }
+
+        .btn-order:hover {
+            border: 1px solid #F28123;
+            background: #FFFFFF;
+            color: #F28123;
+        }
+
+        .btn-cancel {
+            border: 1px solid #F28123;
+            color: #F28123;
+            width: 100%;
+        }
+
+        .btn-cancel:hover {
+            background: #F28123;
+            color: #FFFFFF;
+
+        }
+
+        .radio {
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .radio:hover .checkbox-checkmark {
+            border: 2px solid #F28123;
+        }
+
+        .radio-input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .radio-input:focus ~ .radio-checkmark-box {
+            border-color: #F28123;
+        }
+
+        .radio-input:checked ~ .radio-checkmark-box .radio-checkmark:after {
+            display: block;
+        }
+
+        .radio-input:checked ~ .radio-checkmark-box .radio-checkmark {
+            background-color: #F28123;
+            border: 1px solid #F28123;
+        }
+
+        .radio-input:disabled ~ .radio-checkmark-box .radio-checkmark {
+            border: 1px solid #B0B0B0;
+            cursor: not-allowed;
+        }
+
+        .radio-input:disabled:checked ~ .radio-checkmark-box .radio-checkmark {
+            background-color: #B0B0B0;
+        }
+
+        .radio-input:disabled:checked ~ .radio-checkmark-box .radio-checkmark:after {
+            background: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.8866 9.91722L0.0873348 5.36761C0.0596566 5.34137 0.037692 5.31018 0.0227039 5.27582C0.00771585 5.24146 0 5.20461 0 5.1674C0 5.13019 0.00771585 5.09335 0.0227039 5.05899C0.037692 5.02463 0.0596566 4.99343 0.0873348 4.96719L1.29893 3.81086C1.41471 3.70049 1.60183 3.70049 1.71761 3.81086L4.87718 6.80501C4.99296 6.91538 5.18143 6.91409 5.2972 6.80372L12.2787 0.0839022C12.3945 -0.0277526 12.5829 -0.0277526 12.7001 0.0826188L13.913 1.23895C14.0288 1.34932 14.0288 1.52771 13.9143 1.63809L6.30821 8.95468L6.30956 8.95597L5.30662 9.91722C5.19085 10.0276 5.00238 10.0276 4.8866 9.91722Z' fill='%2374767B'/%3E%3C/svg%3E%0A") no-repeat center;
+            background-size: contain;
+        }
+
+        .radio-checkmark-box {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+            border-radius: 3px;
+        }
+
+        .radio-checkmark {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #F28123;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .radio-checkmark:after {
+            content: "";
+            display: none;
+            background: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.8866 9.91722L0.0873348 5.36761C0.0596566 5.34137 0.037692 5.31018 0.0227039 5.27582C0.00771585 5.24146 0 5.20461 0 5.1674C0 5.13019 0.00771585 5.09335 0.0227039 5.05899C0.037692 5.02463 0.0596566 4.99343 0.0873348 4.96719L1.29893 3.81086C1.41471 3.70049 1.60183 3.70049 1.71761 3.81086L4.87718 6.80501C4.99296 6.91538 5.18143 6.91409 5.2972 6.80372L12.2787 0.0839022C12.3945 -0.0277526 12.5829 -0.0277526 12.7001 0.0826188L13.913 1.23895C14.0288 1.34932 14.0288 1.52771 13.9143 1.63809L6.30821 8.95468L6.30956 8.95597L5.30662 9.91722C5.19085 10.0276 5.00238 10.0276 4.8866 9.91722Z' fill='white'/%3E%3C/svg%3E%0A") no-repeat center;
+            width: 13px;
+            height: 13px;
+            background-size: contain;
+            border-radius: 3px;
+        }
+
+    </style>
+@endpush
