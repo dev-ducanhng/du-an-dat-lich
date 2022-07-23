@@ -14,35 +14,20 @@
                     <!-- menu start -->
                     <nav class="main-menu">
                         <ul>
-                            <li class="current-list-item"><a href="#">Home</a>
+                            <li class="current-list-item"><a href="{{route('index')}}">Home</a>
 
                             </li>
-                            <li><a href="about.html">Giới thiệu</a></li>
-                            <li><a href="">Dịch vụ</a>
-                                <ul class="sub-menu">
-                                    <li><a href="404.html">404 page</a></li>
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Check Out</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                    <li><a href="news.html">News</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="news.html">Tin tức</a>
+                            <li><a href="{{route('introduce')}}">Giới thiệu</a></li>
+                            <li><a href="{{route('list-service')}}">Dịch vụ</a></li>
+                            <li><a href="news.html">Khám phá tóc mới</a>
                                 <ul class="sub-menu">
                                     <li><a href="news.html">News</a></li>
                                     <li><a href="single-news.html">Single News</a></li>
                                 </ul>
                             </li>
 
-                            <li><a href="shop.html">Liên hệ</a>
-                                <ul class="sub-menu">
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li><a href="checkout.html">Check Out</a></li>
-                                    <li><a href="single-product.html">Single Product</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                </ul>
+                            <li><a href="{{route('contact')}}">Liên hệ</a>
+
                             </li>
                             <li class="float-right">
                                 <div class="header-icons">
