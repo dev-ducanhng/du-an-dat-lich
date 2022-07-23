@@ -16,7 +16,7 @@ class CreateBookingsTable extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
@@ -24,7 +24,7 @@ class CreateBookingsTable extends Migration
             $table->string('phone_number')->comment('Số điện thoại người đặt');
             $table->tinyInteger('status')->default(0);
 
-            $table->unsignedBigInteger('discount_id');
+            $table->unsignedBigInteger('discount_id')->nullable();
             $table->foreign('discount_id')->references('id')->on('discounts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

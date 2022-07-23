@@ -8,11 +8,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        @if($authUser->role_id == \App\Models\User::ADMIN_ROLE)
                         <div class="text-zero top-right-button-container">
-                            <a href="{{route('dashboard.role.create')}}"  class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm chức vụ</a>
+                            <a href="{{route('dashboard.role.create')}}"
+                               class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm chức vụ</a>
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>
