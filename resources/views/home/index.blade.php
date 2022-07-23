@@ -24,49 +24,45 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="featured-text">
-                            <h2 class="pb-3">Why <span class="orange-text">Fruitkha</span></h2>
+                            <h2 class="pb-3"> <span class="orange-text">Về chúng tôi</span></h2>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 mb-4 mb-md-5">
                                     <div class="list-box d-flex">
                                         <div class="list-icon">
-                                            <i class="fas fa-shipping-fast"></i>
+                                            <img src="assets/img/icon.jpg" alt="">
                                         </div>
                                         <div class="content">
-                                            <h3>Home Delivery</h3>
-                                            <p>sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
+                                            <h3>Đặt lịch dễ dàng</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 mb-5 mb-md-5">
                                     <div class="list-box d-flex">
                                         <div class="list-icon">
-                                            <i class="fas fa-money-bill-alt"></i>
+                                            <img src="assets/img/icon (1).jpg" alt="">
                                         </div>
                                         <div class="content">
-                                            <h3>Best Price</h3>
-                                            <p>sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
+                                            <h3>Stylist chuyên nghiệp</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 mb-5 mb-md-5">
                                     <div class="list-box d-flex">
                                         <div class="list-icon">
-                                            <i class="fas fa-briefcase"></i>
+                                            <img src="assets/img/icon (2).jpg" alt="">
                                         </div>
                                         <div class="content">
-                                            <h3>Custom Box</h3>
-                                            <p>sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
+                                            <h3>Dịch vụ chất lượng cao</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="list-box d-flex">
                                         <div class="list-icon">
-                                            <i class="fas fa-sync-alt"></i>
+                                            <img src="assets/img/discount 1.png" alt="">
                                         </div>
                                         <div class="content">
-                                            <h3>Quick Refund</h3>
-                                            <p>sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
+                                            <h3>Nhiều ưu đãi hàng tháng</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -84,21 +80,19 @@
                 <div class="col-lg-6 col-md-6 text-center">
                     <div class="single-product-item">
                         <div class="product-image">
-                            <a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+                            <a ><img src="assets/img/products/product-img-1.jpg" alt=""></a>
                         </div>
-                        <h3>Strawberry</h3>
-                        <p class="product-price"><span>Per Kg</span> 85$ </p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        <h3>Tóc nữ</h3>
+                        <p class="product-price"><span>Ưu đãi</span> -30% </p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 text-center">
                     <div class="single-product-item">
                         <div class="product-image">
-                            <a href="single-product.html"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
+                            <a ><img src="assets/img/products/product-img-2.jpg" alt=""></a>
                         </div>
-                        <h3>Berry</h3>
-                        <p class="product-price"><span>Per Kg</span> 70$ </p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        <h3>Tóc nam</h3>
+                        <p class="product-price"><span>Ưu đãi</span> 15% </p>
                     </div>
                 </div>
             </div>
@@ -164,108 +158,20 @@
     </div>
     <!-- end product section 2 -->
 
-    <!-- cart banner section -->
-    <section class="cart-banner pt-100 pb-100">
-        <div class="container">
-            <div class="row clearfix">
-                <!--Image Column-->
-                <div class="image-column col-lg-6">
-                    <div class="image">
-                        <div class="price-box">
-                            <div class="inner-price">
-                                <span class="price">
-                                    <strong>30%</strong> <br> off per kg
-                                </span>
-                            </div>
-                        </div>
-                        <img src="assets/img/a.jpg" alt="">
-                    </div>
-                </div>
-                <!--Content Column-->
-                <div class="content-column col-lg-6">
-                    <h3><span class="orange-text">Đánh giá của khách hàng</span></h3>
-                    <h4>Hikan Strwaberry</h4>
-                    <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
-                    <!--Countdown Timer-->
-                    <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
-                    <a href="cart.html" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end cart banner section -->
-
-    <!-- testimonail-section -->
-    <div class="testimonail-section mt-150 mb-150">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1 text-center">
-                    <div class="testimonial-sliders">
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src="assets/img/avaters/avatar1.png" alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>Saira Hakim <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src="assets/img/avaters/avatar2.png" alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>David Niph <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src="assets/img/avaters/avatar3.png" alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>Jacob Sikim <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end testimonail-section -->
 
     <!-- advertisement section -->
-    <div class="abt-section mb-150">
+    <div class="abt-section mb-100 mt-100" >
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="abt-bg">
-                        <a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+                        <a href="https://www.youtube.com/watch?v=Nt1HZ3ml0Xs" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="abt-text">
-                        <p class="top-sub">Since Year 1999</p>
                         <h2><span class="orange-text">Mẫu tóc nổi bật</span></h2>
-                        <p>Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
-                        <a href="about.html" class="boxed-btn mt-4">know more</a>
+                        <p>Kiểu tóc side part vuốt rủ trở thành xu hướng “hot trend” trở lại dù không phải là kiểu tóc mới xuất hiện, nó vẫn được giới trẻ theo đuổi.Thông thường kiểu side part cổ điển sẽ chú trọng về những đường cắt gọn. Tuy nhiên, nếu bạn tóc mình trông hiện đại hơn thì có thể tỉa bớt tóc cho mỏng đi hoặc tỉa layer phần mái. Đây là phong cách luôn nằm đầu danh sách kiểu tóc được ưu chuộng nhất mọi thời đại.</p>
                     </div>
                 </div>
             </div>
@@ -273,18 +179,9 @@
     </div>
     <!-- end advertisement section -->
 
-    <!-- shop banner -->
-    <section class="shop-banner">
-        <div class="container">
-            <h3>Khuyến mại hot</h3>
-            <div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
-            <a href="shop.html" class="cart-btn btn-lg">Shop Now</a>
-        </div>
-    </section>
-    <!-- end shop banner -->
 
     <!-- latest news -->
-    <div class="latest-news pt-150 pb-150">
+    <div class="latest-news pb-150">
         <div class="container">
 
             <div class="row">
@@ -349,31 +246,4 @@
     </div>
     <!-- end latest news -->
 
-    <!-- logo carousel -->
-    <div class="logo-carousel-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="logo-carousel-inner">
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/1.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/2.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/3.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/4.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/5.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end logo carousel -->
 @endsection

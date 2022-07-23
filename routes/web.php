@@ -28,6 +28,8 @@ Route::get('/lich-su', [HomeController::class, 'history'])->name('history');
 Route::get('/thanh-toan', [HomeController::class, 'cart'])->name('cart');
 Route::get('/gioi-thieu', [HomeController::class, 'introduce'])->name('introduce');
 Route::get('/lien-he', [HomeController::class, 'contact'])->name('contact');
+Route::get('/bai-viet', [HomeController::class, 'blog'])->name('blog');
+Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name('detail-service');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);

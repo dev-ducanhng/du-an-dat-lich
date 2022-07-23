@@ -34,4 +34,12 @@ class HomeController extends Controller
     {
         return view('home.contact');
     }
+    public function blog()
+    {
+        return view('home.blog');
+    }
+    public function detailService()
+    {
+        return view('home.detail-service');
+    }
 }

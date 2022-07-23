@@ -19,11 +19,8 @@
                             </li>
                             <li><a href="{{route('introduce')}}">Giới thiệu</a></li>
                             <li><a href="{{route('list-service')}}">Dịch vụ</a></li>
-                            <li><a href="news.html">Khám phá tóc mới</a>
-                                <ul class="sub-menu">
-                                    <li><a href="news.html">News</a></li>
-                                    <li><a href="single-news.html">Single News</a></li>
-                                </ul>
+                            <li><a href="{{route('blog')}}">Khám phá tóc mới</a>
+
                             </li>
 
                             <li><a href="{{route('contact')}}">Liên hệ</a>
