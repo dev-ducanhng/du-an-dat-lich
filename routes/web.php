@@ -25,7 +25,6 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
 Route::get('/history', [HomeController::class, 'history'])->name('history');
-Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
@@ -53,17 +52,22 @@ Route::middleware('checkLogin')->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', [DashboardController::class, 'dashboard'])->name('index');
         Route::prefix('user-management')->name('user.')->group(function () {
-            Route::get('add-user', [\App\Http\Controllers\UserController::class, 'createUser'])->name('create');
-            Route::post('add-user', [\App\Http\Controllers\UserController::class, 'postCreateUser']);
+
             Route::get('list-user', [\App\Http\Controllers\UserController::class, 'getListUser'])->name('list');
-            Route::get('edit-user/{userId}', [\App\Http\Controllers\UserController::class, 'editUser'])->name('edit');
-            Route::post('edit-user/{userId}', [\App\Http\Controllers\UserController::class, 'postEditUser']);
-            Route::get('delete-user/{userId}', [\App\Http\Controllers\UserController::class, 'deleteUser'])->name('delete');
+            Route::middleware('checkAdmin')->group(function () {
+                Route::get('edit-user/{userId}', [\App\Http\Controllers\UserController::class, 'editUser'])->name('edit');
+                Route::post('edit-user/{userId}', [\App\Http\Controllers\UserController::class, 'postEditUser']);
+                Route::get('delete-user/{userId}', [\App\Http\Controllers\UserController::class, 'deleteUser'])->name('delete');
+                Route::get('add-user', [\App\Http\Controllers\UserController::class, 'createUser'])->name('create');
+                Route::post('add-user', [\App\Http\Controllers\UserController::class, 'postCreateUser']);
+            });
         });
         Route::prefix('role-management')->name('role.')->group(function () {
-            Route::get('add-role', [\App\Http\Controllers\RoleController::class, 'addRole'])->name('create');
-            Route::post('add-role', [\App\Http\Controllers\RoleController::class, 'postAddRole']);
             Route::get('list-role', [\App\Http\Controllers\RoleController::class, 'getListRole'])->name('list');
+            Route::middleware('checkAdmin')->group(function () {
+                Route::get('add-role', [\App\Http\Controllers\RoleController::class, 'addRole'])->name('create');
+                Route::post('add-role', [\App\Http\Controllers\RoleController::class, 'postAddRole']);
+            });
         });
 
         Route::prefix('discount-management')->name('discount.')->group(function () {
@@ -75,3 +79,12 @@ Route::middleware('checkLogin')->group(function () {
         });
     });
 });
+Route::post('/booking', [HomeController::class, 'postBooking']);
+Route::get('/bookingDate/{date}', [HomeController::class, 'bookingDate'])->name('bookingDate');
+Route::get('/cart/{bookingId}', [HomeController::class, 'cart'])->name('cart');
+Route::post('/cart/{bookingId}', [HomeController::class, 'confirmBooking']);
+Route::get('/booking/success', [HomeController::class, 'bookingSuccess'])->name('success');
+Route::get('/cancel/{bookingId}', [HomeController::class, 'cancelBooking'])->name('cancel');
+Route::get('/booking/edit/{bookingID}', [HomeController::class, 'editBooking'])->name('edit.booking');
+Route::post('/booking/edit/{bookingID}', [HomeController::class, 'saveEditBooking']);
+

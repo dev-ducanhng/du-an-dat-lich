@@ -70,12 +70,6 @@
 </div>
 <!-- end copyright -->
 
-
-
-
-
-
-
 <script src="{{asset('assets/js/jquery-1.11.3.min.js')}}"></script>
 <!-- bootstrap -->
 <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -95,6 +89,8 @@
 <script src="{{asset('assets/js/sticker.js')}}"></script>
 <!-- main js -->
 <script src="{{asset('assets/js/main.js')}}"></script>
+@stack('javascript')
+
 
 </body>
 </html>

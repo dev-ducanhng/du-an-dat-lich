@@ -29,5 +29,14 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'nexmo' => [
+        'key' => env('NEXMO_KEY'),
+        'secret' => env('NEXMO_SECRET'),
+    ],
+    'payment' => [
+        'key' => env('VNPAY_KEY'),
+        'secret' => env('VNPAY_SECRET'),
+        'url' => env('VNPAY_URL')
+    ],
 
 ];

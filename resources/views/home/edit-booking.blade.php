@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 text-center">
                     <div class="breadcrumb-text">
-                        <h1>Đặt lịch</h1>
+                        <h1>Chỉnh sửa đặt lịch</h1>
                     </div>
                 </div>
             </div>
@@ -19,14 +19,14 @@
         <form class="form-book" method="POST">
             @csrf
             <div class="text-center py-3">
-                <h3>Điền thông tin đặt lịch tại đây</h3>
+                <h3>Chỉnh sửa thông tin đặt lịch</h3>
                 <hr>
             </div>
             <div class="row">
                 @if(! $user)
                     <div class="form-group col-6">
                         <input type="text" class="form-control" name="phone_number"
-                               value="{{request()->old('phone_number')}}"
+                               value="{{request()->old('phone_number') ?? $bookingDetail->phone_number}}"
                                placeholder="Số điện thọai">
                         @error('phone_number')
                         <p class="text-danger py-2">{{$message}}</p>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group col-6">
                         <input type="text" class="form-control" name="customer_name"
-                               value="{{request()->old('customer_name')}}"
+                               value="{{request()->old('customer_name') ?? $bookingDetail->customer_name}}"
                                placeholder="Nhập tên của bạn">
                         @error('customer_name')
                         <p class="text-danger py-2">{{$message}}</p>
@@ -45,7 +45,8 @@
                     </div>
                 @endif
                 <div class="form-field col-12 form-group">
-                    <input id="datepicker" type="text" name="booking_date" value="{{request()->old('booking_date')}}"
+                    <input id="datepicker" type="text" name="booking_date"
+                           value="{{request()->old('booking_date') ?? $bookingDetail->bookingDate->date}}"
                            class="form-control datepicker"
                            placeholder="Chọn ngày"/>
                     @error('booking_date')
@@ -60,10 +61,12 @@
                         <label for="exampleFormControlSelect1" class="w-100 text-white"
                                style="background-color: #F28123; padding: 10px 0; font-size: 16px">Chọn dịch vụ</label>
                         <div class="checkboxes flex" style="padding: 10px 0">
-                            @foreach($services as $service)
+                            @foreach($services as $key => $service)
                                 <label class="checkbox">
                                     <input type="checkbox" name="service[]" value="{{$service->id}}"
-                                           @if(request()->old('service') && in_array($service->id, request()->old('service')) )
+                                           @if(request()->old('service')  && in_array($service->id, request()->old('service')) )
+                                           checked
+                                           @elseif($bookingServiceId && in_array($service->id, $bookingServiceId))
                                            checked
                                         @endif
                                     /><span
@@ -101,7 +104,8 @@
                                         <div class="option">
                                             <input class="select-stylist" type="radio" value="{{$stylist->id}}"
                                                    name="stylist"
-                                                   @if(request()->old('stylist') == $stylist->id) checked @endif>
+                                                   @if(request()->old('stylist') == $stylist->id) checked
+                                                   @elseif($bookingDetail->stylist == $stylist->id) checked @endif>
                                             <i class="fab fas fa-user-tie"></i>
                                             <span class="label">{{$stylist->name}}</span>
                                         </div>
@@ -137,7 +141,8 @@
                             <label>
                                 <input type="checkbox" class="default__check switchbox form-control is-multiple"
                                        name="multiple_booking"
-                                       @if(request()->old('multiple_booking')) checked @endif>
+                                       @if(request()->old('multiple_booking')) checked
+                                       @elseif($bookingDetail->multiple_booking) checked @endif>
                                 <span class="custom__check"></span>
                                 Bạn đặt cho nhiều người?
                             </label>
@@ -146,7 +151,7 @@
                 </div>
                 <div class="form-group col-12 ">
                     <input type="number" min="1" max="5" class="form-control w-100 select-number"
-                           value="{{request()->old('amount_number_booking')}}"
+                           value="{{request()->old('amount_number_booking') ?? $bookingDetail->amount_number_booking}}"
                            name="amount_number_booking"
                            placeholder="Nhập số lượng người bạn muốn đặt, chỉ được đặt tối đa 5 người" hidden>
                     @error('amount_number_booking')
@@ -154,7 +159,8 @@
                     @enderror
                 </div>
                 <div class="form-group col-12">
-                    <input type="text" class="form-control" placeholder="Ghi chú" name="note" value="">
+                    <input type="text" class="form-control" placeholder="Ghi chú" name="note"
+                           value="{{request()->old('note') ?? $bookingDetail->note}}">
                 </div>
                 <div class="summit-button form-group col-4 mx-auto">
                     <button type="submit" data-toggle="modal" data-target="#exampleModal"
@@ -176,12 +182,12 @@
         let datePicker = document.querySelector('.datepicker')
         let isMultiple = document.querySelector('.is-multiple')
         let numberBooking = document.querySelector('.select-number')
-        let oldInput = "{{request()->old('booking_time')}}"
-        let inputDate = "{{request()->old('booking_date')}}"
+        let oldInput = "{{request()->old('booking_time') ?? $bookingDetail->bookingDate->bookingTime[0]->id}}"
+        let inputDate = "{{request()->old('booking_date') ?? $bookingDetail->bookingDate->date}}"
         if (inputDate === '') {
             datePicker.value = new Date().toISOString().slice(0, 10);
         } else {
-            datePicker.value == "{{request()->old('booking_date')}}"
+            datePicker.value == "{{$bookingDetail->bookingDate->date}}"
         }
 
         selectStylist.hidden = false
@@ -197,6 +203,12 @@
         selectStylistButton.addEventListener('click', () => {
             selectStylist.hidden = false
         })
+        if (isMultiple.checked == true) {
+            numberBooking.hidden = false
+            isMultiple.value = 1
+        } else {
+            numberBooking.hidden = true
+        }
         isMultiple.addEventListener('change', () => {
             if (isMultiple.checked == true) {
                 numberBooking.hidden = false
@@ -219,8 +231,6 @@
             },
             bodyType: 'modal',
             selectedDate: new Date(),
-            customMonths: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            customWeekDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
             maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 7)
         })
