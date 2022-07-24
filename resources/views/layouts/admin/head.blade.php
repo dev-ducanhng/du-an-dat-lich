@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Quản lý salon</title>
     <link rel="stylesheet" href="{{asset('assets/dashboard/src/font/iconsmind-s/css/iconsminds.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/dashboard/src/font/simple-line-icons/css/simple-line-icons.css')}}" />

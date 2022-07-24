@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Booking;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class BookingController extends Controller
+{
+    public function getBookingListAjax(): array
+    {
+        $getAllBookings = Booking::with([
+            'user',
+            'bookingService' => function ($queryBookingService) {
+                $queryBookingService->with('service');
+            },
+            'bookingDate'])->get();
+        $dataBooking = [];
+        $bookingService = [];
+        foreach ($getAllBookings as $booking) {
+            $stylist = User::where('id', $booking->stylist)->first();
+            $bookingServicePrice = 0;
+            foreach ($booking->bookingService as $key => $service) {
+                $bookingService[$key] = $service->service->name;
+                $bookingServicePrice += $service->service->price;
+            }
+            $status = '';
+            if ($booking->status == Booking::SOLVED) {
+                $status = 'Đã làm cho khách';
+            } else if ($booking->status == Booking::SOLVED_YET) {
+                $status = 'Chưa làm cho khách';
+            } else {
+                $status = 'Khách hủy';
+            }
+            $dataBooking[] = [
+                'name'         => $booking->customer_name,
+                'phone_number' => $booking->phone_number,
+                'booking_date' => $booking->bookingDate->date,
+                'booking_time' => $booking->booking_time,
+                'stylist'      => $stylist->name,
+                'payment'      => $booking->payment == Booking::PAYMENT_WITH_CARD ? 'Thanh toán trực tuyến' : 'Thanh toán tiền mặt',
+                'note'         => $booking->note,
+                'detail'       => [
+                    'service' => $bookingService,
+                    'price'   => number_format($bookingServicePrice, 0, "", ",") . ' VNĐ',
+                ],
+                'status'       => $status,
+                'number'       => $booking->multiple_booking == Booking::MULTIPLE ? $booking->amount_number_booking : 0,
+                'id'           => $booking->id,
+
+            ];
+        }
+        return $dataBooking;
+    }
+
+    public function getAllBooking()
+    {
+        return view('admin.bookings.list');
+    }
+
+    public function updateStatus(Request $request)
+    {
+
+        Booking::where('id', $request->id)->update([
+            'status' => $request->status,
+        ]);
+
+        return response()->json($request);
+    }
+}

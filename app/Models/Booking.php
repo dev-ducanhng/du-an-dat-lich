@@ -13,6 +13,8 @@ class Booking extends Model
 
     const SOLVED = 0;
     const SOLVED_YET = 1;
+    const CANCEL = 2;
+
     const MULTIPLE = 1;
     const SINGLE = 0;
     const PAYMENT_WITH_CARD = 1;
