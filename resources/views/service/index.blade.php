@@ -22,7 +22,7 @@
             <div class="mb-3">
                 
                     <div class="text-zero top-right-button-container">
-                        <a href="{{route('service.add')}}"  class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm dịc vụ</a>
+                        <a href="{{route('service.add')}}"  class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm dịch vụ</a>
                     </div>
               
             </div>

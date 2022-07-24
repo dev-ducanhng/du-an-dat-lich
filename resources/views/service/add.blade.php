@@ -50,7 +50,7 @@
 
                             <div class="btn-toolbar custom-toolbar text-center card-body mb-5">
                                 <button class="btn btn-secondary ml-2" type="submit">Hoàn thành</button>
-                                <button class="btn btn-warning ml-2" type="button">Hủy</button>
+                                {{-- <button class="btn btn-warning ml-2" type="button"></button> --}}
                             </div>
                         </div>
                     </form>

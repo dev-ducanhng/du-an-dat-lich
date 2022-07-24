@@ -31,7 +31,15 @@ Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
 Route::get('/logout', [LoginController::class, 'logOut'])->name('logout');
-Route::get('/', [PasswordController::class, 'formReset'])->name('resetPassword');
+Route::get('/forget-password', [PasswordController::class, 'formForget'])->name('forgetPassword');
+Route::post('/forget-password', [PasswordController::class, 'postForget']);
+Route::get('/reset-password/{token}/{email}', [PasswordController::class, 'formReset'])->name('formReset');
+Route::post('/reset-password', [PasswordController::class, 'saveReset']);
+
+Route::get('/change-password', [PasswordController::class, 'formChange'])->name('changePassword');
+Route::post('/change-password', [PasswordController::class, 'postChange']);
+
+
 Route::prefix('service')->name('service.')->group(function () {
     Route::get('/', [ServiceController::class, 'getService'])->name('index');
     Route::get('/add', [ServiceController::class, 'addForm'])->name('add');
