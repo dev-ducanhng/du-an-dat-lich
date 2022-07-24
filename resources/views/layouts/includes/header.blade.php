@@ -18,7 +18,7 @@
 
                             </li>
                             <li><a href="about.html">Giới thiệu</a></li>
-                            <li><a href="">Dịch vụ</a>
+                            <li><a href="{{route('listService')}}">Dịch vụ</a>
                                 <ul class="sub-menu">
                                     <li><a href="404.html">404 page</a></li>
                                     <li><a href="about.html">About</a></li>
