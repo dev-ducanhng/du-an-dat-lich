@@ -25,8 +25,8 @@ class StaffRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|string|min:1',
-            'last_name' => 'required|string|min:1',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'email' => [
                 'required', 'string',
                 Rule::unique('users')->ignore($this->id)
@@ -35,6 +35,23 @@ class StaffRequest extends FormRequest
                 'required', 'string',
                 Rule::unique('users')->ignore($this->id)
             ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'first_name.required' => 'Hãy nhập tên người dùng',
+            'first_name.string' => 'Tên người dùng không thể chứa ký tự đặc biệt',
+            'last_name.required' => 'Hãy nhập tên người dùng',
+            'last_name.string' => 'Tên người dùng không thể chứa ký tự đặc biệt',
+            'first_name.unique' => 'Tên sản phẩm đã tồn tại',
+            'price.required' => 'Hãy nhập giá sản phẩm',
+            'price.min' => 'Giá sản phẩm không được là số âm',
+            'image.required' => 'Hãy chọn ảnh sản phẩm',
+            'image.mimes' => 'Cần chọn đúng định dạng ảnh',
+            'quantity.integer' => 'Cần nhập số nguyên',
+            'quantity.min' => 'Số lượng không được là số âm'
         ];
     }
 }
