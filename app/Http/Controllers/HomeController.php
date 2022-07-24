@@ -113,7 +113,19 @@ class HomeController extends Controller
 
     public function listService()
     {
-        return view('home.listService');
+        $models = Service::all();
+        $services =[];
+        $priceDiscount='';
+        foreach($models as $item){
+            
+            if($item->discount != '' || $item->discount != null){
+                $priceDiscount = $item->price-( ($item->price/ 100 )* $item->discount) ;
+            }
+            $item->priceDiscount=$priceDiscount ;
+         
+        }
+
+        return view('home.listService',compact('models'));
     }
 
     public function history()

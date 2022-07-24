@@ -12,15 +12,18 @@ use App\Http\Requests\LoginRequest;
 
 use Illuminate\Support\Facades\Auth;
 
+
 class LoginController extends Controller
 {
     /**
      * @return Application|Factory|View
      */
+
     public function login()
     {
         return view('auth.login');
     }
+
 
     /**
      * @param LoginRequest $request

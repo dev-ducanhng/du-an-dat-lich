@@ -8,7 +8,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#service">
+                    <a href="{{route('service.index')}}">
                         <i class="iconsminds-air-balloon-1"></i> Dịch vụ
                     </a>
                 </li>
