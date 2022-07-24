@@ -23,7 +23,6 @@
     </div>
     <div>
         <label for="">trạng thái</label>
-        
         <select name="status" >
             <option value="">Chọn trạng thai</option>
             <option value="0">Không kích hoạt</option>
