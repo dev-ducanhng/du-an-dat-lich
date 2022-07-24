@@ -151,7 +151,8 @@
                                                         </span>
                                                         <span class="ml-3">Thanh toán trực tuyến</span>
                                                     </label>
-                                                    <p>Bạn nên lưu ý về quy định về các trường hợp thanh toán nhưng không đến cửa hàng để
+                                                    <p>Bạn nên lưu ý về quy định về các trường hợp thanh toán nhưng
+                                                        không đến cửa hàng để
                                                         làm dịch vụ:</p>
                                                     <ul>
                                                         <li> Hủy dịch vụ trước 4 - 6 ngày: Hoàn trả 80% chi phí dich vụ
@@ -198,13 +199,24 @@
                                 @foreach($bookingDetail->bookingService as $detail)
                                     <tr>
                                         <td>{{$detail->service->name}}</td>
-                                        <td>{{number_format($detail->service->price, 0, "", ",") . ' VNĐ'}}</td>
+                                        <td>{{$detail->present()->showPriceWithDiscount()}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
-                                <tbody class="checkout-details">
-                                </tbody>
+                                <tfood>
+                                    <tr>
+                                        <td>Tổng</td>
+                                        <td class="showPrice">{{$bookingDetail->present()->showTotalPrice()}}</td>
+                                    </tr>
+                                </tfood>
                             </table>
+                            <div class="position-relative">
+                                <input type="text" placeholder="Mã giảm giá" name="discount" value="{{request()->old('discount')}}" id="discountCode"
+                                       class="form-control mt-3 outline-0 border-1 shadow-0">
+                                <span id="checkDiscountCode" class="position-absolute px-3 py-2"
+                                      style="top: 4px; right: 3px; background: rgba(234,97,2,0.85); border-radius: 10px; color: white;cursor: pointer"> Kiểm tra </span>
+                            </div>
+                            <p id="showTextDiscount" class=" py-3"></p>
                             <button type="submit" name="redirect" class="btn btn-order py-2 font-weight-bold mt-4">Xác
                                 nhận đặt lịch
                             </button>
@@ -236,6 +248,38 @@
         </div>
     </div>
 @endsection
+@push('javascript')
+    <script>
+        let price = $(".showPrice").html().replaceAll(',', '').slice(0, -3)
+
+        $('#checkDiscountCode').click(() => {
+            $.ajax({
+                url: "{{route('checkDiscount')}}",
+                type: "POST",
+                async: false,
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    discount: $("#discountCode").val()
+                },
+                success: (response => {
+                    if (response.exist) {
+                        $("#showTextDiscount").html('Bạn có thể áp dụng mã giảm giá này.')
+                        $("#showTextDiscount").addClass('text-success')
+                        $("#showTextDiscount").removeClass('text-danger')
+                        let priceWithDiscount = price - price * response.percent / 100
+                        let formatCurency = priceWithDiscount.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                        $(".showPrice").html(formatCurency)
+                    } else {
+                        $("#showTextDiscount").html('Mã giảm giá không hợp lệ hoặc đã quá hạn sử dụng.')
+                        $("#showTextDiscount").addClass('text-danger')
+                        $("#showTextDiscount").removeClass('text-success')
+
+                    }
+                })
+            })
+        })
+    </script>
+@endpush
 @push('style')
     <style>
         .bill-info-left {

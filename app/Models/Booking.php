@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Presenter\BookingPresenter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Laracasts\Presenter\PresentableTrait;
 
 class Booking extends Model
 {
-    use HasFactory;
+    use HasFactory, PresentableTrait;
 
     const SOLVED = 0;
     const SOLVED_YET = 1;
@@ -22,6 +24,7 @@ class Booking extends Model
 
     protected $table = 'bookings';
     protected $guarded = ['id'];
+    public $presenter = BookingPresenter::class;
 
     /**
      * @return HasOne
@@ -45,5 +48,13 @@ class Booking extends Model
     public function bookingDate(): HasOne
     {
         return $this->hasOne(BookingDate::class, 'id', 'booking_date');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function discount(): HasOne
+    {
+        return $this->hasOne(Discount::class, 'id', 'discount_id');
     }
 }

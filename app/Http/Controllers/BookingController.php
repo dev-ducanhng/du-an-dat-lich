@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -15,15 +16,20 @@ class BookingController extends Controller
             'bookingService' => function ($queryBookingService) {
                 $queryBookingService->with('service');
             },
-            'bookingDate'])->get();
+            'bookingDate', 'discount'])->get();
+
         $dataBooking = [];
         $bookingService = [];
         foreach ($getAllBookings as $booking) {
             $stylist = User::where('id', $booking->stylist)->first();
             $bookingServicePrice = 0;
+            $discount = 0;
+            if ($booking->discount){
+                $discount = $booking->discount->percent;
+            }
             foreach ($booking->bookingService as $key => $service) {
                 $bookingService[$key] = $service->service->name;
-                $bookingServicePrice += $service->service->price;
+                $bookingServicePrice += $service->service->price - $service->service->price*$service->service->discount/100;
             }
             $status = '';
             if ($booking->status == Booking::SOLVED) {
@@ -43,7 +49,7 @@ class BookingController extends Controller
                 'note'         => $booking->note,
                 'detail'       => [
                     'service' => $bookingService,
-                    'price'   => number_format($bookingServicePrice, 0, "", ",") . ' VNĐ',
+                    'price'   => number_format($bookingServicePrice -($bookingServicePrice * $discount / 100), 0, "", ",") . ' VNĐ',
                 ],
                 'status'       => $status,
                 'number'       => $booking->multiple_booking == Booking::MULTIPLE ? $booking->amount_number_booking : 0,
@@ -59,7 +65,11 @@ class BookingController extends Controller
         return view('admin.bookings.list');
     }
 
-    public function updateStatus(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request): JsonResponse
     {
 
         Booking::where('id', $request->id)->update([

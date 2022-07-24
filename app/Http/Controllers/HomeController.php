@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\BookingDate;
 use App\Models\BookingService;
 use App\Models\BookingTime;
+use App\Models\Discount;
 use App\Models\Service;
 use App\Models\User;
 use App\Modules\PaymentModule;
@@ -15,6 +16,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -58,11 +60,19 @@ class HomeController extends Controller
             DB::beginTransaction();
             $dateInput = BookingDate::where('date', $request->input('booking_date'))->first();
             $timeInput = BookingTime::where('id', $request->input('booking_time'))->first();
+            $search = escape_like($request->input('discount'));
+            $discountCode = Discount::where('code_discount', 'LIKE', "%{$search}%")
+                ->whereDate('end_date', '>=', now()->toDateString())->first();
+            if ($search) {
+                if (! $discountCode) {
+                    return redirect()->back()->with('error', 'Mã giảm giá không hợp lệ. Vui lòng nhập lại')->withInput();
+                }
+            }
             $dataInput = [
                 'user_id'               => Auth::id() ?? null,
                 'phone_number'          => Auth::user()->phone_number ?? $request->input('phone_number'),
                 'status'                => Booking::SOLVED_YET,
-                'discount_id'           => null,
+                'discount_id'           => $discountCode->id,
                 'customer_name'         => Auth::user()->name ?? $request->input('customer_name'),
                 'multiple_booking'      => $request->input('multiple_booking') ? Booking::MULTIPLE : Booking::SINGLE,
                 'amount_number_booking' => $request->input('amount_number_booking') ?? null,
@@ -277,17 +287,17 @@ class HomeController extends Controller
             Booking::where('id', $bookingID)->update($dataInput);
 
             foreach ($request->input('service') as $service) {
-                $bookingService = BookingService::where('service_id',$service)->where('booking_id', $bookingID);
-                $bookingServiceClone = BookingService::where('service_id',$service)->where('booking_id', $bookingID)->get()->toArray();
+                $bookingService = BookingService::where('service_id', $service)->where('booking_id', $bookingID);
+                $bookingServiceClone = BookingService::where('service_id', $service)->where('booking_id', $bookingID)->get()->toArray();
                 if (count($bookingServiceClone) > 0) {
                     $bookingService->update([
-                        'booking_id'    => $bookingID,
-                        'service_id'   => $service,
+                        'booking_id' => $bookingID,
+                        'service_id' => $service,
                     ]);
                 } else {
                     BookingService::create([
-                        'booking_id'    => $bookingID,
-                        'service_id'   => $service,
+                        'booking_id' => $bookingID,
+                        'service_id' => $service,
                     ]);
                 }
             }
@@ -301,7 +311,6 @@ class HomeController extends Controller
                     'status' => BookingTime::INACTIVE_STATUS,
                 ]);
             }
-
             DB::commit();
 
             return redirect()->route('cart', $bookingID);
@@ -310,5 +319,29 @@ class HomeController extends Controller
             Log::info($exception);
             return redirect()->back()->with('error', 'Đã có lỗi hệ thống xảy ra. Vui lòng liên hệ với quản trị viên để biết thêm chi tiết')->withInput();
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function checkDiscountCode(Request $request): JsonResponse
+    {
+        $search = escape_like($request->input('discount'));
+        $discountCode = Discount::where('code_discount', 'LIKE', "%{$search}%")
+            ->whereDate('end_date', '>=', now()->toDateString())->first();
+        if ($discountCode) {
+            $dataResponse = [
+                'exist'   => true,
+                'percent' => $discountCode->percent,
+            ];
+        } else {
+            $dataResponse = [
+                'exist'   => false,
+                'percent' => 0,
+            ];
+        }
+
+        return response()->json($dataResponse);
     }
 }
