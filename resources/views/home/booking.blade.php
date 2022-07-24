@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group col-6">
                     <input type="text" class="form-control" name="customer_name"
-                           value="{{auth()->user() ? \Illuminate\Support\Facades\Auth::user()->name : request()->old('phone_number')}}"
+                           value="{{auth()->user() ? \Illuminate\Support\Facades\Auth::user()->name : request()->old('customer_name')}}"
                            placeholder="Nhập tên của bạn"
                            @if(auth()->user()) hidden @endif>
                     @error('customer_name')
