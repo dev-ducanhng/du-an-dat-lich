@@ -59,6 +59,11 @@
                                 <input class="form-control" type="password" name="password" placeholder=""/>
                                 <span>Mật khẩu</span>
                             </label>
+                            @if (session('msg'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ __('Tài khoản hoặc mật khẩu không chính xác. Vui lòng nhập lại') }}
+                                </div>
+                            @endif
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="{{route('forgetPassword')}}">Quên mật khẩu</a>
                                 <button class="btn btn-primary btn-lg btn-shadow" type="submit">ĐĂNG NHẬP</button>

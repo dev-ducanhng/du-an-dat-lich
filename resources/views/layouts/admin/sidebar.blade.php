@@ -13,7 +13,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#booking">
+                    <a href="{{route('dashboard.booking.list')}}">
                         <i class="iconsminds-calendar-4"></i> Đặt lịch
                     </a>
                 </li>
