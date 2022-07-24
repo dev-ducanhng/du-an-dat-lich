@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\BookingRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Request;
 
 class BookingRequest extends FormRequest
 {

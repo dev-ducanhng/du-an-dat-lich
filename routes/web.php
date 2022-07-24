@@ -77,6 +77,13 @@ Route::middleware('checkLogin')->group(function () {
             Route::get('edit-discount/{discountId}', [\App\Http\Controllers\DiscountController::class, 'editDiscount'])->name('edit');
             Route::post('edit-discount/{discountId}', [\App\Http\Controllers\DiscountController::class, 'postEditDiscount']);
         });
+        Route::prefix('booking-management')->name('booking.')->group(function () {
+            Route::middleware('checkAdmin')->group(function () {
+                Route::get('list-booking', [\App\Http\Controllers\BookingController::class, 'getAllBooking'])->name('list');
+                Route::get('all-list-booking', [\App\Http\Controllers\BookingController::class, 'getBookingListAjax'])->name('getAllBooking');
+                Route::post('update-booking', [\App\Http\Controllers\BookingController::class, 'updateStatus'])->name('updateBooking');
+            });
+        });
     });
 });
 Route::post('/booking', [HomeController::class, 'postBooking']);
@@ -87,4 +94,5 @@ Route::get('/booking/success', [HomeController::class, 'bookingSuccess'])->name(
 Route::get('/cancel/{bookingId}', [HomeController::class, 'cancelBooking'])->name('cancel');
 Route::get('/booking/edit/{bookingID}', [HomeController::class, 'editBooking'])->name('edit.booking');
 Route::post('/booking/edit/{bookingID}', [HomeController::class, 'saveEditBooking']);
+Route::post('/check-discount', [HomeController::class, 'checkDiscountCode'])->name('checkDiscount');
 

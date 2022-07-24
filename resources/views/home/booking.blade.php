@@ -23,27 +23,27 @@
                 <hr>
             </div>
             <div class="row">
-                @if(! $user)
-                    <div class="form-group col-6">
-                        <input type="text" class="form-control" name="phone_number"
-                               value="{{request()->old('phone_number')}}"
-                               placeholder="Số điện thọai">
-                        @error('phone_number')
-                        <p class="text-danger py-2">{{$message}}</p>
-                        @enderror
-                        <p class="text-danger py-2 show-error-phone"></p>
-                    </div>
-                    <div class="form-group col-6">
-                        <input type="text" class="form-control" name="customer_name"
-                               value="{{request()->old('customer_name')}}"
-                               placeholder="Nhập tên của bạn">
-                        @error('customer_name')
-                        <p class="text-danger py-2">{{$message}}</p>
-                        @enderror
-                        <p class="text-danger py-2 show-error-name"></p>
+                <div class="form-group col-6">
+                    <input type="text" class="form-control" name="phone_number"
+                           value="{{auth()->user() ? \Illuminate\Support\Facades\Auth::user()->phone : request()->old('phone_number')}}"
+                           @if(auth()->user()) hidden @endif
+                           placeholder="Số điện thọai">
+                    @error('phone_number')
+                    <p class="text-danger py-2">{{$message}}</p>
+                    @enderror
+                    <p class="text-danger py-2 show-error-phone"></p>
+                </div>
+                <div class="form-group col-6">
+                    <input type="text" class="form-control" name="customer_name"
+                           value="{{auth()->user() ? \Illuminate\Support\Facades\Auth::user()->name : request()->old('phone_number')}}"
+                           placeholder="Nhập tên của bạn"
+                           @if(auth()->user()) hidden @endif>
+                    @error('customer_name')
+                    <p class="text-danger py-2">{{$message}}</p>
+                    @enderror
+                    <p class="text-danger py-2 show-error-name"></p>
 
-                    </div>
-                @endif
+                </div>
                 <div class="form-field col-12 form-group">
                     <input id="datepicker" type="text" name="booking_date" value="{{request()->old('booking_date')}}"
                            class="form-control datepicker"
