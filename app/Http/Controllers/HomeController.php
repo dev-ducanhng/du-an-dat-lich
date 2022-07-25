@@ -31,8 +31,19 @@ class HomeController extends Controller
      * @return Application|Factory|View
      */
     public function index()
-    {
-        return view('home.index');
+    {   
+        $models = Service::all();
+        $services = [];
+        $priceDiscount = '';
+        foreach ($models as $item) {
+
+            if ($item->discount != '' || $item->discount != null) {
+                $priceDiscount = $item->price - (($item->price / 100) * $item->discount);
+            }
+            $item->priceDiscount = $priceDiscount;
+
+        }
+        return view('home.index',compact('models'));
     }
 
     /**
