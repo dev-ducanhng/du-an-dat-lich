@@ -18,7 +18,7 @@
                     </nav>
                     <div class="separator mb-5"></div>
                 </div>
-                <div class="col-lg-12 col-xl-6">
+                <div class="col-12">
                     <div class="icon-cards-row">
                         <div class="glide dashboard-numbers">
                             <div class="glide__track" data-glide-el="track">

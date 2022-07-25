@@ -117,12 +117,12 @@ class HomeController extends Controller
         $services =[];
         $priceDiscount='';
         foreach($models as $item){
-            
+
             if($item->discount != '' || $item->discount != null){
                 $priceDiscount = $item->price-( ($item->price/ 100 )* $item->discount) ;
             }
             $item->priceDiscount=$priceDiscount ;
-         
+
         }
 
         return view('home.listService',compact('models'));
@@ -332,7 +332,22 @@ class HomeController extends Controller
             return redirect()->back()->with('error', 'Đã có lỗi hệ thống xảy ra. Vui lòng liên hệ với quản trị viên để biết thêm chi tiết')->withInput();
         }
     }
-
+    public function introduce()
+    {
+        return view('home.introduce');
+    }
+    public function contact()
+    {
+        return view('home.contact');
+    }
+    public function blog()
+    {
+        return view('home.blog');
+    }
+    public function detailService()
+    {
+        return view('home.detail-service');
+    }
     /**
      * @param Request $request
      * @return JsonResponse

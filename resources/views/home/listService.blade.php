@@ -35,7 +35,11 @@
                 <div class="col-lg-4 col-md-6 text-center strawberry">
                     <div class="single-product-item">
                         <div class="product-image">
+<<<<<<< HEAD
+                            <a href="{{route('detail-service')}}"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+=======
                             <a href="{{route('booking')}}"><img src="{{asset($item->image)}}" alt="{{asset($item->name)}}"></a>
+>>>>>>> 8c1a9027be2af993538f027fcfa622a6e491d910
                         </div>
                         <h3>{{$item->name}}</h3>
                         <p class="product-price">
@@ -50,6 +54,9 @@
                         <a href="{{route('booking')}}" class="cart-btn"> Đặt lịch</a>
                     </div>
                 </div>
+<<<<<<< HEAD
+
+=======
                 @endforeach
                
                
@@ -63,6 +70,7 @@
                         <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                     </div>
                 </div> --}}
+>>>>>>> 8c1a9027be2af993538f027fcfa622a6e491d910
             </div>
 
             {{-- <div class="row">

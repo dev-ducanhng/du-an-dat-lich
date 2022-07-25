@@ -23,10 +23,21 @@ Route::get('/', function () {
     return view('home.index');
 });
 Route::get('/', [HomeController::class, 'index'])->name('index');
+<<<<<<< HEAD
+Route::get('/dat-lich', [HomeController::class, 'booking'])->name('booking');
+Route::get('/dich-vu', [HomeController::class, 'listService'])->name('list-service');
+Route::get('/lich-su', [HomeController::class, 'history'])->name('history');
+Route::get('/thanh-toan', [HomeController::class, 'cart'])->name('cart');
+Route::get('/gioi-thieu', [HomeController::class, 'introduce'])->name('introduce');
+Route::get('/lien-he', [HomeController::class, 'contact'])->name('contact');
+Route::get('/bai-viet', [HomeController::class, 'blog'])->name('blog');
+Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name('detail-service');
+=======
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
 Route::get('/history', [HomeController::class, 'history'])->name('history');
 Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
+>>>>>>> 8c1a9027be2af993538f027fcfa622a6e491d910
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
