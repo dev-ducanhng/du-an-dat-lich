@@ -117,12 +117,12 @@ class HomeController extends Controller
         $services =[];
         $priceDiscount='';
         foreach($models as $item){
-            
+
             if($item->discount != '' || $item->discount != null){
                 $priceDiscount = $item->price-( ($item->price/ 100 )* $item->discount) ;
             }
             $item->priceDiscount=$priceDiscount ;
-         
+
         }
 
         return view('home.listService',compact('models'));
@@ -347,7 +347,7 @@ class HomeController extends Controller
     public function detailService()
     {
         return view('home.detail-service');
-
+    }
     /**
      * @param Request $request
      * @return JsonResponse
