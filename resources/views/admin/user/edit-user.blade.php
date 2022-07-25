@@ -72,7 +72,7 @@
 
                             <div class="btn-toolbar custom-toolbar text-center card-body mb-5">
                                 <button class="btn btn-secondary ml-2" type="submit">Hoàn thành</button>
-                                <button class="btn btn-warning ml-2" type="button">Hủy</button>
+                                <a class="btn btn-warning ml-2" type="button" href="{{route('dashboard.user.list')}}">Hủy</a>
                             </div>
                         </div>
                     </form>
