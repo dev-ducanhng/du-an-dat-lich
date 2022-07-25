@@ -8,12 +8,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#service">
+                    <a href="{{route('service.index')}}">
                         <i class="iconsminds-air-balloon-1"></i> Dịch vụ
                     </a>
                 </li>
                 <li>
-                    <a href="#booking">
+                    <a href="{{route('dashboard.booking.list')}}">
                         <i class="iconsminds-calendar-4"></i> Đặt lịch
                     </a>
                 </li>

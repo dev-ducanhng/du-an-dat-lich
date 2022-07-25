@@ -17,10 +17,30 @@
                             <li class="current-list-item"><a href="{{route('index')}}">Home</a>
 
                             </li>
+<<<<<<< HEAD
                             <li><a href="{{route('introduce')}}">Giới thiệu</a></li>
                             <li><a href="{{route('list-service')}}">Dịch vụ</a></li>
                             <li><a href="{{route('blog')}}">Khám phá tóc mới</a>
 
+=======
+                            <li><a href="about.html">Giới thiệu</a></li>
+                            <li><a href="{{route('listService')}}">Dịch vụ</a>
+                                <ul class="sub-menu">
+                                    <li><a href="404.html">404 page</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="cart.html">Cart</a></li>
+                                    <li><a href="checkout.html">Check Out</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="news.html">News</a></li>
+                                    <li><a href="shop.html">Shop</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="news.html">Tin tức</a>
+                                <ul class="sub-menu">
+                                    <li><a href="news.html">News</a></li>
+                                    <li><a href="single-news.html">Single News</a></li>
+                                </ul>
+>>>>>>> 8c1a9027be2af993538f027fcfa622a6e491d910
                             </li>
 
                             <li><a href="{{route('contact')}}">Liên hệ</a>

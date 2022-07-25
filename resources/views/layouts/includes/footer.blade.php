@@ -78,6 +78,18 @@
 <script src="{{asset('assets/js/sticker.js')}}"></script>
 <!-- main js -->
 <script src="{{asset('assets/js/main.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
+
+<script>
+    $(document).ready(function () {
+        toastr.options.timeOut = 5000;
+        @if (\Illuminate\Support\Facades\Session::has('error'))
+        toastr.error('{{ \Illuminate\Support\Facades\Session::get('error') }}');
+        @elseif(\Illuminate\Support\Facades\Session::has('success'))
+        toastr.success('{{ \Illuminate\Support\Facades\Session::get('success') }}');
+        @endif
+    });
+</script>
 @stack('javascript')
 
 

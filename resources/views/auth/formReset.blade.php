@@ -38,35 +38,37 @@
                         <p class=" text-white h2">SALON</p>
 
                         <p class="white mb-0">
-                          Vui lòng đăng nhập tài khoản của bạn.
+                          Vui lòng nhập tài khoản của bạn để tiếp tục.
                             <br>Nếu bạn không phải thành viên, vui lòng
-                            <a href="#" class="white">đăng ký</a>.
+                            <a href="#" style="text-decoration: underline" class="white">đăng ký</a>.
                         </p>
                     </div>
                     <div class="form-side">
                         <a href="Dashboard.Default.html">
                             <span class="logo-single"></span>
                         </a>
-                        <h6 class="mb-4">Đăng nhập</h6>
+                        
+                        @if(Session::has('success'))
+                             <p class="login-box-msg text-success">{{Session::get('success')}}</p>      
+                             @endif
+                        <h6 class="mb-4">Tài khoản</h6>
                         <form method="POST">
                             @csrf
                             <label class="form-group has-float-label mb-4">
-                                <input class="form-control" name="email"/>
+                                <input class="form-control" name="email" placeholder="Email hoặc số điện thoại"/>
                                 <span>E-mail</span>
+                                @error('email')
+                                <p class="text-danger mt-2">{{ $message }}</p>
+                                @enderror
+                                @if(Session::has('msg'))
+                             <p class="login-box-msg text-danger">{{Session::get('msg')}}</p>      
+                             @endif
                             </label>
 
-                            <label class="form-group has-float-label mb-4">
-                                <input class="form-control" type="password" name="password" placeholder=""/>
-                                <span>Mật khẩu</span>
-                            </label>
-                            @if (session('msg'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ __('Tài khoản hoặc mật khẩu không chính xác. Vui lòng nhập lại') }}
-                                </div>
-                            @endif
+                            
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="{{route('forgetPassword')}}">Quên mật khẩu</a>
-                                <button class="btn btn-primary btn-lg btn-shadow" type="submit">ĐĂNG NHẬP</button>
+                                
+                                <button class="btn btn-primary btn-lg btn-shadow" type="submit">Tiếp tục</button>
                             </div>
                         </form>
                     </div>
