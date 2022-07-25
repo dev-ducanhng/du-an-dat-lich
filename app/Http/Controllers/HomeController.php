@@ -27,11 +27,18 @@ use Vonage\Client;
 
 class HomeController extends Controller
 {
+    /**
+     * @return Application|Factory|View
+     */
     public function index()
     {
         return view('home.index');
     }
 
+    /**
+     * @param $date
+     * @return array
+     */
     public function bookingDate($date): array
     {
         $bookingDate = BookingDate::with('bookingTime')->where('date', $date)->get();
@@ -39,11 +46,14 @@ class HomeController extends Controller
         return $bookingDate->toArray()[0]['booking_time'];
     }
 
+    /**
+     * @return Application|Factory|View
+     */
     public function booking()
     {
         $user = Auth::user();
         $services = Service::all();
-        $stylists = User::where('role_id', User::STYLISH_ROLE)->get();
+        $stylists = User::where('role_id', User::STYLISH_ROLE)->where('status', User::ACTIVE)->get();
         $bookingDate = BookingDate::with('bookingTime')->get();
 
         return view('home.booking', compact('user', 'services', 'stylists', 'bookingDate'));
@@ -111,28 +121,30 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * @return Application|Factory|View
+     */
     public function listService()
     {
         $models = Service::all();
-        $services =[];
-        $priceDiscount='';
-        foreach($models as $item){
+        $services = [];
+        $priceDiscount = '';
+        foreach ($models as $item) {
 
-            if($item->discount != '' || $item->discount != null){
-                $priceDiscount = $item->price-( ($item->price/ 100 )* $item->discount) ;
+            if ($item->discount != '' || $item->discount != null) {
+                $priceDiscount = $item->price - (($item->price / 100) * $item->discount);
             }
-            $item->priceDiscount=$priceDiscount ;
+            $item->priceDiscount = $priceDiscount;
 
         }
 
-        return view('home.listService',compact('models'));
+        return view('home.listService', compact('models'));
     }
 
-    public function history()
-    {
-        return view('home.history');
-    }
-
+    /**
+     * @param $bookingID
+     * @return Application|Factory|View
+     */
     public function cart($bookingID)
     {
         $bookingDetail = Booking::with([
@@ -159,14 +171,9 @@ class HomeController extends Controller
             if ($request->input('payment_method') == Booking::PAYMENT_WITH_CARD) {
                 $payment = new PaymentModule();
                 $payment->payment($bookingDetail, $bookingId);
-                $bookingDetail->update([
-                    'payment' => Booking::PAYMENT_WITH_CARD,
-                ]);
             }
-            $sendSMS = new SendSMSModule();
-            $sendSMS->sendSMS($bookingDetail, $bookingDetail->multiple_booking);
 
-            return redirect()->route('success');
+            return redirect()->route('success', $bookingId);
         } catch (Exception $exception) {
             Log::info($exception);
 
@@ -176,10 +183,32 @@ class HomeController extends Controller
     }
 
     /**
-     * @return Application|Factory|View
+     * @param $bookingId
+     * @param Request $request
+     * @return Application|Factory|View|RedirectResponse
      */
-    public function bookingSuccess()
+    public function bookingSuccess($bookingId, Request $request)
     {
+        $bookingDetail = Booking::with([
+            'user',
+            'bookingService' => function ($queryBookingService) {
+                $queryBookingService->with('service');
+            },
+            'bookingDate'])->where('id', $bookingId)->first();
+        if ($request->input('vnp_ResponseCode') == "00") {
+            $bookingDetail->update([
+                'payment' => Booking::PAYMENT_WITH_CARD,
+            ]);
+        }
+        if ($request->input('vnp_ResponseCode') == "24" ||
+            $request->input('vnp_ResponseCode') == "13" ||
+            $request->input('vnp_ResponseCode') == "51") {
+            return redirect()->route('cart', $bookingId)
+                ->with('error', 'Bạn chưa thanh toán thành công. Vui lòng thanh toán lại hoặc chọn hình thức thanh toán khác để xác nhận đặt lịch');
+        }
+        $sendSMS = new SendSMSModule();
+        $sendSMS->sendSMS($bookingDetail, $bookingDetail->multiple_booking);
+
         return view('home.booking-success');
     }
 
@@ -226,7 +255,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $services = Service::all();
-        $stylists = User::where('role_id', User::STYLISH_ROLE)->get();
+        $stylists = User::where('role_id', User::STYLISH_ROLE)->where('status', User::ACTIVE)->get();
         $bookingDate = BookingDate::with('bookingTime')->get();
         $booking = Booking::where('id', $bookingID)->first();
 

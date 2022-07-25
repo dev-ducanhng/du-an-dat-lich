@@ -6,7 +6,7 @@
                 <div class="row position-relative">
                     <div class="col-md-12">
                         <div class="row">
-                            <div id='calendar'></div>
+                            <div id='calendar' class="w-100"></div>
                         </div>
                         <!---row--->
                     </div>
@@ -176,8 +176,8 @@
             });
             $calendar.fullCalendar({
                 header: {
-                    left: "view, prev,next title",
-                    right: "",
+                    left: "view, prev,next title ",
+                    right: "listDay,listWeek,listMonth"
                 },
                 defaultView: 'month',
                 buttonIcons: {
@@ -189,7 +189,7 @@
                         text: "Chế độ xem"
                     }
                 },
-                locale: 'vn',
+                locale: 'vi',
                 fixedWeekCount: false,
                 scrollTime: "10:00:00",
                 nowIndicator: true,
@@ -213,6 +213,9 @@
                         titleFormat: "MMMM",
                         timeFormat: "h:mm A"
                     },
+                    listDay: { buttonText: 'list day' },
+                    listWeek: { buttonText: 'list week' },
+                    listMonth: { buttonText: 'list month' }
                 },
                 events: eventsObj,
                 dayClick: function (date, jsEvent, view) {
@@ -290,9 +293,9 @@
             $(".fc-view-button").wrap(".dropdown").addClass("dropdown-toggle btn-drop").attr("data-toggle", "dropdown");
             $(".dropdown")
                 .append($('<div class="dropdown-menu">'
-                    + '<button type="button" class="dropdown-item fc-agendaDay-button fc-button fc-state-default" id="daybtn">Day</button>'
-                    + '<button type="button" class="dropdown-item fc-agendaWeek-button fc-button fc-state-default" id="weekbtn">Week</button>'
-                    + '<button type="button" class="dropdown-item fc-button fc-button-month fc-state-default" id="monthbtn">Month</button></div>'));
+                    + '<button type="button" class="dropdown-item fc-agendaDay-button fc-button fc-state-default" id="daybtn">Xem theo ngày</button>'
+                    + '<button type="button" class="dropdown-item fc-agendaWeek-button fc-button fc-state-default" id="weekbtn">Xêm theo tuần</button>'
+                    + '<button type="button" class="dropdown-item fc-button fc-button-month fc-state-default" id="monthbtn">Xem theo tháng</button></div>'));
         });
         $(function (event, view, jsEvent) {
             var calendar = $("#calendar");
@@ -314,22 +317,32 @@
                 calendar.fullCalendar("changeView", "month");
                 $btndrop.html($(this).html());
             });
-            $("#fourday").click(function (event) {
-                event.preventDefault();
-                calendar.fullCalendar("changeView", "agendaFourDay");
-                $btndrop.html($(this).html());
-            });
-            //<!--End_Dropdown-->
         });
     </script>
     <script>
         $(".close-card-button").click(() => {
             $(".showEvent").addClass("isHidden")
         })
+        $('button.fc-listDay-button').html('Xem danh sách theo ngày')
+        $(document).ready(function(){
+            $('.fc-listDay-button').html('Xem danh sách theo ngày')
+            $('.fc-listWeek-button').html('Xem danh sách tuần')
+            $('.fc-listMonth-button').html('Xem danh sách theo tháng')
+        });
     </script>
 @endpush
 @push('style')
     <style>
+        .fc-listDay-button, .fc-listWeek-button, .fc-listMonth-button {
+            background: #0a2a45 !important;
+            text-shadow: none;
+            color: white;
+            margin-left: 5px !important;
+        }
+        .fc-list-table .fc-widget-header{
+            background: #0a2a45 !important;
+            color: white;
+        }
         section i {
             color: #333333 !important;
         }

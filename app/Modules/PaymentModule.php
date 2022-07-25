@@ -2,6 +2,8 @@
 
 namespace App\Modules;
 
+use App\Models\Booking;
+
 class PaymentModule
 {
     /**
@@ -13,7 +15,7 @@ class PaymentModule
      */
     public function payment ($bookingDetail, $bookingId) {
         $vnp_Url = config('services.payment.url');
-        $vnp_Returnurl = route('index');
+        $vnp_Returnurl = route('success', $bookingId);
         $vnp_TmnCode = config('services.payment.key');
         $vnp_HashSecret = config('services.payment.secret');
         $vnp_TxnRef = $bookingId;
@@ -74,10 +76,10 @@ class PaymentModule
             , 'data'          => $vnp_Url];
         if (isset($_POST['redirect'])) {
             header('Location: ' . $vnp_Url);
-
             die();
         } else {
             echo json_encode($returnData);
         }
+
     }
 }
