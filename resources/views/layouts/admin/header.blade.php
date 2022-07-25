@@ -24,7 +24,7 @@
 
 
     <a class="navbar-logo" href="Dashboard.Default.html">
-        <span class="logo d-none d-xs-block"></span>
+        <span class=" d-xs-block" style="font-size: 22px;    font-family: 'Brush Script MT', cursiv; font-weight: 700">ISALON</span>
         <span class="logo-mobile d-block d-xs-none"></span>
     </a>
 

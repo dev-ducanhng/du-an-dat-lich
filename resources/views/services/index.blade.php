@@ -3,14 +3,14 @@
     Tên dịch vụ: <input type="text" name="name"><br>
     <label for="">Sắp xếp theo giá</label>
     <select name="order_by">
-        
+
             <option value="asc">Tăng dần</option>
             <option value="desc">Giảm dần</option>
         </select>
         <br>
-   
+
      <button type="submit">TÌM KIẾM</button>
-  
+
  </form>
 <table class="table" border="1">
     <thead>
@@ -25,7 +25,7 @@
       </tr>
     </thead>
     <tbody>
-    
+
     @foreach ($models as $item)
     <tr>
         <th scope="row">{{$item->id}}</th>
@@ -36,7 +36,7 @@
         <td>{{$item->image}}</td>
         <td>
             <a href="{{route('service.edit', ['id' => $item->id])}}" >Sửa</a>
-            
+
         </td>
       </tr>
     @endforeach
