@@ -26,7 +26,8 @@
                                         <label>Ảnh</label>
                                         <input type="file" accept="image/*" id="file" onchange="loadFile(event)"
                                             name="avatar" class="input-sm form-control">
-                                        <img src="{{asset('storage/images/users/' . $user->avatar)}}" id="output" class="mt-2 rounded-circle" width="100%" />
+                                        <img src="{{ asset('storage/images/users/' . $user->avatar) }}" id="output"
+                                            class="mt-2 rounded-circle" width="100%" />
                                     </div>
                                 </div>
                                 <div class="col-8">

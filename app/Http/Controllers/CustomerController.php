@@ -11,11 +11,13 @@ use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
-    public function registerForm() {
+    public function registerForm()
+    {
         return view('customer.register');
     }
 
-    public function saveRegister(RegisterRequest $request) {
+    public function saveRegister(RegisterRequest $request)
+    {
         $new_customer = new User();
         $new_customer->fill($request->all());
         $new_customer->password = Hash::make($request->password);
@@ -25,12 +27,14 @@ class CustomerController extends Controller
         return redirect()->route('login')->with('message_register_success', 'Bạn đã đăng ký tài khoản thành công!');
     }
 
-    public function changeInformation() {
+    public function changeInformation()
+    {
         $user = Auth::user();
         return view('customer.change-info', compact('user'));
     }
 
-    public function saveChangeInformation(Request $request) {
+    public function saveChangeInformation(Request $request)
+    {
         $model_user = User::find(Auth::user()->id);
         $model_user->fill($request->all());
         if ($request->hasFile('avatar')) {
@@ -41,5 +45,16 @@ class CustomerController extends Controller
         }
         $model_user->save();
         return redirect()->route('change-infomation')->with('message', 'Cập nhật thông tin thành công');
+    }
+
+    public function changePasswordForm()
+    {
+        $user = Auth::user();
+        return view('customer.change-password', compact('user'));
+    }
+
+    public function saveNewPassword(Request $request)
+    {
+        dd(1);
     }
 }
