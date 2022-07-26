@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('dob')->nullable()->comment('Ngày sinh');
             $table->string('avatar')->nullable()->comment('Đường dẫn ảnh');
             $table->tinyInteger('status')->default(0)->comment('Trạng thái tài khoản: 0 là hoạt động/1 là không hoạt động');
-            $table->unsignedBigInteger('role_id')->default(4)->comment('Chức vụ của tải khoản: 1 là Admin/2 là Stylish/3 là Nhân viên/4 là Khách hàng');
+            $table->unsignedBigInteger('role_id')->default(4)->comment('Chức vụ của tải khoản: 1 là Admin/2 là Stylist/3 là Nhân viên/4 là Khách hàng');
             $table->rememberToken();
             $table->timestamps();
         });

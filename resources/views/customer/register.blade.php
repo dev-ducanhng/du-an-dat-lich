@@ -34,7 +34,9 @@
                 <div class="col-12 col-md-10 mx-auto my-auto">
                     <div class="card auth-card">
                         <div class="position-relative image-side ">
+
                             <p class=" text-white h2">SALON</p>
+
                             <p class="white mb-0">
                                 Vui lòng đăng nhập tài khoản của bạn.
                                 <br>Nếu bạn không phải thành viên, vui lòng
@@ -45,28 +47,44 @@
                             <a href="Dashboard.Default.html">
                                 <span class="logo-single"></span>
                             </a>
-                            <h6 class="mb-4">Đăng nhập</h6>
-                            @if (Session::has('message_register_success'))
-                                <p class="login-box-msg text-success">{{ Session::get('message_register_success') }}</p>
-                            @endif
+                            <h6 class="mb-4">Đăng ký</h6>
                             <form method="POST">
                                 @csrf
                                 <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" name="email" />
+                                    <input class="form-control" type="text" name="name" />
+                                    <span>Tên người dùng</span>
+                                </label>
+                                @error('name')
+                                    <p class="text-danger mt-2">{{ $message }}</p>
+                                @enderror
+                                <label class="form-group has-float-label mb-4">
+                                    <input class="form-control" type="text" name="email" />
                                     <span>E-mail</span>
                                 </label>
+                                @error('email')
+                                    <p class="text-danger mt-2">{{ $message }}</p>
+                                @enderror
+                                <label class="form-group has-float-label mb-4">
+                                    <input class="form-control" type="number" name="phone" />
+                                    <span>Số điện thoại</span>
+                                </label>
+                                @error('phone')
+                                    <p class="text-danger mt-2">{{ $message }}</p>
+                                @enderror
                                 <label class="form-group has-float-label mb-4">
                                     <input class="form-control" type="password" name="password" placeholder="" />
                                     <span>Mật khẩu</span>
                                 </label>
-                                @if (session('msg'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{ __('Tài khoản hoặc mật khẩu không chính xác. Vui lòng nhập lại') }}
-                                    </div>
-                                @endif
+                                @error('password')
+                                    <p class="text-danger mt-2">{{ $message }}</p>
+                                @enderror
+                                <label class="form-group has-float-label mb-4">
+                                    <input class="form-control" type="password" name="password_confirmation"
+                                        placeholder="" />
+                                    <span>Nhập lại mật khẩu</span>
+                                </label>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <a href="{{ route('forgetPassword') }}">Quên mật khẩu</a>
-                                    <button class="btn btn-primary btn-lg btn-shadow" type="submit">ĐĂNG NHẬP</button>
+                                    <button class="btn btn-primary btn-lg btn-shadow" type="submit">ĐĂNG KÝ</button>
                                 </div>
                             </form>
                         </div>
