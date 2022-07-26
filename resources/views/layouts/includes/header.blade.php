@@ -34,9 +34,7 @@
                                         @if(! auth()->user())
                                             <li><a href="{{route('login')}}">Đăng nhập</a></li>
                                         @endif
-                                        @if(! auth()->user())
-                                            <li><a href="{{route('history')}}">Lịch sử</a></li>
-                                        @endif
+                                        <li><a href="{{route('history')}}">Lịch sử</a></li>
                                         @if(auth()->user() && \Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::ADMIN_ROLE)
                                             <li><a href="{{route('dashboard.index')}}">Quản trị</a></li>
                                         @endif

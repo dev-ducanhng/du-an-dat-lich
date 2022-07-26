@@ -39,35 +39,33 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="gr-his">
-                        <i class="fas fa-regular fa-calendar "></i>
-                        <p>Lịch sử đặt lịch</p>
-                    </div>
-                </div>
             </div>
         @else
-            <div class="py-5">
+            <div class="pt-5">
                 <div class="title-header text-center">
                     <h6> Nếu bạn không phải là thành viên của chúng tôi. Vui lòng nhập số điện thoại để xem lịch sử của
                         bạn.</h6>
                 </div>
                 <div class="">
                     <form action="" class="row mt-5 form-search-booking w-50 mx-auto">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn">
+                        <div class="form-group col-md-4">
+                            <input type="text" class="form-control" name="phone_number"
+                                   placeholder="Nhập số điện thoại của bạn" value="{{request()->input('phone_number')}}">
                         </div>
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" placeholder="Nhập tên của bạn">
+                        <div class="form-group col-md-4">
+                            <input type="text" class="form-control" name="name" placeholder="Nhập tên của bạn" value="{{request()->input('name')}}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="text" class="form-control" name="code" placeholder="Nhập mã code nếu đặt theo nhóm người" value="{{request()->input('code')}}">
                         </div>
                         <div class="text-center  mx-auto" style="width: 500px">
-                            <a class="btn button-search px-5 py-2">Tìm kiếm lịch sử đặt lịch</a>
+                            <button type="submit" class="btn button-search px-5 py-2">Tìm kiếm lịch sử đặt lịch</button>
                         </div>
                     </form>
                 </div>
             </div>
         @endif
-        <div class="h-full py-5">
+        <div class="h-full py-2 mb-5">
             <!-- Table -->
             <div class="w-full mx-auto bg-white  rounded-sm">
                 <header class="py-4">
@@ -76,10 +74,13 @@
                 <div class="py-3">
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full">
-                            <thead class="font-semibold uppercase text-gray-400 bg-gray-50">
+                            <thead class="font-semibold uppercase text-gray-400 bg-dark text-white">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Tên khách hàng</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Số điện thoại</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Ngày đặt</div>
@@ -91,35 +92,77 @@
                                     <div class="font-semibold text-left">Tên stylist</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-center">Dịch vụ</div>
+                                    <div class="font-semibold text-left">Dịch vụ</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-center">Số người</div>
+                                    <div class="font-semibold text-left">Số người</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-center">Tình trạng</div>
+                                    <div class="font-semibold text-left">Giá</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-center">Action</div>
+                                    <div class="font-semibold text-left">Tình trạng</div>
                                 </th>
                             </tr>
                             </thead>
-                            <tbody class="text-sm divide-y divide-gray-100">
+                            <tbody class="divide-y divide-gray-100">
 
-                            @if($bookings)
-                                <tr>
-                                    <td class="p-2 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="font-medium text-gray-800">Olga Semklo</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-2 whitespace-nowrap">
-                                        <div class="text-left">olga.s@cool.design</div>
-                                    </td>
-                                    <td class="p-2 whitespace-nowrap">
-                                        <div class="text-left font-medium text-green-500">$1,220.66</div>
-                                    </td>
-                                </tr>
+                            @if(count($dataBookings) > 0)
+                                @foreach($dataBookings as $booking)
+                                    <tr>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div
+                                                class=" p-2  text-gray-800 text-left font-weight-bold">{{$booking->customer_name}}</div>
+                                        </td>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div
+                                                class=" p-2  text-gray-800 text-left font-weight-bold">{{$booking->phone_number}}</div>
+                                        </td>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div
+                                                class="p-2 text-left text-danger ">{{$booking->bookingDate->date}}</div>
+                                        </td>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div
+                                                class="p-2 text-left  text-left text-danger">{{date('G:i', strtotime($booking->booking_time))}}</div>
+                                        </td>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div
+                                                class="p-2 text-left  text-info text-left">{{$booking->Stylist->name}}</div>
+                                        </td>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div
+                                                class="p-2 text-left  text-green-500 text-left">{{$booking->present()->getListService}}</div>
+                                        </td>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div
+                                                class=" p-2 text-left  text-green-500 text-left">{{$booking->amount_number_booking ?? 0}}</div>
+                                        </td>
+                                        <td class="py-2 whitespace-nowrap">
+                                            <div
+                                                class="p-2 text-left  text-green-500 text-left">{{$booking->present()->getServicePrice}}</div>
+                                        </td>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <div
+                                                class="p-2 text-left  badge text-white
+                                                @if($booking->status == \App\Models\Booking::SOLVED_YET)
+                                                    badge-warning
+                                                @elseif($booking->status == \App\Models\Booking::SOLVED_YET)
+                                                    badge-success
+                                               @else
+                                                    badge-danger
+                                                @endif text-left">{{$booking->present()->getStatus}}</div>
+                                        </td>
+                                        <td>
+                                            @if(auth()->user())
+                                                <a class="with-tooltip change-status p-3 text-white" style="width: 20px; height: 20px; background: #cf6f29"
+                                                   data-tooltip-content="Cập nhật trạng thái">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @else
                                 <tr>
                                     <div class="text-center">
@@ -131,6 +174,11 @@
                             @endif
                             </tbody>
                         </table>
+                        <div>
+                            @if($dataBookings)
+                                {{$dataBookings->links()}}
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -161,15 +209,54 @@
             outline: 0 !important;
             box-shadow: none !important;
             background: #F28123;
-            color: white;
+            color: white !important;
         }
-        .button-search:focus{
+
+        .button-search:focus {
             border: 1px solid #F28123;
             border-radius: 2px;
             outline: 0 !important;
             box-shadow: none !important;
             background: #F28123;
-            color: white;
+            color: white !important;
         }
+
+
+        .change-status {
+            font-weight: bold;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: inherit;
+        }
+
+        .with-tooltip {
+            position: relative;
+        }
+
+        .with-tooltip::after {
+            content: attr(data-tooltip-content);
+            padding: 8px;
+            border-radius: 4px;
+            position: absolute;
+            color: white;
+            bottom: 115%;
+            right: 50%;
+            left: 50%;
+            width: max-content;
+            background-color: gray;
+            opacity: 0;
+            font-size: 0.8rem;
+            visibility: hidden;
+            transform: translate(-50%, 18px) scale(0.8);
+            transition: visibility, opacity, transform 200ms;
+        }
+
+        .with-tooltip:hover::after {
+            visibility: visible;
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
     </style>
 @endpush

@@ -211,9 +211,15 @@ class HomeController extends Controller
                 'payment' => Booking::PAYMENT_WITH_CARD,
             ]);
         }
+        $bookingDetail->update([
+            'booking_status' => Booking::BOOKING_SUCCESS,
+        ]);
         if ($request->input('vnp_ResponseCode') == "24" ||
             $request->input('vnp_ResponseCode') == "13" ||
             $request->input('vnp_ResponseCode') == "51") {
+            $bookingDetail->update([
+                'booking_status' => Booking::BOOKING_FAILED,
+            ]);
             return redirect()->route('cart', $bookingId)
                 ->with('error', 'Bạn chưa thanh toán thành công. Vui lòng thanh toán lại hoặc chọn hình thức thanh toán khác để xác nhận đặt lịch');
         }
@@ -372,22 +378,27 @@ class HomeController extends Controller
             return redirect()->back()->with('error', 'Đã có lỗi hệ thống xảy ra. Vui lòng liên hệ với quản trị viên để biết thêm chi tiết')->withInput();
         }
     }
+
     public function introduce()
     {
         return view('home.introduce');
     }
+
     public function contact()
     {
         return view('home.contact');
     }
+
     public function blog()
     {
         return view('home.blog');
     }
+
     public function detailService()
     {
         return view('home.detail-service');
     }
+
     /**
      * @param Request $request
      * @return JsonResponse

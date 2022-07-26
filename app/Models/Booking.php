@@ -21,6 +21,8 @@ class Booking extends Model
     const SINGLE = 0;
     const PAYMENT_WITH_CARD = 1;
     const PAYMENT_WITH_CASH = 0;
+    const BOOKING_SUCCESS = 1;
+    const BOOKING_FAILED = 0;
 
     protected $table = 'bookings';
     protected $guarded = ['id'];
@@ -56,5 +58,13 @@ class Booking extends Model
     public function discount(): HasOne
     {
         return $this->hasOne(Discount::class, 'id', 'discount_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function stylist(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'stylist');
     }
 }
