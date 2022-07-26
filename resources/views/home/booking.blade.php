@@ -164,6 +164,11 @@
 
             </div>
         </form>
+        <div class="summit-button form-group col-4 mx-auto mb-5">
+            <a href="{{route('index')}}"
+               class="btn w-75 rounded" style="border: 1px solid #F28123; color: #F28123; ">Quay lại
+            </a>
+        </div>
     </div>
 @endsection
 @push('javascript')
