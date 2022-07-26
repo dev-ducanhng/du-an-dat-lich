@@ -31,7 +31,7 @@ class HomeController extends Controller
      * @return Application|Factory|View
      */
     public function index()
-    {   
+    {
         $models = Service::all();
         $services = [];
         $priceDiscount = '';
@@ -64,7 +64,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $services = Service::all();
-        $stylists = User::where('role_id', User::STYLISH_ROLE)->where('status', User::ACTIVE)->get();
+        $stylists = User::where('role_id', User::STYLIST_ROLE)->where('status', User::ACTIVE)->get();
         $bookingDate = BookingDate::with('bookingTime')->get();
 
         return view('home.booking', compact('user', 'services', 'stylists', 'bookingDate'));
