@@ -113,6 +113,8 @@ Route::middleware('checkLogin')->group(function () {
 
     Route::get('/change-information', [CustomerController::class, 'changeInformation'])->name('change-infomation');
     Route::post('/change-information', [CustomerController::class, 'saveChangeInformation']);
+    Route::get('/change-information/change-password', [CustomerController::class, 'changePasswordForm'])->name('change-password');
+    Route::post('/change-information/change-password', [CustomerController::class, 'saveNewPassword']);
 });
 Route::post('/booking', [HomeController::class, 'postBooking']);
 Route::get('/bookingDate/{date}', [HomeController::class, 'bookingDate'])->name('bookingDate');

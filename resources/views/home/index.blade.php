@@ -28,7 +28,7 @@
             <div class="modal-content" style="border: 1px solid #F28123 ">
                 <div class="modal-body">
                     <a href="{{route('login')}}" class="btn btn-booking w-100 mt-2"> Đăng nhập (Bạn đã có tài khoản)</a>
-                    <a class="btn btn-booking w-100 mt-2">Đăng ký (Bạn chưa có tài khoản)</a>
+                    <a href="{{route('register')}}" class="btn btn-booking w-100 mt-2">Đăng ký (Bạn chưa có tài khoản)</a>
                     <a href="{{route('booking')}}" class="btn btn-booking w-100 mt-2">Đặt lịch không cần tài khoản</a>
                 </div>
                 <div class="text-center p-3">

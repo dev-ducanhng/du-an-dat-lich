@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class RegisterRequest extends FormRequest
+class ChangeInformationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,13 +29,12 @@ class RegisterRequest extends FormRequest
             'name' => ' required | string | min:3 ',
             'email' => [
                 'required', 'string',
-                Rule::unique('users')->ignore($this->id)
+                Rule::unique('users')->ignore(Auth::user()->id)
             ],
             'phone' => [
                 'required', 'string',
-                Rule::unique('users')->ignore($this->id)
+                Rule::unique('users')->ignore(Auth::user()->id)
             ],
-            'password' => ' required | confirmed | min:6 ',
         ];
     }
 
@@ -50,9 +50,6 @@ class RegisterRequest extends FormRequest
             'phone.required' => 'Vui lòng nhập số điện thoại',
             'phone.string' => 'Số điện thoại vừa nhập sai định dạng',
             'phone.unique' => 'Số điện thoại đã được đăng ký',
-            'password.required' => 'Vui lòng nhập mật khẩu',
-            'password.confirmed' => 'Mật khẩu nhập lại không khớp',
-            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự',
         ];
     }
 }
