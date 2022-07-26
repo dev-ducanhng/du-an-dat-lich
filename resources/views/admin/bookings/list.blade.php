@@ -193,6 +193,7 @@
                 fixedWeekCount: false,
                 scrollTime: "10:00:00",
                 nowIndicator: true,
+                editable: true,
                 slotLabelInterval: "01:00",
                 slotLabelFormat: "h A",
                 listDayFormat: "ddd MMM D",

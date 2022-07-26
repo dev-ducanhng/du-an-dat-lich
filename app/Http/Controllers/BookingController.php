@@ -31,7 +31,6 @@ class BookingController extends Controller
                 $bookingService[$key] = $service->service->name;
                 $bookingServicePrice += $service->service->price - $service->service->price*$service->service->discount/100;
             }
-            $status = '';
             if ($booking->status == Booking::SOLVED) {
                 $status = 'Đã làm cho khách';
             } else if ($booking->status == Booking::SOLVED_YET) {

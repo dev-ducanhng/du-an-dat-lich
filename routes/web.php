@@ -102,11 +102,12 @@ Route::middleware('checkLogin')->group(function () {
 });
 Route::post('/booking', [HomeController::class, 'postBooking']);
 Route::get('/bookingDate/{date}', [HomeController::class, 'bookingDate'])->name('bookingDate');
-Route::get('/cart/{bookingId}', [HomeController::class, 'cart'])->name('cart');
-Route::post('/cart/{bookingId}', [HomeController::class, 'confirmBooking']);
 Route::get('/booking/success/{bookingID}', [HomeController::class, 'bookingSuccess'])->name('success');
-Route::get('/cancel/{bookingId}', [HomeController::class, 'cancelBooking'])->name('cancel');
-Route::get('/booking/edit/{bookingID}', [HomeController::class, 'editBooking'])->name('edit.booking');
-Route::post('/booking/edit/{bookingID}', [HomeController::class, 'saveEditBooking']);
 Route::post('/check-discount', [HomeController::class, 'checkDiscountCode'])->name('checkDiscount');
-
+Route::middleware('checkBooking')->group(function () {
+    Route::get('/cart/{bookingId}', [HomeController::class, 'cart'])->name('cart');
+    Route::post('/cart/{bookingId}', [HomeController::class, 'confirmBooking']);
+    Route::get('/cancel/{bookingId}', [HomeController::class, 'cancelBooking'])->name('cancel');
+    Route::get('/booking/edit/{bookingID}', [HomeController::class, 'editBooking'])->name('edit.booking');
+    Route::post('/booking/edit/{bookingID}', [HomeController::class, 'saveEditBooking']);
+});

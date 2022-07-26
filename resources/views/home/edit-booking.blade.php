@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group col-6">
                     <input type="text" class="form-control" name="customer_name"
-                           value="{{ $bookingDetail->phone_number ?? request()->old('customer_name')}}"
+                           value="{{ $bookingDetail->customer_name ?? request()->old('customer_name')}}"
                            placeholder="Nhập tên của bạn"
                            @if(auth()->user()) hidden @endif>
                     @error('customer_name')
@@ -150,7 +150,7 @@
                     </div>
                 </div>
                 <div class="form-group col-12 ">
-                    <input type="number" min="1" max="5" class="form-control w-100 select-number"
+                    <input type="number" min="2" max="5" class="form-control w-100 select-number"
                            value="{{request()->old('amount_number_booking') ?? $bookingDetail->amount_number_booking}}"
                            name="amount_number_booking"
                            placeholder="Nhập số lượng người bạn muốn đặt, chỉ được đặt tối đa 5 người" hidden>
