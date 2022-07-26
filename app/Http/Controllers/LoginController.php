@@ -35,7 +35,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $email, 'password' => $password]) && Auth::user()->role_id == User::ADMIN_ROLE) {
             return redirect()->intended('dashboard');
         } else if (Auth::attempt(['email' => $email, 'password' => $password]) && Auth::user()->role_id == User::MEMBER_ROLE
-            || Auth::attempt(['email' => $email, 'password' => $password]) && Auth::user()->role_id == User::STYLISH_ROLE) {
+            || Auth::attempt(['email' => $email, 'password' => $password]) && Auth::user()->role_id == User::STYLIST_ROLE) {
             return redirect()->intended();
         } else {
             return redirect()->back()->with('msg', 'Tài khoản/mật khẩu không chính xác');
