@@ -4,58 +4,43 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <h1>Dashboard</h1>
-                    <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-                        <ol class="breadcrumb pt-0">
-                            <li class="breadcrumb-item">
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#">Library</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">Data</li>
-                        </ol>
-                    </nav>
-                    <div class="separator mb-5"></div>
-                </div>
-                <div class="col-12">
                     <div class="icon-cards-row">
-                        <div class="glide dashboard-numbers">
-                            <div class="glide__track" data-glide-el="track">
-                                <ul class="glide__slides">
-                                    <li class="glide__slide">
+                        <div class="dashboard-numbers">
+                            <div class="">
+                                <ul class="row list-unstyled">
+                                    <li class="col-md-3">
                                         <a href="#" class="card">
                                             <div class="card-body text-center">
                                                 <i class="iconsminds-clock"></i>
-                                                <p class="card-text mb-0">Pending Orders</p>
-                                                <p class="lead text-center">16</p>
+                                                <p class="card-text mb-0">Tổng số lịch đặt</p>
+                                                <p class="lead text-center">{{$bookings->count()}}</p>
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="glide__slide">
+                                    <li  class="col-md-3">
                                         <a href="#" class="card">
                                             <div class="card-body text-center">
-                                                <i class="iconsminds-basket-coins"></i>
-                                                <p class="card-text mb-0">Completed Orders</p>
-                                                <p class="lead text-center">32</p>
+                                                <i class="iconsminds-male-female"></i>
+                                                <p class="card-text mb-0">Tổng số stylist</p>
+                                                <p class="lead text-center">{{$stylists->count()}}</p>
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="glide__slide">
+                                    <li  class="col-md-3">
                                         <a href="#" class="card">
                                             <div class="card-body text-center">
                                                 <i class="iconsminds-arrow-refresh"></i>
-                                                <p class="card-text mb-0">Refund Requests</p>
-                                                <p class="lead text-center">2</p>
+                                                <p class="card-text mb-0">Tổng số service</p>
+                                                <p class="lead text-center">{{$services->count()}}</p>
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="glide__slide">
+                                    <li  class="col-md-3">
                                         <a href="#" class="card">
                                             <div class="card-body text-center">
-                                                <i class="iconsminds-mail-read"></i>
-                                                <p class="card-text mb-0">New Comments</p>
-                                                <p class="lead text-center">25</p>
+                                                <i class="iconsminds-pound"></i>
+                                                <p class="card-text mb-0">Tổng doanh thu</p>
+                                                <p class="lead text-center">{{number_format($totalPrice, 0, '', ",") . ' VNĐ'}}</p>
                                             </div>
                                         </a>
                                     </li>
@@ -65,162 +50,26 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12 mb-4">
-                            <div class="card">
-                                <div class="position-absolute card-top-buttons">
 
-                                    <button class="btn btn-header-light icon-button" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="simple-icon-refresh"></i>
-                                    </button>
-
-                                    <div class="dropdown-menu dropdown-menu-right mt-3">
-                                        <a class="dropdown-item" href="#">Sales</a>
-                                        <a class="dropdown-item" href="#">Orders</a>
-                                        <a class="dropdown-item" href="#">Refunds</a>
-                                    </div>
-
+                        <!-- Pie Chart -->
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">
+                                        Thống kê đặt lịch theo năm
+                                    </h6>
                                 </div>
-
+                                <!-- Card Body -->
                                 <div class="card-body">
-                                    <h5 class="card-title">Sales</h5>
-                                    <div class="dashboard-line-chart chart">
-                                        <canvas id="salesChart"></canvas>
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieChart" width="400" height="400"
+                                                class="staticByYear"
+                                                data-details = "{{ $countBookingPerMonth }}"></canvas>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                    <div class="mt-4 text-center small" id="pie_chart_footer">
 
-                <div class="col-xl-6 col-lg-12 mb-4">
-                    <div class="card">
-                        <div class="position-absolute card-top-buttons">
-                            <button class="btn btn-header-light icon-button">
-                                <i class="simple-icon-refresh"></i>
-                            </button>
-                        </div>
-
-                        <div class="card-body">
-                            <h5 class="card-title">Recent Orders</h5>
-                            <div class="scroll dashboard-list-with-thumbs">
-                                <div class="d-flex flex-row mb-3">
-                                    <a class="d-block position-relative" href="#">
-                                        <img src="img/products/marble-cake-thumb.jpg" alt="Marble Cake"
-                                             class="list-thumbnail border-0" />
-                                        <span
-                                            class="badge badge-pill badge-theme-2 position-absolute badge-top-right">NEW</span>
-                                    </a>
-                                    <div class="pl-3 pt-2 pr-2 pb-2">
-                                        <a href="#">
-                                            <p class="list-item-heading">Marble Cake</p>
-                                            <div class="pr-4 d-none d-sm-block">
-                                                <p class="text-muted mb-1 text-small">Latashia Nagy - 100-148 Warwick
-                                                    Trfy, Kansas City, USA</p>
-                                            </div>
-                                            <div class="text-primary text-small font-weight-medium d-none d-sm-block">
-                                                09.04.2018</div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3">
-                                    <a class="d-block position-relative" href="#">
-                                        <img src="img/products/fruitcake-thumb.jpg" alt="Fruitcake"
-                                             class="list-thumbnail border-0" />
-                                        <span
-                                            class="badge badge-pill badge-theme-2 position-absolute badge-top-right">NEW</span>
-                                    </a>
-                                    <div class="pl-3 pt-2 pr-2 pb-2">
-                                        <a href="#">
-                                            <p class="list-item-heading">Fruitcake</p>
-                                            <div class="pr-4 d-none d-sm-block">
-                                                <p class="text-muted mb-1 text-small">Marty Otte - 166-156 Rue de
-                                                    Varennes, Gatineau, QC J8T 8G4, Canada</p>
-                                            </div>
-                                            <div class="text-primary text-small font-weight-medium d-none d-sm-block">
-                                                09.04.2018</div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3">
-                                    <a class="d-block position-relative" href="#">
-                                        <img src="img/products/chocolate-cake-thumb.jpg" alt="Chocolate Cake"
-                                             class="list-thumbnail border-0" />
-                                        <span
-                                            class="badge badge-pill badge-theme-1 position-absolute badge-top-right">PROCESS</span>
-                                    </a>
-                                    <div class="pl-3 pt-2 pr-2 pb-2">
-                                        <a href="#">
-                                            <p class="list-item-heading">Chocolate Cake</p>
-                                            <div class="pr-4 d-none d-sm-block">
-                                                <p class="text-muted mb-1 text-small">Linn Ronning - Rasen 2-14, 98547
-                                                    Kühndorf, Germany</p>
-                                            </div>
-                                            <div class="text-primary text-small font-weight-medium d-none d-sm-block">
-                                                09.04.2018</div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3">
-                                    <a class="d-block position-relative" href="#">
-                                        <img src="img/products/fat-rascal-thumb.jpg" alt="Fat Rascal"
-                                             class="list-thumbnail border-0" />
-                                        <span
-                                            class="badge badge-pill badge-theme-3 position-absolute badge-top-right">DONE</span>
-                                    </a>
-                                    <div class="pl-3 pt-2 pr-2 pb-2">
-                                        <a href="#">
-                                            <p class="list-item-heading">Fat Rascal</p>
-                                            <div class="pr-4 d-none d-sm-block">
-                                                <p class="text-muted mb-1 text-small">Rasheeda Vaquera - 37 Rue des
-                                                    Grands Prés, 03100 Montluçon, France</p>
-                                            </div>
-                                            <div class="text-primary text-small font-weight-medium d-none d-sm-block">
-                                                09.04.2018</div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3">
-                                    <a class="d-block position-relative" href="#">
-                                        <img src="img/products/streuselkuchen-thumb.jpg" alt="Streuselkuchen"
-                                             class="list-thumbnail border-0" />
-                                        <span
-                                            class="badge badge-pill badge-theme-3 position-absolute badge-top-right">DONE</span>
-                                    </a>
-                                    <div class="pl-3 pt-2 pr-2 pb-2">
-                                        <a href="#">
-                                            <p class="list-item-heading">Streuselkuchen</p>
-                                            <div class="pr-4 d-none d-sm-block">
-                                                <p class="text-muted mb-1 text-small">Mimi Carreira - 36-71 Victoria
-                                                    St, Birmingham, UK</p>
-                                            </div>
-                                            <div class="text-primary text-small font-weight-medium d-none d-sm-block">
-                                                09.04.2018</div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3">
-                                    <a class="d-block position-relative" href="#">
-                                        <img src="img/products/cremeschnitte-thumb.jpg" alt="Cremeschnitte"
-                                             class="list-thumbnail border-0" />
-                                        <span
-                                            class="badge badge-pill badge-theme-3 position-absolute badge-top-right">DONE</span>
-                                    </a>
-                                    <div class="pl-3 pt-2 pr-2 pb-2">
-                                        <a href="#">
-                                            <p class="list-item-heading">Cremeschnitte</p>
-                                            <div class="pr-4 d-none d-sm-block">
-                                                <p class="text-muted mb-1 text-small">Lenna Majeed - 6 Hertford St
-                                                    Mayfair, London, UK</p>
-                                            </div>
-                                            <div class="text-primary text-small font-weight-medium d-none d-sm-block">
-                                                09.04.2018</div>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -229,509 +78,28 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12 col-lg-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Product Categories</h5>
-                            <div class="dashboard-donut-chart chart">
-                                <canvas id="polarChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Logs</h5>
-
-                            <div class="scroll dashboard-logs">
-
-                                <table class="table table-sm table-borderless">
-
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-theme-1 align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">New user registiration</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">14:12</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-theme-2 align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">New sale: Soufflé</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">13:20</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-danger align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">14 products added</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">12:55</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-theme-2 align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">New sale: Napoleonshat</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">12:44</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-theme-2 align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">New sale: Cremeschnitte</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">12:30</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-theme-2 align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">New sale: Soufflé</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">10:40</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-danger align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">2 categories added</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">10:20</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-theme-2 align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">New sale: Chocolate Cake</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">09:28</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-theme-2 align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">New sale: Bebinca</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">09:25</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-theme-2 align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">New sale: Bebinca</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">09:20</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="log-indicator border-theme-2 align-middle"></span>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-medium">New sale: Chocolate Cake</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span class="text-muted">08:20</span>
-                                        </td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Tickets</h5>
-
-                            <div class="scroll dashboard-list-with-user">
-                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                    <a href="#">
-                                        <img src="img/profiles/l-1.jpg" alt="Mayra Sibley"
-                                             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                    </a>
-                                    <div class="pl-3">
-                                        <a href="#">
-                                            <p class="font-weight-medium mb-0 ">Mayra Sibley</p>
-                                            <p class="text-muted mb-0 text-small">09.08.2018 - 12:45</p>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                    <a href="#">
-                                        <img src="img/profiles/l-7.jpg" alt="Mimi Carreira"
-                                             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                    </a>
-                                    <div class="pl-3">
-                                        <a href="#">
-                                            <p class="font-weight-medium mb-0 ">Mimi Carreira</p>
-                                            <p class="text-muted mb-0 text-small">05.08.2018 - 10:20</p>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                    <a href="#">
-                                        <img src="img/profiles/l-6.jpg" alt="Philip Nelms"
-                                             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                    </a>
-                                    <div class="pl-3">
-                                        <a href="#">
-                                            <p class="font-weight-medium mb-0 ">Philip Nelms</p>
-                                            <p class="text-muted mb-0 text-small">05.08.2018 - 09:12</p>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                    <a href="#">
-                                        <img src="img/profiles/l-3.jpg" alt="Terese Threadgill"
-                                             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                    </a>
-                                    <div class="pl-3">
-                                        <a href="#">
-                                            <p class="font-weight-medium mb-0 ">Terese Threadgill</p>
-                                            <p class="text-muted mb-0 text-small">01.08.2018 - 18:20</p>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                    <a href="#">
-                                        <img src="img/profiles/l-5.jpg" alt="Kathryn Mengel"
-                                             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                    </a>
-                                    <div class="pl-3">
-                                        <a href="#">
-                                            <p class="font-weight-medium mb-0 ">Kathryn Mengel</p>
-                                            <p class="text-muted mb-0 text-small">27.07.2018 - 11:45</p>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                    <a href="#">
-                                        <img src="img/profiles/l-4.jpg" alt="Esperanza Lodge"
-                                             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                    </a>
-                                    <div class="pl-3">
-                                        <a href="#">
-                                            <p class="font-weight-medium mb-0 ">Esperanza Lodge</p>
-                                            <p class="text-muted mb-0 text-small">24.07.2018 - 15:00</p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-xl-6 col-lg-12 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Calendar</h5>
-                            <div class="calendar"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-12 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Best Sellers</h5>
-                            <table class="data-table data-table-standard responsive nowrap"
-                                   data-order="[[ 1, &quot;desc&quot; ]]">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Sales</th>
-                                    <th>Stock</th>
-                                    <th>Category</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Marble Cake</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">1452</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">62</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Cupcakes</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Fruitcake</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">1245</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">65</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Desserts</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Chocolate Cake</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">1200</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">45</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Desserts</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Bebinca</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">1150</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">4</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Cupcakes</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Napoleonshat</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">1050</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">41</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Cakes</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Magdalena</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">998</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">24</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Cakes</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Salzburger Nockerl</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">924</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">20</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Desserts</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Soufflé</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">905</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">64</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Cupcakes</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Cremeschnitte</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">845</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">12</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Desserts</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Cheesecake</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">830</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">36</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Desserts</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Gingerbread</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">807</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">21</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Cupcakes</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="list-item-heading">Goose Breast</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">795</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">9</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-muted">Cupcakes</p>
-                                    </td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
 
 
 
             <div class="row">
                 <div class="col-lg-4 col-sm-12 mb-4">
-                    <div class="card dashboard-progress">
-                        <div class="position-absolute card-top-buttons">
-                            <button class="btn btn-header-light icon-button">
-                                <i class="simple-icon-refresh"></i>
-                            </button>
-                        </div>
+                    <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Profile Status</h5>
-                            <div class="mb-4">
-                                <p class="mb-2">
-                                    <span>Basic Information</span>
-                                    <span class="float-right text-muted">12/18</span>
-                                </p>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="66" aria-valuemin="0"
-                                         aria-valuemax="100"></div>
+                            <h5 class="card-title">Thống kê trạng thái đặt lịch thành công</h5>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-pie pt-4 pb-2">
+                                    <canvas id="myPieChart"
+                                            class="staticByStatusBooking"
+                                            width="100%" height="400"
+                                            data-details = "{{ $countBookingByStatus }}"></canvas>
+                                </div>
+                                <div class="mt-4 text-center small" id="pie_chart_footer">
+
                                 </div>
                             </div>
 
-                            <div class="mb-4">
-                                <p class="mb-2">Portfolio
-                                    <span class="float-right text-muted">1/8</span>
-                                </p>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0"
-                                         aria-valuemax="100"></div>
-                                </div>
-                            </div>
 
-                            <div class="mb-4">
-                                <p class="mb-2">Billing Details
-                                    <span class="float-right text-muted">2/6</span>
-                                </p>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0"
-                                         aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <p class="mb-2">Interests
-                                    <span class="float-right text-muted">0/8</span>
-                                </p>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
-                                         aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <p class="mb-2">Legal Documents
-                                    <span class="float-right text-muted">1/2</span>
-                                </p>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0"
-                                         aria-valuemax="100"></div>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
@@ -960,355 +328,107 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-6 col-lg-12 col-xl-4">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-4">
-                            <div class="card mb-4 progress-banner">
-                                <div class="card-body justify-content-between d-flex flex-row align-items-center">
-                                    <div>
-                                        <i class="iconsminds-file mr-2 text-white align-text-bottom d-inline-block"></i>
-                                        <div>
-                                            <p class="lead text-white">5 Files</p>
-                                            <p class="text-small text-white">Pending for print</p>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div role="progressbar"
-                                             class="progress-bar-circle progress-bar-banner position-relative"
-                                             data-color="white" data-trail-color="rgba(255,255,255,0.2)"
-                                             aria-valuenow="5" aria-valuemax="12" data-show-percent="false">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-12 col-lg-4">
-                            <div class="card mb-4 progress-banner">
-                                <div class="card-body justify-content-between d-flex flex-row align-items-center">
-                                    <div>
-                                        <i class="iconsminds-male mr-2 text-white align-text-bottom d-inline-block"></i>
-                                        <div>
-                                            <p class="lead text-white">4 Orders</p>
-                                            <p class="text-small text-white">On approval process</p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div role="progressbar"
-                                             class="progress-bar-circle progress-bar-banner position-relative"
-                                             data-color="white" data-trail-color="rgba(255,255,255,0.2)"
-                                             aria-valuenow="4" aria-valuemax="6" data-show-percent="false">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-12 col-lg-4">
-                            <div class="card mb-4 progress-banner">
-                                <a href="#"
-                                   class="card-body justify-content-between d-flex flex-row align-items-center">
-                                    <div>
-                                        <i class="iconsminds-bell mr-2 text-white align-text-bottom d-inline-block"></i>
-                                        <div>
-                                            <p class="lead text-white">8 Alerts</p>
-                                            <p class="text-small text-white">Waiting for notice</p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div role="progressbar"
-                                             class="progress-bar-circle progress-bar-banner position-relative"
-                                             data-color="white" data-trail-color="rgba(255,255,255,0.2)"
-                                             aria-valuenow="8" aria-valuemax="10" data-show-percent="false">
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-4 col-lg-6 col-sm-12 mb-4">
-                    <div class="card dashboard-search">
-                        <div class="card-body">
-                            <h5 class="text-white mb-3">Advanced Search</h5>
-                            <div class="form-container">
-                                <form>
-                                    <div class="form-group">
-                                        <label>State</label>
-                                        <select class="form-control select2-single" data-width="100%">
-                                            <option label="&nbsp;">&nbsp;</option>
-                                            <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                <option value="AK">Alaska</option>
-                                                <option value="HI">Hawaii</option>
-                                            </optgroup>
-                                            <optgroup label="Pacific Time Zone">
-                                                <option value="CA">California</option>
-                                                <option value="NV">Nevada</option>
-                                                <option value="OR">Oregon</option>
-                                                <option value="WA">Washington</option>
-                                            </optgroup>
-                                            <optgroup label="Mountain Time Zone">
-                                                <option value="AZ">Arizona</option>
-                                                <option value="CO">Colorado</option>
-                                                <option value="ID">Idaho</option>
-                                                <option value="MT">Montana</option>
-                                                <option value="NE">Nebraska</option>
-                                                <option value="NM">New Mexico</option>
-                                                <option value="ND">North Dakota</option>
-                                                <option value="UT">Utah</option>
-                                                <option value="WY">Wyoming</option>
-                                            </optgroup>
-                                            <optgroup label="Central Time Zone">
-                                                <option value="AL">Alabama</option>
-                                                <option value="AR">Arkansas</option>
-                                                <option value="IL">Illinois</option>
-                                                <option value="IA">Iowa</option>
-                                                <option value="KS">Kansas</option>
-                                                <option value="KY">Kentucky</option>
-                                                <option value="LA">Louisiana</option>
-                                                <option value="MN">Minnesota</option>
-                                                <option value="MS">Mississippi</option>
-                                                <option value="MO">Missouri</option>
-                                                <option value="OK">Oklahoma</option>
-                                                <option value="SD">South Dakota</option>
-                                                <option value="TX">Texas</option>
-                                                <option value="TN">Tennessee</option>
-                                                <option value="WI">Wisconsin</option>
-                                            </optgroup>
-                                            <optgroup label="Eastern Time Zone">
-                                                <option value="CT">Connecticut</option>
-                                                <option value="DE">Delaware</option>
-                                                <option value="FL">Florida</option>
-                                                <option value="GA">Georgia</option>
-                                                <option value="IN">Indiana</option>
-                                                <option value="ME">Maine</option>
-                                                <option value="MD">Maryland</option>
-                                                <option value="MA">Massachusetts</option>
-                                                <option value="MI">Michigan</option>
-                                                <option value="NH">New Hampshire</option>
-                                                <option value="NJ">New Jersey</option>
-                                                <option value="NY">New York</option>
-                                                <option value="NC">North Carolina</option>
-                                                <option value="OH">Ohio</option>
-                                                <option value="PA">Pennsylvania</option>
-                                                <option value="RI">Rhode Island</option>
-                                                <option value="SC">South Carolina</option>
-                                                <option value="VT">Vermont</option>
-                                                <option value="VA">Virginia</option>
-                                                <option value="WV">West Virginia</option>
-                                            </optgroup>
-                                            <option value="TNOGZ" disabled="disabled">The No Optgroup Zone</option>
-                                            <option value="TPZ">The Panic Zone</option>
-                                            <option value="TTZ">The Twilight Zone</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>City</label>
-                                        <select class="form-control select2-single" data-width="100%">
-                                            <option label="&nbsp;">&nbsp;</option>
-                                            <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                <option value="AK">Alaska</option>
-                                                <option value="HI">Hawaii</option>
-                                            </optgroup>
-                                            <optgroup label="Pacific Time Zone">
-                                                <option value="CA">California</option>
-                                                <option value="NV">Nevada</option>
-                                                <option value="OR">Oregon</option>
-                                                <option value="WA">Washington</option>
-                                            </optgroup>
-                                            <optgroup label="Mountain Time Zone">
-                                                <option value="AZ">Arizona</option>
-                                                <option value="CO">Colorado</option>
-                                                <option value="ID">Idaho</option>
-                                                <option value="MT">Montana</option>
-                                                <option value="NE">Nebraska</option>
-                                                <option value="NM">New Mexico</option>
-                                                <option value="ND">North Dakota</option>
-                                                <option value="UT">Utah</option>
-                                                <option value="WY">Wyoming</option>
-                                            </optgroup>
-                                            <optgroup label="Central Time Zone">
-                                                <option value="AL">Alabama</option>
-                                                <option value="AR">Arkansas</option>
-                                                <option value="IL">Illinois</option>
-                                                <option value="IA">Iowa</option>
-                                                <option value="KS">Kansas</option>
-                                                <option value="KY">Kentucky</option>
-                                                <option value="LA">Louisiana</option>
-                                                <option value="MN">Minnesota</option>
-                                                <option value="MS">Mississippi</option>
-                                                <option value="MO">Missouri</option>
-                                                <option value="OK">Oklahoma</option>
-                                                <option value="SD">South Dakota</option>
-                                                <option value="TX">Texas</option>
-                                                <option value="TN">Tennessee</option>
-                                                <option value="WI">Wisconsin</option>
-                                            </optgroup>
-                                            <optgroup label="Eastern Time Zone">
-                                                <option value="CT">Connecticut</option>
-                                                <option value="DE">Delaware</option>
-                                                <option value="FL">Florida</option>
-                                                <option value="GA">Georgia</option>
-                                                <option value="IN">Indiana</option>
-                                                <option value="ME">Maine</option>
-                                                <option value="MD">Maryland</option>
-                                                <option value="MA">Massachusetts</option>
-                                                <option value="MI">Michigan</option>
-                                                <option value="NH">New Hampshire</option>
-                                                <option value="NJ">New Jersey</option>
-                                                <option value="NY">New York</option>
-                                                <option value="NC">North Carolina</option>
-                                                <option value="OH">Ohio</option>
-                                                <option value="PA">Pennsylvania</option>
-                                                <option value="RI">Rhode Island</option>
-                                                <option value="SC">South Carolina</option>
-                                                <option value="VT">Vermont</option>
-                                                <option value="VA">Virginia</option>
-                                                <option value="WV">West Virginia</option>
-                                            </optgroup>
-                                            <option value="TNOGZ" disabled="disabled">The No Optgroup Zone</option>
-                                            <option value="TPZ">The Panic Zone</option>
-                                            <option value="TTZ">The Twilight Zone</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group mb-5">
-                                        <label>Date</label>
-                                        <div class="input-group date">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-text input-group-append input-group-addon">
-
-                                                <i class="simple-icon-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mb-5">
-                                        <label>Price Range</label>
-                                        <div>
-                                            <div class="slider" id="dashboardPriceRange"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <button type="submit" class="btn btn-primary btn-lg mt-3">Search</button>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 mb-4">
-                    <div class="row">
-                        <div class="col-6 mb-4">
-                            <div class="card dashboard-small-chart">
-                                <div class="card-body">
-                                    <p class="lead color-theme-1 mb-1 value"></p>
-                                    <p class="mb-0 label text-small"></p>
-                                    <div class="chart">
-                                        <canvas id="smallChart1"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 mb-4">
-                            <div class="card dashboard-small-chart">
-                                <div class="card-body">
-                                    <p class="lead color-theme-1 mb-1 value"></p>
-                                    <p class="mb-0 label text-small"></p>
-                                    <div class="chart">
-                                        <canvas id="smallChart2"></canvas>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-6 mb-4">
-                            <div class="card dashboard-small-chart">
-                                <div class="card-body">
-                                    <p class="lead color-theme-1 mb-1 value"></p>
-                                    <p class="mb-0 label text-small"></p>
-                                    <div class="chart">
-                                        <canvas id="smallChart3"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 mb-4">
-                            <div class="card dashboard-small-chart">
-                                <div class="card-body">
-                                    <p class="lead color-theme-1 mb-1 value"></p>
-                                    <p class="mb-0 label text-small"></p>
-                                    <div class="chart">
-                                        <canvas id="smallChart4"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card dashboard-top-rated">
-                        <div class="position-absolute card-top-buttons">
-                            <button class="btn btn-header-light icon-button" type="button" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                <i class="simple-icon-refresh"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right mt-3">
-                                <a class="dropdown-item" href="#">Top Sold Items</a>
-                                <a class="dropdown-item" href="#">Top Commented Items</a>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <h5 class="card-title">Top Rated Items</h5>
-
-                            <div class="glide best-rated-items">
-                                <div class="glide__track" data-glide-el="track">
-                                    <div class="glide__slides">
-                                        <div class="glide__slide">
-                                            <img src="img/carousels/1.jpg" alt="Cheesecake" class="mb-4">
-                                            <h6 class="mb-1"><span class="mr-2">1.</span>Cheesecake</h6>
-                                            <select class="rating" data-current-rating="5" data-readonly="true">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                            <p class="text-small text-muted mb-0  d-inline-block">(48)</p>
-                                        </div>
-                                        <div class="glide__slide">
-                                            <img src="img/carousels/2.jpg" alt="Chocolate Cake" class="mb-4">
-                                            <h6 class="mb-1"><span class="mr-2">2.</span>Chocolate Cake</h6>
-                                            <select class="rating" data-current-rating="5" data-readonly="true">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                            <p class="text-small text-muted mb-0  d-inline-block">(48)</p>
-                                        </div>
-                                        <div class="glide__slide">
-                                            <img src="img/carousels/3.jpg" alt="Cremeschnitte" class="mb-4">
-                                            <h6 class="mb-1"><span class="mr-2">3.</span>Cremeschnitte</h6>
-                                            <select class="rating" data-current-rating="5" data-readonly="true">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                            <p class="text-small text-muted mb-0  d-inline-block">(48)</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 @endsection
+@push('javascript')
+    <script src="https://cdnjs.com/libraries/Chart.js"></script>
+    <script>
+        const staticByYear = document.querySelectorAll('.staticByYear')
+        const staticByStatusBooking = document.querySelectorAll('.staticByStatusBooking')
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        Array.from(staticByYear).forEach(cxt => {
+            let bookings = JSON.parse(cxt.dataset.details)
+            let labels = bookings.map(item => {
+                return item.month_name
+            })
+
+            let data = bookings.map(item => {
+                return item.count
+            })
+
+            new Chart(cxt, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Thống kê đặt lịch theo từng năm',
+                        data: data,
+                        fill: false,
+                        borderColor: "#00365a",
+                        pointBorderColor: "#00365a"
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                    },
+                    legend: {
+                        display: true
+                    },
+                    cutoutPercentage: 80,
+                },
+            });
+        })
+
+        Array.from(staticByStatusBooking).forEach(cxt => {
+            let bookings = JSON.parse(cxt.dataset.details)
+            let labels = bookings.map(item => {
+                return item.month_name
+            })
+            let backgroundColor = bookings.map(item => {
+                return getRandomColor()
+            })
+            let data = bookings.map(item => {
+                return item.count
+            })
+
+            new Chart(cxt, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Thống kê đặt lịch theo từng năm',
+                        data: data,
+                        fill: false,
+                        backgroundColor: backgroundColor
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                    },
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                    },
+                    cutoutPercentage: 80,
+                },
+            });
+        })
+    </script>
+
+@endpush
