@@ -19,7 +19,8 @@ class CheckBookingMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $bookingId = substr($request->fullUrl(), -2);
+        $bookingId =  substr($request->fullUrl(), strrpos($request->fullUrl(), '/') + 1);
+
         $bookingDetail = Booking::where('id', $bookingId)->first();
         if ($bookingDetail->booking_status == Booking::BOOKING_SUCCESS) {
             return redirect()->back()->with('error', 'Bạn không thể thực hiện các tác vụ này khi đã đặt lịch thành công. Xin cám ơn!');
