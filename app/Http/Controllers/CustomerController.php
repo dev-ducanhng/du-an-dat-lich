@@ -46,7 +46,7 @@ class CustomerController extends Controller
             $model_user->avatar = $fileName;
         }
         $model_user->save();
-        return redirect()->route('change-infomation')->with('message', 'Cập nhật thông tin thành công');
+        return redirect()->route('my-profile')->with('message_success', 'Cập nhật thông tin thành công');
     }
 
     public function changePasswordForm()

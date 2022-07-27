@@ -10,6 +10,9 @@
                                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Trang cá nhân</li>
                             </ol>
+                            @if (Session::has('message_success'))
+                                    <p class="login-box-msg text-success breadcrumb">{{ Session::get('message_success') }}</p>
+                            @endif
                         </nav>
                     </div>
                 </div>

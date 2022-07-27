@@ -5,6 +5,9 @@
             <div class="row">
                 <div class="col-12">
                     <h1>Danh sách danh mục bài viết</h1>
+                    @if (Session::has('message'))
+                        <p class="login-box-msg text-success">{{ Session::get('message') }}</p>
+                    @endif
                     <div class="text-zero top-right-button-container">
                         <a href="{{ route('dashboard.category-post.create') }}"
                             class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm danh mục bài viết</a>
