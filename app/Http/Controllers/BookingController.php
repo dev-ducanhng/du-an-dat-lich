@@ -16,7 +16,7 @@ class BookingController extends Controller
             'bookingService' => function ($queryBookingService) {
                 $queryBookingService->with('service');
             },
-            'bookingDate', 'discount'])->get();
+            'bookingDate', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS)->get();
 
         $dataBooking = [];
         $bookingService = [];

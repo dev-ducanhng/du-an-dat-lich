@@ -30,7 +30,7 @@ class HistoryController extends Controller
                 'bookingService' => function ($queryBookingService) {
                     $queryBookingService->with('service');
                 },
-                'bookingDate', 'Stylist', 'discount'])->paginate(10)->withQueryString();
+                'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS)->paginate(10)->withQueryString();
         } else {
             if ($request->filled('phone_number')) {
                 $dataBookings = Booking::where('phone_number', 'LIKE', "%{$searchByPhoneNumber}%")->with([
@@ -38,7 +38,7 @@ class HistoryController extends Controller
                     'bookingService' => function ($queryBookingService) {
                         $queryBookingService->with('service');
                     },
-                    'bookingDate', 'Stylist', 'discount'])->paginate(10)->withQueryString();
+                    'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS)->paginate(10)->withQueryString();
             }
             if ($request->filled('code')) {
                 $dataBookings = Booking::where('customer_name', 'LIKE', "%{$searchByName}%")->with([
@@ -46,7 +46,7 @@ class HistoryController extends Controller
                     'bookingService' => function ($queryBookingService) {
                         $queryBookingService->with('service');
                     },
-                    'bookingDate', 'Stylist', 'discount'])->paginate(10)->withQueryString();
+                    'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS)->paginate(10)->withQueryString();
             }
             if ($request->filled('code')) {
                 $dataBookings = Booking::where('booking_code', 'LIKE', "%{$searchByCode}%")->with([
@@ -54,7 +54,7 @@ class HistoryController extends Controller
                     'bookingService' => function ($queryBookingService) {
                         $queryBookingService->with('service');
                     },
-                    'bookingDate', 'Stylist', 'discount'])->paginate(10)->withQueryString();
+                    'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS)->paginate(10)->withQueryString();
             }
         }
         return view('home.history', compact('dataBookings'));
