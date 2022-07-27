@@ -158,7 +158,7 @@
                                                 @endif text-left">{{$booking->present()->getStatus}}</div>
                                         </td>
                                         <td>
-                                            @if(auth()->user())
+                                            @if(auth()->user() && \Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STYLIST_ROLE)
                                                 <a class="with-tooltip change-status p-3 text-white"
                                                    style="width: 20px; height: 20px; background: #cf6f29"
                                                    data-tooltip-content="Cập nhật trạng thái" data-toggle="modal"
