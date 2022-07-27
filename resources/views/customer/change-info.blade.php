@@ -13,8 +13,8 @@
                 <div class="col-2 mb-5"></div>
                 <div class="col-8 mb-5">
                     <h5 class="mb-5">Cập nhật thông tin cá nhân</h5>
-                    @if (Session::has('message'))
-                        <p class="login-box-msg text-success">{{ Session::get('message') }}</p>
+                    @if (Session::has('message_success'))
+                        <p class="login-box-msg text-success">{{ Session::get('message_success') }}</p>
                     @endif
                     <div class="card mb-4">
                         <div class="card-body">

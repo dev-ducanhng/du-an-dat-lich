@@ -25,17 +25,20 @@ class CategoryPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required | min:3',
-            'content' => 'required'
+            'name' => [
+                'required', 'string', 'min:3',
+                Rule::unique('category_post')->ignore($this->categoryPostId)
+            ],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'title.required' => 'Vui lòng nhập tiêu đề',
-            'title.min' => 'Tiêu đề cần ít nhất 3 ký tự',
-            'content.required' => 'Vui lòng nhập nội dung bài viết',
+            'name.required' => 'Vui lòng nhập tên danh mục bài viết',
+            'name.string' => 'Không được phép nhập ký tự đặc biệt',
+            'name.min' => 'Phải có ít nhất 3 ký tự',
+            'name.unique' => 'Tên danh mục đã tồn tại',
         ];
     }
 }
