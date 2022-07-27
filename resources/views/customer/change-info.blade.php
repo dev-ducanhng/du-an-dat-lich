@@ -35,16 +35,25 @@
                                         <label>Tên người dùng</label>
                                         <input type="text" name="name" id="name" value="{{ $user->name }}"
                                             class="input-sm form-control">
+                                        @error('name')
+                                            <p class="text-danger mt-2">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="form-group position-relative error-l-50">
                                         <label>Email</label>
                                         <input type="text" name="email" id="email" value="{{ $user->email }}"
                                             class="input-sm form-control">
+                                        @error('email')
+                                            <p class="text-danger mt-2">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="form-group position-relative error-l-50">
                                         <label>Số điện thoại</label>
                                         <input type="number" name="phone" id="phone" value="{{ $user->phone }}"
                                             class="input-sm form-control">
+                                        @error('phone')
+                                            <p class="text-danger mt-2">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="form-group position-relative error-l-50">
                                         <label for="">Giới tính</label>
