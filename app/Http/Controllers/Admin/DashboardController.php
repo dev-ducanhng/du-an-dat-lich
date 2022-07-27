@@ -16,7 +16,7 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $bookings = Booking::where('booking_status', Booking::BOOKING_SUCCESS)->get();
-        $stylists = User::where('role_id', User::STYLISH_ROLE)->where('status', User::ACTIVE)->get();
+        $stylists = User::where('role_id', User::STYLIST_ROLE)->where('status', User::ACTIVE)->get();
         $services = Service::all();
         $countBookingPerMonth = Booking::select(
             DB::raw("(COUNT(*)) as count"),
