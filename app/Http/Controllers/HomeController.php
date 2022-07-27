@@ -93,7 +93,7 @@ class HomeController extends Controller
                 'user_id'               => Auth::id() ?? null,
                 'phone_number'          => Auth::user()->phone_number ?? $request->input('phone_number'),
                 'status'                => Booking::SOLVED_YET,
-                'discount_id'           => $discountCode->id,
+                'discount_id'           => $discountCode->id ?? null,
                 'customer_name'         => Auth::user()->name ?? $request->input('customer_name'),
                 'multiple_booking'      => $request->input('multiple_booking') ? Booking::MULTIPLE : Booking::SINGLE,
                 'amount_number_booking' => $request->input('amount_number_booking') ?? null,
