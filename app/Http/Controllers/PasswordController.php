@@ -122,7 +122,6 @@ class PasswordController extends Controller
            $user=User::find(Auth::id());
           $user->password =  Hash::make($request->password);
           $user->save();
-
         }
         return redirect(route('login'));
     }

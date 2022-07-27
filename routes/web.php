@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,10 +43,8 @@ Route::get('/reset-password/{token}/{email}', [PasswordController::class, 'formR
 Route::post('/reset-password', [PasswordController::class, 'saveReset']);
 Route::get('/register', [CustomerController::class, 'registerForm'])->name('register');
 Route::post('/register', [CustomerController::class, 'saveRegister']);
-
 Route::get('/change-password', [PasswordController::class, 'formChange'])->name('changePassword');
 Route::post('/change-password', [PasswordController::class, 'postChange']);
-
 
 Route::prefix('service')->name('service.')->group(function () {
     Route::get('/', [ServiceController::class, 'getService'])->name('index');
@@ -68,7 +67,6 @@ Route::middleware('checkLogin')->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', [DashboardController::class, 'dashboard'])->name('index');
         Route::prefix('user-management')->name('user.')->group(function () {
-
             Route::get('list-user', [\App\Http\Controllers\UserController::class, 'getListUser'])->name('list');
             Route::middleware('checkAdmin')->group(function () {
                 Route::get('edit-user/{userId}', [\App\Http\Controllers\UserController::class, 'editUser'])->name('edit');
@@ -78,6 +76,7 @@ Route::middleware('checkLogin')->group(function () {
                 Route::post('add-user', [\App\Http\Controllers\UserController::class, 'postCreateUser']);
             });
         });
+
         Route::prefix('role-management')->name('role.')->group(function () {
             Route::get('list-role', [\App\Http\Controllers\RoleController::class, 'getListRole'])->name('list');
             Route::middleware('checkAdmin')->group(function () {
@@ -110,6 +109,8 @@ Route::middleware('checkLogin')->group(function () {
             Route::post('edit-category-post/{categoryPostId}', [\App\Http\Controllers\CategoryPostController::class, 'postEditCategoryPost']);
         });
     });
+
+    Route::get('/profile', [UserController::class, 'myProfile'])->name('my-profile');
 
     Route::get('/change-information', [CustomerController::class, 'changeInformation'])->name('change-infomation');
     Route::post('/change-information', [CustomerController::class, 'saveChangeInformation']);

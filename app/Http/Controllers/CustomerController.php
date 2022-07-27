@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangeInformationRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,7 +35,7 @@ class CustomerController extends Controller
         return view('customer.change-info', compact('user'));
     }
 
-    public function saveChangeInformation(Request $request)
+    public function saveChangeInformation(ChangeInformationRequest $request)
     {
         $model_user = User::find(Auth::user()->id);
         $model_user->fill($request->all());
@@ -53,8 +55,17 @@ class CustomerController extends Controller
         return view('customer.change-password', compact('user'));
     }
 
-    public function saveNewPassword(Request $request)
+    public function saveNewPassword(ChangePasswordRequest $request)
     {
-        dd(1);
+        $user = Auth::user();
+        if (Hash::check($request->old_password, $user->password)) {
+            $model_user = User::find($user->id);
+            $model_user->password = Hash::make($request->password);
+            $model_user->save();
+            Auth::logout();
+            return redirect()->route('login');
+        } else {
+            return redirect()->route('change-password')->with('message_error_change_password', 'Mật khẩu cũ không đúng');
+        }
     }
 }
