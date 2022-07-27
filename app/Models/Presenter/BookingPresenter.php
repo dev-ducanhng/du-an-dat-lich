@@ -47,12 +47,13 @@ class BookingPresenter extends \Laracasts\Presenter\Presenter
     {
         $discount = 0;
         $price = 0;
-        $priceWithDiscount = 0;
         foreach ($this->bookingService as $service) {
             $price += $service->service->price - $service->service->price * $service->service->discount / 100;
         }
         if ($this->discount) {
             $priceWithDiscount = $price - $price * $discount / 100;
+        } else {
+            $priceWithDiscount = $price;
         }
 
         return number_format($priceWithDiscount, 0, '', ',') . 'VNĐ';
