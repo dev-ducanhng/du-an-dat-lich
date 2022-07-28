@@ -83,6 +83,9 @@ Route::middleware('checkLogin')->group(function () {
                 Route::post('add-role', [\App\Http\Controllers\RoleController::class, 'postAddRole']);
             });
         });
+        Route::prefix('feedback-management')->name('feedback.')->group(function () {
+            Route::get('list-feedback', [\App\Http\Controllers\FeedbackController::class, 'getFeedback'])->name('index');
+        });
 
         Route::prefix('discount-management')->name('discount.')->group(function () {
             Route::get('list-discount', [\App\Http\Controllers\DiscountController::class, 'getListDiscount'])->name('list');

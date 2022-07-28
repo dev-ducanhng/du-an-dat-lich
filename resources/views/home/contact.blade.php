@@ -7,7 +7,6 @@
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="form-title">
                         <h2>Phản hồi về dịch vụ</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
                     </div>
                     <div id="form_status"></div>
                     <div class="contact-form">
@@ -15,12 +14,13 @@
                             <p>
                                 <input type="text" placeholder="Name" name="name" id="name">
                                 <input type="email" placeholder="Email" name="email" id="email">
+
                             </p>
                             <p>
-                                <input type="tel" placeholder="Phone" name="phone" id="phone">
-                                <input type="text" placeholder="Subject" name="subject" id="subject">
+                                <input style="width: 100%" type="tel" placeholder="Phone" name="phone" id="phone">
                             </p>
-                            <p><textarea name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea></p>
+                            <p>
+                                <textarea name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea></p>
                             <input type="hidden" name="token" value="FsWga4&@f6aw" />
                             <p><input type="submit" value="Submit"></p>
                         </form>
