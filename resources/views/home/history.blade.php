@@ -51,13 +51,17 @@
                     <form action="" class="row mt-5 form-search-booking w-50 mx-auto">
                         <div class="form-group col-md-4">
                             <input type="text" class="form-control" name="phone_number"
-                                   placeholder="Nhập số điện thoại của bạn" value="{{request()->input('phone_number')}}">
+                                   placeholder="Nhập số điện thoại của bạn"
+                                   value="{{request()->input('phone_number')}}">
                         </div>
                         <div class="form-group col-md-4">
-                            <input type="text" class="form-control" name="name" placeholder="Nhập tên của bạn" value="{{request()->input('name')}}">
+                            <input type="text" class="form-control" name="name" placeholder="Nhập tên của bạn"
+                                   value="{{request()->input('name')}}">
                         </div>
                         <div class="form-group col-md-4">
-                            <input type="text" class="form-control" name="code" placeholder="Nhập mã code nếu đặt theo nhóm người" value="{{request()->input('code')}}">
+                            <input type="text" class="form-control" name="code"
+                                   placeholder="Nhập mã code nếu đặt theo nhóm người"
+                                   value="{{request()->input('code')}}">
                         </div>
                         <div class="text-center  mx-auto" style="width: 500px">
                             <button type="submit" class="btn button-search px-5 py-2">Tìm kiếm lịch sử đặt lịch</button>
@@ -155,9 +159,12 @@
                                                 @endif text-left">{{$booking->present()->getStatus}}</div>
                                         </td>
                                         <td>
-                                            @if(auth()->user())
-                                                <a class="with-tooltip change-status p-3 text-white" style="width: 20px; height: 20px; background: #cf6f29"
-                                                   data-tooltip-content="Cập nhật trạng thái">
+                                            @if(auth()->user() && \Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STYLIST_ROLE)
+                                                <a class="with-tooltip change-status p-3 text-white"
+                                                   style="width: 20px; height: 20px; background: #cf6f29"
+                                                   data-tooltip-content="Cập nhật trạng thái" data-toggle="modal"
+                                                   data-target='#practice_modal' data-id="{{ $booking->id }}"
+                                                   id="updateStatus">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
                                             @endif
@@ -167,10 +174,11 @@
                             @else
                                 <tr>
                                     <div class="text-center">
-                                        <td colspan="12" class="text-center mt-5 text-danger py-5">Bạn không có lịch đặt
+                                    <td class="text-center" colspan="12">
+                                        <div class="text-center mt-5 text-danger py-5">Bạn không có lịch đặt
                                             nào được hiển thị.
-                                        </td>
-                                    </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endif
                             </tbody>
@@ -179,6 +187,33 @@
                             @if($dataBookings)
                                 {{$dataBookings->links()}}
                             @endif
+                        </div>
+                        <div class="modal fade" id="practice_modal">
+                            <div class="modal-dialog">
+                                <p class="text-center">Cập nhật trạng thái</p>
+                                <form id="statusData" action="{{route('update-status-booking')}}" method="POST">
+                                    @csrf
+                                    <div class="modal-content p-3" style="border: 1px solid  #F28123">
+                                        <input type="hidden" id="booking_id" name="booking_id" value="">
+                                        <div class="modal-body">
+                                            <select name="status" id="changeStatus" class="form-control">
+                                                <option value="0">Đã hoàn thành</option>
+                                                <option value="1">Chưa hoàn thành</option>
+                                                <option value="2">Đã hủy</option>
+                                            </select>
+                                        </div>
+                                        <div class="text-center">
+                                            <button data-dismiss="modal" class="btn btn-update p-2"
+                                                    style="width: 100px; border-radius: unset !important;">Hủy
+                                            </button>
+
+                                            <button type="submit"
+                                               class="btn btnSubmit btn-update  ml-2 p-2"
+                                               style="width: 200px; border-radius: unset !important;"> Cập nhật </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,6 +224,13 @@
 @endsection
 @push('javascript')
     <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+    <script>
+        $('body').on('click', '#updateStatus', function (event) {
+            event.preventDefault();
+            let id = $(this).data('id');
+            $("#booking_id").val(id)
+        });
+    </script>
 @endpush
 @push('style')
     <style>
@@ -204,7 +246,7 @@
             box-shadow: none !important;
         }
 
-        .button-search {
+        .button-search, .btn-update {
             border: 1px solid #F28123;
             border-radius: 2px;
             outline: 0 !important;

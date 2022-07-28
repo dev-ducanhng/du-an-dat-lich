@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -137,5 +138,12 @@ class UserController extends Controller
         User::destroy($userId);
 
         return redirect()->back()->with('success', 'Bạn đã xóa thông tin người dùng thành công');
+    }
+
+    public function myProfile() {
+        $user = Auth::user();
+        $profile = User::find($user->id);
+        $profile->load('role');
+        return view('auth.my-profile', compact('profile'));
     }
 }

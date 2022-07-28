@@ -3,7 +3,7 @@
         <div class="scroll">
             <ul class="list-unstyled">
                 <li>
-                    <a href="#statistic">
+                    <a href="{{route('dashboard.index')}}">
                         <i class="iconsminds-statistic"></i> Thống kê
                     </a>
                 </li>

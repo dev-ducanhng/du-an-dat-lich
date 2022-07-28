@@ -31,7 +31,7 @@ class HomeController extends Controller
      * @return Application|Factory|View
      */
     public function index()
-    {   
+    {
         $models = Service::all();
         $services = [];
         $priceDiscount = '';
@@ -64,7 +64,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $services = Service::all();
-        $stylists = User::where('role_id', User::STYLISH_ROLE)->where('status', User::ACTIVE)->get();
+        $stylists = User::where('role_id', User::STYLIST_ROLE)->where('status', User::ACTIVE)->get();
         $bookingDate = BookingDate::with('bookingTime')->get();
 
         return view('home.booking', compact('user', 'services', 'stylists', 'bookingDate'));
@@ -93,7 +93,7 @@ class HomeController extends Controller
                 'user_id'               => Auth::id() ?? null,
                 'phone_number'          => Auth::user()->phone_number ?? $request->input('phone_number'),
                 'status'                => Booking::SOLVED_YET,
-                'discount_id'           => $discountCode->id,
+                'discount_id'           => $discountCode->id ?? null,
                 'customer_name'         => Auth::user()->name ?? $request->input('customer_name'),
                 'multiple_booking'      => $request->input('multiple_booking') ? Booking::MULTIPLE : Booking::SINGLE,
                 'amount_number_booking' => $request->input('amount_number_booking') ?? null,
