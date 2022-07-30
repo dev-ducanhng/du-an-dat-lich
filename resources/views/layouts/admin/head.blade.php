@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{asset('assets/dashboard/src/css/vendor/perfect-scrollbar.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/dashboard/src/css/vendor/smart_wizard.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/dashboard/src/css/vendor/bootstrap-tagsinput.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/dashboard/src/css/vendor/quill.snow.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/dashboard/src/css/vendor/quill.bubble.css')}}" />
     <link href="{{asset('assets/dashboard/datetime-picker/css/mobiscroll.javascript.min.css')}}" rel="stylesheet" />
     <script src="{{asset('assets/dashboard/datetime-picker/js/mobiscroll.javascript.min.js')}}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />

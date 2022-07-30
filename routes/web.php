@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
@@ -107,6 +108,12 @@ Route::middleware('checkLogin')->group(function () {
             Route::post('add-category-post', [\App\Http\Controllers\CategoryPostController::class, 'postAddCategoryPost']);
             Route::get('edit-category-post/{categoryPostId}', [\App\Http\Controllers\CategoryPostController::class, 'editCategoryPost'])->name('edit');
             Route::post('edit-category-post/{categoryPostId}', [\App\Http\Controllers\CategoryPostController::class, 'postEditCategoryPost']);
+        });
+
+        Route::prefix('post-management')->name('post.')->group(function() {
+            Route::get('list-post', [PostController::class, 'getListPost'])->name('list');
+            Route::get('add-post', [PostController::class, 'addPost'])->name('create');
+            Route::post('add-post', [PostController::class, 'postAddPost']);
         });
     });
 
