@@ -114,6 +114,8 @@ Route::middleware('checkLogin')->group(function () {
             Route::get('list-post', [PostController::class, 'getListPost'])->name('list');
             Route::get('add-post', [PostController::class, 'addPost'])->name('create');
             Route::post('add-post', [PostController::class, 'postAddPost']);
+            Route::get('edit-post/{postId}-{postSlug}', [PostController::class, 'editPost'])->name('edit');
+            Route::post('edit-post/{postId}-{postSlug}', [PostController::class, 'postEditPost']);
         });
     });
 

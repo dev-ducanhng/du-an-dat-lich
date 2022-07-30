@@ -8,10 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    protected $table = 'posts';
-    protected $fillable = ['title', 'content', 'category_post_id', 'status', 'view'];
 
-    public function categoryPost() {
+    protected $table = 'posts';
+    protected $fillable = [
+        'title',
+        'content',
+        'category_post_id',
+        'user_id',
+        'status',
+        'view',
+    ];
+
+    public function categoryPost()
+    {
         return $this->hasOne(CategoryPost::class, 'id', 'category_post_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }
