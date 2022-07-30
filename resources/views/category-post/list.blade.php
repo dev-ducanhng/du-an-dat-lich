@@ -23,6 +23,7 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Tên danh mục bài viết</th>
+                                        <th>Đường dẫn</th>
                                         <th>Số lượng bài viết</th>
                                         <th>Tùy chọn</th>
                                     </tr>
@@ -35,6 +36,9 @@
                                             </td>
                                             <td>
                                                 <p class="text-muted">{{ $item->name }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-muted">{{ $item->slug }}</p>
                                             </td>
                                             <td>
                                                 <p class="text-muted">{{ count($item->posts) }}</p>

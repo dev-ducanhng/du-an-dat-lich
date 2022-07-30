@@ -16,6 +16,7 @@ class CreateCategoryPostTable extends Migration
         Schema::create('category_post', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->comment('Tên danh mục bài viết');
+            $table->string('slug', 50)->comment('Slug của danh mục');
             $table->timestamps();
         });
     }
