@@ -6,13 +6,15 @@ use App\Http\Requests\PostRequest;
 use App\Models\CategoryPost;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
     public function getListPost()
     {
         $posts = Post::all();
-        $posts->load('categoryPost');
+        $posts->load('categoryPost', 'user');
         return view('post.list', compact('posts'));
     }
 
@@ -22,8 +24,45 @@ class PostController extends Controller
         return view('post.add', compact('category_post'));
     }
 
-    public function postAddPost(Request $request) {
-        dd($request->all());
+    public function postAddPost(PostRequest $request) {
+        $model = new Post();
+        $model->fill($request->all());
+        $model->slug = $this->createSlugName($request->title);
+        $model->user_id = Auth::id();
+        if ($request->hasFile('image')) {
+            $fileUpload = $request->file('image');
+            $fileName = Str::uuid() . $fileUpload->getClientOriginalName();
+            $fileUpload->storeAs('images/posts', $fileName, 'public');
+            $model->image = $fileName;
+        }
+        $model->save();
+        return redirect()->route('dashboard.post.list')->with('message', 'Thêm mới bài viết thành công!');
+    }
+
+    public function editPost($postId, $postSlug) {
+        $post = Post::find($postId);
+        if ($postSlug != $post->slug) {
+            return redirect()->route('dashboard.post.list')->with('message', 'Không tìm thấy bài viết!');
+        }
+        $category_post = CategoryPost::all();
+        return view('post.edit', compact('post', 'category_post'));
+    }
+
+    public function postEditPost($postId, $postSlug, PostRequest $request){
+        $model = Post::find($postId);
+        if ($postSlug != $model->slug) {
+            return redirect()->route('dashboard.post.list')->with('message', 'Không tìm thấy bài viết!');
+        }
+        $model->fill($request->all());
+        $model->slug = $this->createSlugName($request->title);
+        if ($request->hasFile('image')) {
+            $fileUpload = $request->file('image');
+            $fileName = Str::uuid() . $fileUpload->getClientOriginalName();
+            $fileUpload->storeAs('images/posts', $fileName, 'public');
+            $model->image = $fileName;
+        }
+        $model->save();
+        return redirect()->route('dashboard.post.list')->with('message', 'Sửa bài viết thành công!');
     }
 
     public function createSlugName($alias_url)

@@ -19,9 +19,14 @@ class CreatePostsTable extends Migration
             $table->string('slug', 50)->comment('Slug của bài viết');
             $table->string('image')->nullable()->comment('Đường dẫn ảnh');
             $table->text('content')->comment('Nội dung bài viết');
-            
-            $table->unsignedBigInteger('category_post_id');
+
+            $table->unsignedBigInteger('category_post_id')->comment('ID danh mục bài viết');
             $table->foreign('category_post_id')->references('id')->on('category_post')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->unsignedBigInteger('user_id')->comment('ID người đăng bài');
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
