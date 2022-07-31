@@ -8,13 +8,17 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <div class="text-zero top-right-button-container">
-                            <a href="{{route('dashboard.user.create')}}"
-                               class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm phản hồi</a>
-                        </div>
+{{--                        <div class="text-zero top-right-button-container">--}}
+{{--                            <a href="{{route('dashboard.user.create')}}"--}}
+{{--                               class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm phản hồi</a>--}}
+{{--                        </div>--}}
 
                     </div>
-
+                    @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
                     <div class="mb-2">
                         <div class="collapse d-md-block" id="displayOptions">
                             <form action="">
@@ -40,10 +44,10 @@
                 <div class="col-12 list">
                     @foreach($feedbacks as $feedback)
                         <div class="card d-flex flex-row mb-3">
-                            <a class="d-flex align-items-center ml-2">
-                                <img src="{{ asset('storage/images/users/' . $feedback->image)}}" alt="Fat Rascal"
-                                     class="list-thumbnail responsive border-0 "/>
-                            </a>
+{{--                            <a class="d-flex align-items-center ml-2">--}}
+{{--                                <img src="{{ asset('storage/images/users/' . $feedback->image)}}" alt="Fat Rascal"--}}
+{{--                                     class="list-thumbnail responsive border-0 "/>--}}
+{{--                            </a>--}}
                             <div class="pl-2 d-flex flex-grow-1 min-width-zero">
                                 <div
                                     class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
@@ -64,10 +68,9 @@
                                         Tùy chọn
                                     </button>
                                     <div class="dropdown-menu mr-5">
-                                        <a class="dropdown-item" href="{{route('dashboard.user.edit', $feedback->id)}}"><i
-                                                class="iconsminds-pen-2"></i> Sửa</a>
+
                                         <a class="dropdown-item"
-                                           href="{{route('dashboard.user.delete', $feedback->id)}}"><i
+                                           href="{{route('dashboard.feedback.remove',['id'=>$feedback->id])}}"><i
                                                 class="iconsminds-eraser-2"></i> Xóa</a>
                                     </div>
                                 </div>
