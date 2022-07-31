@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#feedback">
+                    <a href="{{route('dashboard.feedback.index')}}">
                         <i class="iconsminds-speach-bubble-3"></i> Phản hồi
                     </a>
                 </li>

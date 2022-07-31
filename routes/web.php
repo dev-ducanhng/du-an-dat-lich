@@ -10,7 +10,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\FeedbackController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +34,8 @@ Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name(
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
 Route::get('/history', [\App\Http\Controllers\HistoryController::class, 'history'])->name('history');
+
+Route::post('lien-he',[FeedbackController::class,'sendFeedback']);
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
@@ -84,6 +86,10 @@ Route::middleware('checkLogin')->group(function () {
                 Route::get('add-role', [\App\Http\Controllers\RoleController::class, 'addRole'])->name('create');
                 Route::post('add-role', [\App\Http\Controllers\RoleController::class, 'postAddRole']);
             });
+        });
+        Route::prefix('feedback-management')->name('feedback.')->group(function () {
+            Route::get('list-feedback', [\App\Http\Controllers\FeedbackController::class, 'getFeedback'])->name('index');
+            Route::get('remove-feedback/{id}', [FeedbackController::class, 'remove'])->name('remove');
         });
 
         Route::prefix('discount-management')->name('discount.')->group(function () {

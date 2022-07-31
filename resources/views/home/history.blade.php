@@ -15,27 +15,28 @@
     <!-- end breadcrumb section -->
     <div class="container">
         @if(auth()->user())
-            <div class="row">
-                <div class="col-6">
+            <div class="row bd">
+                <div class="col-lg-6 col-12">
                     <div class="group-profile">
                         <img
                             src="https://media.gettyimages.com/photos/actor-katie-holmes-poses-for-a-photo-with-lobby-signage-during-img-picture-id917483058?s=612x612"
                             alt="">
                         <div class="text">
-                            <h3>{{\Illuminate\Support\Facades\Auth::user()->name}}</h3>
-                            <p>{{\Illuminate\Support\Facades\Auth::user()->email}}</p>
+                            <h3><i class="fas fa-thin fa-file-signature pr-2"></i>{{\Illuminate\Support\Facades\Auth::user()->name}}</h3>
+                            <p><i class="fas fa-thin fa-envelope pr-3"></i>{{\Illuminate\Support\Facades\Auth::user()->email}}</p>
+                            <p><i class="fas fa-thin fa-phone pr-3"></i>{{\Illuminate\Support\Facades\Auth::user()->phone}}</p>
                         </div>
 
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-12">
                     <div class="gr-button">
                         <button type="button" class="btn btn-primary btn-lg stt"><i class="fas fa-solid fa-pen"></i></i>
                             Sửa
                             thông tin
                         </button>
                         <a type="button" class="btn btn-primary btn-lg lout"><i
-                                class="fas fa-regular fa-power-off" href="{{route('logout')}}"></i>Logout
+                                class="fas fa-regular fa-power-off pr-2" href="{{route('logout')}}"></i>Logout
                         </a>
                     </div>
                 </div>
@@ -172,7 +173,8 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td class="text-center" colspan="8">
+                                    <div class="text-center">
+                                    <td class="text-center" colspan="12">
                                         <div class="text-center mt-5 text-danger py-5">Bạn không có lịch đặt
                                             nào được hiển thị.
                                         </div>

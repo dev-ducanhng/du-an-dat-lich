@@ -77,6 +77,13 @@ h1, .h1 {
     font-size: 3rem;
     line-height: 3.25rem;
   }
+    .gr-button{
+        float: unset !important;
+        justify-content: center;
+    }
+    .group-profile{
+        justify-content: center !important;
+    }
 }
 
 @media only screen and (max-width: 575.96px) {
@@ -432,6 +439,10 @@ p:last-child {
   .pb-150 {
     padding-bottom: 100px;
   }
+    .gr-button{
+        float: unset;
+        display: flex;
+    }
 }
 
 .gray-bg {
@@ -584,14 +595,17 @@ a.navbar-brand img {
   max-width: 150px;
 }
 .group-profile>img{
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-    margin-top: -15%;
     z-index: 1;
 }
+.bd{
+    box-shadow: 0px 4px 4px rgba(166, 166, 166, 0.2), 0px 0px 4px rgba(166, 166, 166, 0.2);
+    margin-top: 20px;
+}
 .group-profile{
-    margin: 20px 0;
+    padding: 15px;
     display: flex;
 }
 .text{
@@ -600,11 +614,15 @@ a.navbar-brand img {
 .text>h3{
     font-size: 18px;
     color: #555555;
+    font-weight: 700;
+    border-bottom: 1px solid;
 }
 .text>p{
     color: #88878F;
     font-size: 16px;
     font-weight: 500;
+    border-bottom: 1px solid;
+    margin: 10px 0;
 }
 .gr-button{
     float: right;
@@ -2369,7 +2387,7 @@ ul.social-link-team li a {
 }
 
 .contact-form form p input[type=text], .contact-form form p input[type=tel], .contact-form form p input[type=email] {
-  width: 49%;
+  width: 100%;
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 3px;
