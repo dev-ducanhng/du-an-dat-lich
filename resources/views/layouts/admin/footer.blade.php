@@ -24,6 +24,7 @@
 <script src="{{asset('assets/dashboard/src/js/vendor/jquery.validate/additional-methods.min.js')}}"></script>
 <script src="{{asset('assets/dashboard/src/js/vendor/dropzone.min.js')}}"></script>
 <script src="{{asset('assets/dashboard/src/js/scripts.js')}}"></script>
+<script src="{{asset('assets/dashboard/src/js/vendor/quill.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
 
 <script>
