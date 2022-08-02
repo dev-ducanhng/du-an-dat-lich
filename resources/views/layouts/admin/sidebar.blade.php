@@ -28,6 +28,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="#post">
+                        <i class="iconsminds-speach-bubble-4"></i> Bài viết
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('dashboard.feedback.index')}}">
                         <i class="iconsminds-speach-bubble-3"></i> Phản hồi
                     </a>
@@ -55,6 +60,13 @@
                 <li class="active">
                     <a href="{{route('dashboard.discount.list')}}">
                         <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Quản lý mã giảm giá</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="list-unstyled" data-link="post">
+                <li class="active">
+                    <a href="{{route('dashboard.post.list')}}">
+                        <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Danh sách bài viết</span>
                     </a>
                 </li>
             </ul>

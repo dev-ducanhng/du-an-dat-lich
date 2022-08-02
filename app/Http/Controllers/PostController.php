@@ -24,7 +24,7 @@ class PostController extends Controller
         return view('post.add', compact('category_post'));
     }
 
-    public function postAddPost(PostRequest $request) {
+    public function postAddPost(Request $request) {
         $model = new Post();
         $model->fill($request->all());
         $model->slug = $this->createSlugName($request->title);
