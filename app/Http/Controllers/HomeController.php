@@ -419,6 +419,10 @@ class HomeController extends Controller
         if ($postSlug != $post->slug) {
             return redirect()->route('blog')->with('message', 'Không tìm thấy bài viết!');
         }
+        if (Auth::check()) {
+            $post->view++;
+            $post->save();
+        }
         $post->load('categoryPost', 'user');
         return view('home.detail-blog', compact('post'));
     }

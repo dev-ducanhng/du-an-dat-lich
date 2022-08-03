@@ -31,12 +31,12 @@
                                 </div>
                             </a>
                             <div class="news-text-box">
-                                <h3><a href="javascript:;">{{ $item->title }}</a></h3>
+                                <h3><a href="{{ route('detail-blog', ['postId' => $item->id, 'postSlug' => $item->slug]) }}" target="_blank">{{ $item->title }}</a></h3>
                                 <p class="blog-meta">
                                     <span class="author"><i class="fas fa-user"></i> {{ $item->user->name }}</span>
                                 </p>
                                 {{-- <p class="excerpt">{!! $item->content !!}</p> --}}
-                                <a href="javascript:;" class="read-more-btn">Chi tiết <i class="fas fa-angle-right"></i></a>
+                                <a href="{{ route('detail-blog', ['postId' => $item->id, 'postSlug' => $item->slug]) }}" target="_blank" class="read-more-btn">Chi tiết <i class="fas fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
