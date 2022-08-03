@@ -8,6 +8,7 @@ use App\Models\BookingDate;
 use App\Models\BookingService;
 use App\Models\BookingTime;
 use App\Models\Discount;
+use App\Models\Post;
 use App\Models\Service;
 use App\Models\User;
 use App\Modules\PaymentModule;
@@ -43,7 +44,18 @@ class HomeController extends Controller
             $item->priceDiscount = $priceDiscount;
 
         }
-        return view('home.index',compact('models'));
+
+        $posts = Post::all();
+        $postss = [];
+        foreach ($posts as $item) {
+            $postss[] = [
+                'title' => $item['title'],
+                'content' => $item['content'],
+                'category_post_id' => $item['category_post_id'],
+
+            ];
+        }
+        return view('home.index',compact('models','posts'));
     }
 
     /**
@@ -391,7 +403,17 @@ class HomeController extends Controller
 
     public function blog()
     {
-        return view('home.blog');
+        $posts = Post::all();
+        $postss = [];
+        foreach ($posts as $item) {
+            $postss[] = [
+                'title' => $item['title'],
+                'content' => $item['content'],
+                'category_post_id' => $item['category_post_id'],
+
+            ];
+        }
+        return view('home.blog',compact('posts'));
     }
 
     public function detailService()
