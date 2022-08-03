@@ -42,7 +42,6 @@ class HomeController extends Controller
                 $priceDiscount = $item->price - (($item->price / 100) * $item->discount);
             }
             $item->priceDiscount = $priceDiscount;
-
         }
 
         $posts = Post::all();
@@ -55,7 +54,7 @@ class HomeController extends Controller
 
             ];
         }
-        return view('home.index',compact('models','posts'));
+        return view('home.index', compact('models', 'posts'));
     }
 
     /**
@@ -97,7 +96,7 @@ class HomeController extends Controller
             $discountCode = Discount::where('code_discount', 'LIKE', "%{$search}%")
                 ->whereDate('end_date', '>=', now()->toDateString())->first();
             if ($search) {
-                if (! $discountCode) {
+                if (!$discountCode) {
                     return redirect()->back()->with('error', 'Mã giảm giá không hợp lệ. Vui lòng nhập lại')->withInput();
                 }
             }
@@ -141,7 +140,6 @@ class HomeController extends Controller
             Log::info($exception);
             return redirect()->back()->with('error', 'Đã có lỗi hệ thống xảy ra. Vui lòng liên hệ với quản trị viên để biết thêm chi tiết')->withInput();
         }
-
     }
 
     /**
@@ -158,7 +156,6 @@ class HomeController extends Controller
                 $priceDiscount = $item->price - (($item->price / 100) * $item->discount);
             }
             $item->priceDiscount = $priceDiscount;
-
         }
 
         return view('home.listService', compact('models'));
@@ -175,7 +172,8 @@ class HomeController extends Controller
             'bookingService' => function ($queryBookingService) {
                 $queryBookingService->with('service');
             },
-            'bookingDate'])->where('id', $bookingID)->first();
+            'bookingDate'
+        ])->where('id', $bookingID)->first();
         $stylish = User::where('id', $bookingDetail->stylist)->first();
         $dateBooking = get_weekday_name($bookingDetail->bookingDate->date);
 
@@ -190,7 +188,8 @@ class HomeController extends Controller
                 'bookingService' => function ($queryBookingService) {
                     $queryBookingService->with('service');
                 },
-                'bookingDate'])->where('id', $bookingId)->first();
+                'bookingDate'
+            ])->where('id', $bookingId)->first();
             if ($request->input('payment_method') == Booking::PAYMENT_WITH_CARD) {
                 $payment = new PaymentModule();
                 $payment->payment($bookingDetail, $bookingId);
@@ -202,7 +201,6 @@ class HomeController extends Controller
 
             return redirect()->back();
         }
-
     }
 
     /**
@@ -217,7 +215,8 @@ class HomeController extends Controller
             'bookingService' => function ($queryBookingService) {
                 $queryBookingService->with('service');
             },
-            'bookingDate'])->where('id', $bookingId)->first();
+            'bookingDate'
+        ])->where('id', $bookingId)->first();
         if ($request->input('vnp_ResponseCode') == "00") {
             $bookingDetail->update([
                 'payment' => Booking::PAYMENT_WITH_CARD,
@@ -226,9 +225,11 @@ class HomeController extends Controller
         $bookingDetail->update([
             'booking_status' => Booking::BOOKING_SUCCESS,
         ]);
-        if ($request->input('vnp_ResponseCode') == "24" ||
+        if (
+            $request->input('vnp_ResponseCode') == "24" ||
             $request->input('vnp_ResponseCode') == "13" ||
-            $request->input('vnp_ResponseCode') == "51") {
+            $request->input('vnp_ResponseCode') == "51"
+        ) {
             $bookingDetail->update([
                 'booking_status' => Booking::BOOKING_FAILED,
             ]);
@@ -260,7 +261,8 @@ class HomeController extends Controller
                 $queryBookingTime->with(['bookingTime' => function ($bookingTime) use ($booking) {
                     $bookingTime->where('time', date('G:i', strtotime($booking->booking_time)));
                 }]);
-            }])->where('id', $bookingId)->first();
+            }
+        ])->where('id', $bookingId)->first();
         $addService = $bookingDetail->bookingDate->bookingTime[0]->max_service + 1;
         $changeBookingTime = BookingTime::where('id', $bookingDetail->bookingDate->bookingTime[0]->id);
         $changeBookingTime->update([
@@ -284,7 +286,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $services = Service::all();
-        $stylists = User::where('role_id', User::STYLISH_ROLE)->where('status', User::ACTIVE)->get();
+        $stylists = User::where('role_id', User::STYLIST_ROLE)->where('status', User::ACTIVE)->get();
         $bookingDate = BookingDate::with('bookingTime')->get();
         $booking = Booking::where('id', $bookingID)->first();
 
@@ -297,7 +299,8 @@ class HomeController extends Controller
                 $queryBookingTime->with(['bookingTime' => function ($bookingTime) use ($booking) {
                     $bookingTime->where('time', date('G:i', strtotime($booking->booking_time)));
                 }]);
-            }])->where('id', $bookingID)->first();
+            }
+        ])->where('id', $bookingID)->first();
         $bookingServiceId = [];
         foreach ($bookingDetail->bookingService as $service) {
             $bookingServiceId[] = $service->service->id;
@@ -342,7 +345,8 @@ class HomeController extends Controller
                     $queryBookingTime->with(['bookingTime' => function ($bookingTime) use ($booking) {
                         $bookingTime->where('time', date('G:i', strtotime($booking->booking_time)));
                     }]);
-                }])->where('id', $bookingID)->first();
+                }
+            ])->where('id', $bookingID)->first();
             $addService = $bookingDetail->bookingDate->bookingTime[0]->max_service + 1;
             $bookingTimeChange = BookingTime::where('id', $bookingDetail->bookingDate->bookingTime[0]->id);
             $bookingTimeChange->update([
@@ -403,17 +407,20 @@ class HomeController extends Controller
 
     public function blog()
     {
-        $posts = Post::all();
-        $postss = [];
-        foreach ($posts as $item) {
-            $postss[] = [
-                'title' => $item['title'],
-                'content' => $item['content'],
-                'category_post_id' => $item['category_post_id'],
+        $posts = Post::where('status', 1)->get();
+        $posts->load('categoryPost', 'user');
+        // dd($posts);
+        return view('home.blog', compact('posts'));
+    }
 
-            ];
+    public function detailBlog($postId, $postSlug)
+    {
+        $post = Post::find($postId);
+        if ($postSlug != $post->slug) {
+            return redirect()->route('blog')->with('message', 'Không tìm thấy bài viết!');
         }
-        return view('home.blog',compact('posts'));
+        $post->load('categoryPost', 'user');
+        return view('home.detail-blog', compact('post'));
     }
 
     public function detailService()
