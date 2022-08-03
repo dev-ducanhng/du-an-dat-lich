@@ -14,26 +14,32 @@
         </div>
     </div>
     <!-- end breadcrumb section -->
-
     <!-- latest news -->
     <div class="latest-news mt-150 mb-150">
         <div class="container">
+            @if (Session::has('message'))
+                <p class="login-box-msg text-danger">{{ Session::get('message') }}</p>
+            @endif
             <div class="row">
-                @foreach($posts as $item)
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-latest-news">
-                        <a href="single-news.html"><div class="latest-news-bg news-bg-1"></div></a>
-                        <div class="news-text-box">
-                            <h3><a href="single-news.html">{{$item->title}}</a></h3>
-                            <p class="blog-meta">
-                                <span class="author"><i class="fas fa-user"></i> {{$item->category_post_id}}</span>
-
-                            </p>
-                            <p class="excerpt">{{$item->content}}</p>
-                            <a href="single-news.html" class="read-more-btn">Chi tiết <i class="fas fa-angle-right"></i></a>
+                @foreach ($posts as $item)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-latest-news">
+                            <a href="{{ route('detail-blog', ['postId' => $item->id, 'postSlug' => $item->slug]) }}"
+                                target="_blank">
+                                <div class="latest-news-bg">
+                                    <img src="{{ asset('storage/images/posts/' . $item->image) }}" alt="">
+                                </div>
+                            </a>
+                            <div class="news-text-box">
+                                <h3><a href="javascript:;">{{ $item->title }}</a></h3>
+                                <p class="blog-meta">
+                                    <span class="author"><i class="fas fa-user"></i> {{ $item->user->name }}</span>
+                                </p>
+                                {{-- <p class="excerpt">{!! $item->content !!}</p> --}}
+                                <a href="javascript:;" class="read-more-btn">Chi tiết <i class="fas fa-angle-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
 
@@ -85,5 +91,4 @@
         </div>
     </div>
     <!-- end logo carousel -->
-
 @endsection

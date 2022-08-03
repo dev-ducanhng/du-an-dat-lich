@@ -30,6 +30,7 @@ Route::get('/dich-vu', [HomeController::class, 'listService'])->name('list-servi
 Route::get('/gioi-thieu', [HomeController::class, 'introduce'])->name('introduce');
 Route::get('/lien-he', [HomeController::class, 'contact'])->name('contact');
 Route::get('/bai-viet', [HomeController::class, 'blog'])->name('blog');
+Route::get('/bai-viet/{postId}-{postSlug}', [HomeController::class, 'detailBlog'])->name('detail-blog');
 Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name('detail-service');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');

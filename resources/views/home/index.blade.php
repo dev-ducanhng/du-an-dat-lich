@@ -7,12 +7,12 @@
                     <div class="hero-text">
                         <div class="hero-text-tablecell">
                             <div class="hero-btns ">
-                                @if(! auth()->user())
-                                    <button data-toggle="modal" data-target="#exampleModalCenter"
-                                            class="btn-booking btn">Đặt lịch
+                                @if (!auth()->user())
+                                    <button data-toggle="modal" data-target="#exampleModalCenter" class="btn-booking btn">Đặt
+                                        lịch
                                     </button>
                                 @else
-                                    <a href="{{route('booking')}}" class="btn-booking btn">Đặt lịch</a>
+                                    <a href="{{ route('booking') }}" class="btn-booking btn">Đặt lịch</a>
                                 @endif
                             </div>
                         </div>
@@ -22,17 +22,18 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="border: 1px solid #F28123 ">
                 <div class="modal-body">
-                    <a href="{{route('login')}}" class="btn btn-booking w-100 mt-2"> Đăng nhập (Bạn đã có tài khoản)</a>
-                    <a href="{{route('register')}}" class="btn btn-booking w-100 mt-2">Đăng ký (Bạn chưa có tài khoản)</a>
-                    <a href="{{route('booking')}}" class="btn btn-booking w-100 mt-2">Đặt lịch không cần tài khoản</a>
+                    <a href="{{ route('login') }}" class="btn btn-booking w-100 mt-2"> Đăng nhập (Bạn đã có tài khoản)</a>
+                    <a href="{{ route('register') }}" class="btn btn-booking w-100 mt-2">Đăng ký (Bạn chưa có tài khoản)</a>
+                    <a href="{{ route('booking') }}" class="btn btn-booking w-100 mt-2">Đặt lịch không cần tài khoản</a>
                 </div>
                 <div class="text-center p-3">
-                    <button type="button" class="btn" data-dismiss="modal" style="border: 1px solid #F28123; color: #F28123">
+                    <button type="button" class="btn" data-dismiss="modal"
+                        style="border: 1px solid #F28123; color: #F28123">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -139,18 +140,23 @@
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="single-product-item">
                             <div class="product-image">
-                                <a href="{{route('booking')}}"><img src="{{asset($item->image)}}"
-                                                                    alt="{{asset($item->name)}}"></a>
+                                <a href="{{ route('booking') }}"><img src="{{ asset($item->image) }}"
+                                        alt="{{ asset($item->name) }}"></a>
                             </div>
-                            <h3>{{$item->name}}</h3>
-                            <p class="product-price">  @if ($item->discount !='' || $item->discount != null)
-                                    <span>Giảm giá {{$item->discount}}%</span>
-                            <p>
-                                <span> <span style="color: #F28123;font-size: 1.5rem">{{number_format($item->priceDiscount ,0,',','.') }} đ </span> <span style="font-weight: bold;font-size: 20px">-</span>  <span
-                                        style="color: rgb(214, 211, 211) ;font-size: 1.5rem;text-decoration: line-through"> {{number_format($item->price ,0,',','.') }} đ</span> </span>
+                            <h3>{{ $item->name }}</h3>
+                            <p class="product-price">
+                                @if ($item->discount != '' || $item->discount != null)
+                                    <span>Giảm giá {{ $item->discount }}%</span>
+                                    <p>
+                                        <span> <span
+                                                style="color: #F28123;font-size: 1.5rem">{{ number_format($item->priceDiscount, 0, ',', '.') }}
+                                                đ </span> <span style="font-weight: bold;font-size: 20px">-</span> <span
+                                                style="color: rgb(214, 211, 211) ;font-size: 1.5rem;text-decoration: line-through">
+                                                {{ number_format($item->price, 0, ',', '.') }} đ</span> </span>
+                                    </p>
+                                @endif
                             </p>
-                            @endif</p>
-                            <a href="{{route('booking')}}" class="cart-btn"> Đặt lịch</a>
+                            <a href="{{ route('booking') }}" class="cart-btn"> Đặt lịch</a>
                         </div>
                     </div>
                 @endforeach
@@ -201,25 +207,25 @@
             </div>
 
             <div class="row">
-                @foreach($posts as $item)
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-latest-news">
-                        <a href="single-news.html">
-                            <div class="latest-news-bg ">
-                                <img src="{{asset($item->image)}}" alt="">
+                @foreach ($posts as $item)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-latest-news">
+                            <a href="single-news.html">
+                                <div class="latest-news-bg ">
+                                    <img src="{{ asset('storage/images/posts/' . $item->image) }}" alt="">
+                                </div>
+                            </a>
+                            <div class="news-text-box">
+                                <h3><a href="single-news.html">{{ $item->title }}</a></h3>
+                                <p class="blog-meta">
+                                    <span class="author"><i class="fas fa-user"></i> {{ $item->category_post_id }}</span>
+                                </p>
+                                <p class="excerpt">{{ $item->content }}</p>
+                                <a href="single-news.html" class="read-more-btn">Chi tiết <i
+                                        class="fas fa-angle-right"></i></a>
                             </div>
-                        </a>
-                        <div class="news-text-box">
-                            <h3><a href="single-news.html">{{$item->title}}</a></h3>
-                            <p class="blog-meta">
-                                <span class="author"><i class="fas fa-user"></i> {{$item->category_post_id}}</span>
-                            </p>
-                            <p class="excerpt">{{$item->content}}</p>
-                            <a href="single-news.html" class="read-more-btn">Chi tiết <i
-                                    class="fas fa-angle-right"></i></a>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
             <div class="row">
@@ -230,7 +236,6 @@
         </div>
     </div>
     <!-- end latest news -->
-
 @endsection
 @push('style')
     <style>
