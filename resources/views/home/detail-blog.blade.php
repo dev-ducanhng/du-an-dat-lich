@@ -8,21 +8,16 @@
                         <div class="single-article-text">
                             <h2>{{ $post->title }}</h2>
                             <p class="blog-meta">
-                                <span class="author"><i class="fas fa-user"></i> {{ $post->user->name }}</span>
+                                <span class="author"><i class="fas fa-user"></i>{{ $post->user->name }}</span>
+                                <span class="category"><i
+                                        class="fas fa-address-book"></i>{{ $post->categoryPost->name }}</span>
                                 <span class="date"><i class="fas fa-calendar"></i>
                                     {{ date('H:i d/m/Y', strtotime($post->created_at)) }}</span>
                             </p>
-                            {{-- <div>
-                                <img src="{{ asset('storage/images/posts/' . $post->image) }}" width="100%"
-                                    style="object-fit: cover" alt="">
-                            </div> --}}
                             <div>
                                 {!! $post->content !!}
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
                 <div class="col-lg-4">
