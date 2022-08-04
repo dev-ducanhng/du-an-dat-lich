@@ -25,6 +25,7 @@ class CustomerController extends Controller
         $new_customer->password = Hash::make($request->password);
         $new_customer->status = User::ACTIVE;
         $new_customer->role_id = User::MEMBER_ROLE;
+        $new_customer->avatar = 'users/user-default-avatar.jpg';
         $new_customer->save();
         return redirect()->route('login')->with('message_register_success', 'Bạn đã đăng ký tài khoản thành công!');
     }

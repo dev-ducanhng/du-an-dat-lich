@@ -11,7 +11,7 @@
                                 <li class="breadcrumb-item active" aria-current="page">Trang cá nhân</li>
                             </ol>
                             @if (Session::has('message_success'))
-                                    <p class="login-box-msg text-success breadcrumb">{{ Session::get('message_success') }}</p>
+                                <p class="login-box-msg text-success breadcrumb">{{ Session::get('message_success') }}</p>
                             @endif
                         </nav>
                     </div>
@@ -21,8 +21,13 @@
                     <div class="col-lg-4">
                         <div class="card mb-4">
                             <div class="card-body text-center">
-                                <img src="{{ asset('storage/images/users/' . $profile->avatar) }}" alt="avatar"
-                                    class="rounded-circle img-fluid" style="width: 200px;">
+                                @if (strpos($profile->avatar, 'user-default-avatar.jpg') != false)
+                                    <img src="{{ asset($profile->avatar) }}" alt="avatar" class="rounded-circle img-fluid"
+                                        style="width: 200px;">
+                                @else
+                                    <img src="{{ asset('storage/images/users/' . $profile->avatar) }}" alt="avatar"
+                                        class="rounded-circle img-fluid" style="width: 200px;">
+                                @endif
                                 <h5 class="my-3">{{ $profile->name }}</h5>
                                 <div class="d-flex justify-content-center mb-2">
                                     <button type="button" class="btn btn-primary"><a

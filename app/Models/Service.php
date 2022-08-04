@@ -8,14 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     use HasFactory;
+
     protected $table = 'services';
     protected $fillable = [
         'price',
         'name',
         'discount',
         'status',
-        'image'
+        'image',
     ];
+
     protected $hidden = [
         'created_at',
         'updated_at'

@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     use HasFactory;
+
     protected $table = 'discounts';
-    protected $fillable = ['name', 'code_discount', 'percent', 'start_date', 'end_date'];
+    protected $fillable = [
+        'name',
+        'code_discount',
+        'percent',
+        'start_date',
+        'end_date',
+    ];
 }
