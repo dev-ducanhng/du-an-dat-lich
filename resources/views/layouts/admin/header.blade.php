@@ -24,15 +24,16 @@
 
 
     <a class="navbar-logo" href="Dashboard.Default.html">
-        <span class=" d-xs-block" style="font-size: 22px;    font-family: 'Brush Script MT', cursiv; font-weight: 700">ISALON</span>
+        <span class=" d-xs-block"
+            style="font-size: 22px;    font-family: 'Brush Script MT', cursiv; font-weight: 700">ISALON</span>
         <span class="logo-mobile d-block d-xs-none"></span>
     </a>
 
     <div class="navbar-right">
         <div class="header-icons d-inline-block align-middle">
             <div class="d-none d-md-inline-block align-text-bottom mr-3">
-                <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
-                     data-toggle="tooltip" data-placement="left" title="Dark Mode">
+                <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1" data-toggle="tooltip"
+                    data-placement="left" title="Dark Mode">
                     <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
                     <label class="custom-switch-btn" for="switchDark"></label>
                 </div>
@@ -42,17 +43,23 @@
 
         <div class="user d-inline-block">
             <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                @if(auth()->id())
-                    <span class="name">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                aria-expanded="false">
+                @if (auth()->id())
+                    <span class="name">{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
                     <span>
-                        <img alt="Profile Picture" src="{{asset('storage/images/users/' . \Illuminate\Support\Facades\Auth::user()->avatar)}}" />
+                        @if (strpos(\Illuminate\Support\Facades\Auth::user()->avatar, 'user-default-avatar.jpg') != false)
+                            <img alt="Profile Picture"
+                                src="{{ asset(\Illuminate\Support\Facades\Auth::user()->avatar) }}" />
+                        @else
+                            <img alt="Profile Picture"
+                                src="{{ asset('storage/images/users/' . \Illuminate\Support\Facades\Auth::user()->avatar) }}" />
+                        @endif
                     </span>
                 @endif
             </button>
 
             <div class="dropdown-menu dropdown-menu-right mt-3">
-                <a class="dropdown-item" href="{{route('logout')}}">Đăng xuất</a>
+                <a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a>
             </div>
         </div>
     </div>
