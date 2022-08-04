@@ -405,28 +405,6 @@ class HomeController extends Controller
         return view('home.contact');
     }
 
-    public function blog()
-    {
-        $posts = Post::where('status', 1)->get();
-        $posts->load('categoryPost', 'user');
-        // dd($posts);
-        return view('home.blog', compact('posts'));
-    }
-
-    public function detailBlog($postId, $postSlug)
-    {
-        $post = Post::find($postId);
-        if ($postSlug != $post->slug) {
-            return redirect()->route('blog')->with('message', 'Không tìm thấy bài viết!');
-        }
-        if (Auth::check()) {
-            $post->view++;
-            $post->save();
-        }
-        $post->load('categoryPost', 'user');
-        return view('home.detail-blog', compact('post'));
-    }
-
     public function detailService()
     {
         return view('home.detail-service');
