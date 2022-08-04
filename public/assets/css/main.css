@@ -1777,6 +1777,21 @@ p.blog-meta span i {
   margin-right: 5px;
 }
 
+p.blog-meta a {
+  margin-right: 15px;
+  opacity: 0.6;
+  color: #051922;
+  font-size: 0.85em;
+}
+
+p.blog-meta a:last-child {
+  margin-right: 0;
+}
+
+p.blog-meta a i {
+  margin-right: 5px;
+}
+
 p.excerpt {
   line-height: 1.8;
   color: #555;

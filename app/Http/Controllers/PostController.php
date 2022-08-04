@@ -65,6 +65,44 @@ class PostController extends Controller
         return redirect()->route('dashboard.post.list')->with('message', 'Sửa bài viết thành công!');
     }
 
+    public function getNewestBlog()
+    {
+        $posts = Post::where('status', 1)->orderBy('created_at', 'desc')->get();
+        $posts->load('categoryPost', 'user');
+        return view('post.blog', compact('posts'));
+    }
+
+    public function getCategoryBlog($categoryPostId, $categoryPostSlug) {
+        $category_post = CategoryPost::find($categoryPostId);
+        if ($categoryPostSlug != $category_post->slug) {
+            return redirect()->route('blog')->with('message', 'Không tìm thấy danh mục bài viết!');
+        }
+        $posts_by_category = Post::where('category_post_id', $categoryPostId)->orderBy('created_at', 'desc')->get();
+        $posts_by_category->load('categoryPost', 'user');
+        return view('post.blog-category', compact('category_post', 'posts_by_category'));
+    }
+
+    public function detailBlog($categoryPostId, $categoryPostSlug, $postId, $postSlug)
+    {
+        $category_post = CategoryPost::find($categoryPostId);
+        $post = Post::find($postId);
+        if ($categoryPostSlug != $category_post->slug) {
+            return redirect()->route('blog')->with('message', 'Không tìm thấy danh mục bài viết!');
+        }
+        if ($postSlug != $post->slug) {
+            return redirect()->route('blog')->with('message', 'Không tìm thấy bài viết!');
+        }
+        if ($categoryPostId != $post->category_post_id) {
+            return redirect()->route('blog')->with('message', 'Không tìm thấy bài viết nào thuộc danh mục!');
+        }
+        if (Auth::check()) {
+            $post->view++;
+            $post->save();
+        }
+        $post->load('categoryPost', 'user');
+        return view('post.detail-blog', compact('category_post', 'post'));
+    }
+
     public function createSlugName($alias_url)
     {
         $search = [

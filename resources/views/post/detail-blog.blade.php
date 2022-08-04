@@ -9,8 +9,12 @@
                             <h2>{{ $post->title }}</h2>
                             <p class="blog-meta">
                                 <span class="author"><i class="fas fa-user"></i>{{ $post->user->name }}</span>
-                                <span class="category"><i
-                                        class="fas fa-address-book"></i>{{ $post->categoryPost->name }}</span>
+                                <a class="category"
+                                    href="{{ route('blog-category', [
+                                        'categoryPostId' => $post->categoryPost->id,
+                                        'categoryPostSlug' => $post->categoryPost->slug,
+                                    ]) }}"><i
+                                        class="fas fa-address-book"></i>{{ $post->categoryPost->name }}</a>
                                 <span class="date"><i class="fas fa-calendar"></i>
                                     {{ date('H:i d/m/Y', strtotime($post->created_at)) }}</span>
                             </p>
