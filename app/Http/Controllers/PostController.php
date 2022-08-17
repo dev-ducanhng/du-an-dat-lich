@@ -13,7 +13,7 @@ class PostController extends Controller
 {
     public function getListPost()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(10);
         $posts->load('categoryPost', 'user');
         return view('post.list', compact('posts'));
     }

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class DiscountController extends Controller
 {
     public function getListDiscount() {
-        $discounts = Discount::all();
+        $discounts = Discount::paginate(10);
         return view('discount.list', compact('discounts'));
     }
 

@@ -32,7 +32,9 @@
                                     @foreach ($category_post as $key => $item)
                                         <tr>
                                             <td>
-                                                <p class="list-item-heading">{{ $key + 1 }}</p>
+                                                <p class="list-item-heading">
+                                                    {{ ($category_post->currentPage() - 1) * $category_post->perPage() + $loop->iteration }}
+                                                </p>
                                             </td>
                                             <td>
                                                 <p class="text-muted">{{ $item->name }}</p>
@@ -56,6 +58,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="mt-2">
+                {{ $category_post->links() }}
             </div>
         </div>
     </main>

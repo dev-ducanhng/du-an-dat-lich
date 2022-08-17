@@ -18,6 +18,7 @@
                             <table class="data-table data-tables-pagination responsive nowrap">
                                 <thead>
                                     <tr>
+                                        <th>STT</th>
                                         <th>Tên mã giảm giá</th>
                                         <th>Mã giảm giá</th>
                                         <th>Phần trăm giảm giá</th>
@@ -30,6 +31,11 @@
                                 <tbody>
                                     @foreach ($discounts as $item)
                                         <tr>
+                                            <td>
+                                                <p class="list-item-heading">
+                                                    {{ ($discounts->currentPage() - 1) * $discounts->perPage() + $loop->iteration }}
+                                                </p>
+                                            </td>
                                             <td>
                                                 <p class="list-item-heading">{{ $item->name }}</p>
                                             </td>
@@ -65,6 +71,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="mt-2">
+                {{ $discounts->links() }}
             </div>
         </div>
     </main>
