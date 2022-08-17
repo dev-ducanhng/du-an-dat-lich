@@ -3,17 +3,17 @@
         <div class="scroll">
             <ul class="list-unstyled">
                 <li>
-                    <a href="{{route('dashboard.index')}}">
+                    <a href="{{ route('dashboard.index') }}">
                         <i class="iconsminds-statistic"></i> Thống kê
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('service.index')}}">
+                    <a href="{{ route('service.index') }}">
                         <i class="iconsminds-air-balloon-1"></i> Dịch vụ
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('dashboard.booking.list')}}">
+                    <a href="{{ route('dashboard.booking.list') }}">
                         <i class="iconsminds-calendar-4"></i> Đặt lịch
                     </a>
                 </li>
@@ -33,7 +33,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('dashboard.feedback.index')}}">
+                    <a href="{{ route('dashboard.feedback.index') }}">
                         <i class="iconsminds-speach-bubble-3"></i> Phản hồi
                     </a>
                 </li>
@@ -44,29 +44,38 @@
     <div class="sub-menu">
         <div class="scroll">
             <ul class="list-unstyled" data-link="user">
-                <li class="active">
-                    <a href="{{route('dashboard.user.list')}}">
-                        <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Quản lý nhân viên</span>
+                <li>
+                    <a href="{{ route('dashboard.user.list') }}">
+                        <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Quản lý nhân
+                            viên</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('dashboard.role.list')}}">
+                    <a href="{{ route('dashboard.role.list') }}">
                         <i class="iconsminds-key"></i> <span class="d-inline-block">Quản lý truy cập</span>
                     </a>
                 </li>
             </ul>
 
             <ul class="list-unstyled" data-link="discount">
-                <li class="active">
-                    <a href="{{route('dashboard.discount.list')}}">
-                        <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Quản lý mã giảm giá</span>
+                <li>
+                    <a href="{{ route('dashboard.discount.list') }}">
+                        <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Quản lý mã giảm
+                            giá</span>
                     </a>
                 </li>
             </ul>
             <ul class="list-unstyled" data-link="post">
-                <li class="active">
-                    <a href="{{route('dashboard.post.list')}}">
-                        <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Danh sách bài viết</span>
+                <li>
+                    <a href="{{ route('dashboard.category-post.list') }}">
+                        <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Danh mục bài
+                            viết</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.post.list') }}">
+                        <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Danh sách bài
+                            viết</span>
                     </a>
                 </li>
             </ul>

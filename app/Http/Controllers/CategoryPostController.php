@@ -10,8 +10,9 @@ class CategoryPostController extends Controller
 {
     public function getListCategoryPost()
     {
-        $category_post = CategoryPost::all();
+        $category_post = CategoryPost::paginate(10);
         $category_post->load('posts');
+        // dd($category_post);
         return view('category-post.list', compact('category_post'));
     }
 
