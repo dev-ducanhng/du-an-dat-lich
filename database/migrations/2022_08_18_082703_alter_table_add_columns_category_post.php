@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryPostTable extends Migration
+class AlterTableAddColumnsCategoryPost extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateCategoryPostTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_post', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 50)->comment('Tên danh mục bài viết');
-            $table->timestamps();
+        Schema::table('category_post', function (Blueprint $table) {
+            $table->string('slug', 50)->comment('Slug của danh mục');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateCategoryPostTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_post');
+        Schema::table('category_post', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
     }
 }
