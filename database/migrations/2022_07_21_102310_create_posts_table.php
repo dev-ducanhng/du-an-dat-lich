@@ -16,7 +16,6 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255)->comment('Tiêu đề bài viết');
-            $table->string('slug', 50)->comment('Slug của bài viết');
             $table->string('image')->nullable()->comment('Đường dẫn ảnh');
             $table->text('content')->comment('Nội dung bài viết');
 
@@ -31,7 +30,6 @@ class CreatePostsTable extends Migration
                 ->onDelete('cascade');
 
             $table->tinyInteger('status')->default(0)->comment('Trạng thái bài viết: 0 là ẩn/1 là hiện');
-            $table->integer('view')->default(0)->comment('Số lượt xem bài viết');
             $table->timestamps();
         });
     }
