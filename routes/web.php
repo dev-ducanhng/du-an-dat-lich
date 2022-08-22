@@ -11,6 +11,9 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\RatingController;
+use App\Models\Rating;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -124,6 +127,11 @@ Route::middleware('checkLogin')->group(function () {
             Route::post('add-post', [PostController::class, 'postAddPost']);
             Route::get('edit-post/{postId}-{postSlug}', [PostController::class, 'editPost'])->name('edit');
             Route::post('edit-post/{postId}-{postSlug}', [PostController::class, 'postEditPost']);
+        });
+
+        Route::prefix('rating')->name('rating.')->group(function(){
+            Route::get('/list-rating', [RatingController::class, 'listRating'])->name('list');
+            Route::get('/{detail_rating_id}', [RatingController::class, 'ratingStylist'])->name('rating');
         });
     });
 
