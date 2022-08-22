@@ -132,6 +132,7 @@ Route::middleware('checkLogin')->group(function () {
         Route::prefix('rating')->name('rating.')->group(function(){
             Route::get('/list-rating', [RatingController::class, 'listRating'])->name('list');
             Route::get('/{detail_rating_id}', [RatingController::class, 'ratingStylist'])->name('rating');
+            Route::post('/{detail_rating_id}', [RatingController::class, 'saveRating']);
         });
     });
 

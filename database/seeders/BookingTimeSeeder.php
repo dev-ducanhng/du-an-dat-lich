@@ -43,6 +43,5 @@ class BookingTimeSeeder extends Seeder
             ];
             DB::table('booking_time')->insert($time);
         }
-
     }
 }

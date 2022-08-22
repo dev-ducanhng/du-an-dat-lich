@@ -5,23 +5,22 @@
             <th>STT</th>
             <th>Tên nhân viên</th>
             <th>Điểm</th>
-            <th>Nội dung</th>
-            <th>Đã đánh giá</th>
-            <th>Có thể sửa</th>
+            <th>Bạn đã đánh giá chưa?</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($all_ratings as $key => $item)
+        @foreach ($all_stylist as $item)
             <tr>
-                <td>{{ ++$key }}</td>
-                <td>{{ $array_slylist_name[$item->stylist_id] }}</td>
-                <td></td>
-                <td></td>
-                <td>{{ $item->is_rating == 0 ? 'Chưa đánh giá' : 'Đã đánh giá' }}</td>
-                <td>{{ $item->can_edit == 0 ? 'Chưa đánh giá' : 'Đã đánh giá' }}</td>
+                <td>{{ $item['stt'] }}</td>
+                <td>{{ $item['name'] }}</td>
+                <td>{{ $item['rating'] }}</td>
+                <td>{{ $item['is_rating'] == 0 ? 'Bạn chưa đánh giá' : 'Bạn đã đánh giá' }}</td>
                 <td>
-                    <a href="{{ route('dashboard.rating.rating', ['detail_rating_id' => $item->id]) }}">Đánh giá</a>
+                    @if ($item['is_rating'] == 0)
+                        <a
+                            href="{{ route('dashboard.rating.rating', ['detail_rating_id' => $item['detail_rating_id']]) }}">Sửa</a>
+                    @endif
                 </td>
             </tr>
         @endforeach
