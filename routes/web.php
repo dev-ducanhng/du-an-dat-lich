@@ -11,6 +11,9 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\RatingController;
+use App\Models\Rating;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +40,7 @@ Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
 Route::get('/history', [\App\Http\Controllers\HistoryController::class, 'history'])->name('history');
 
-Route::post('lien-he',[FeedbackController::class,'sendFeedback']);
+Route::post('lien-he', [FeedbackController::class, 'sendFeedback']);
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
@@ -118,12 +121,18 @@ Route::middleware('checkLogin')->group(function () {
             Route::post('edit-category-post/{categoryPostId}', [\App\Http\Controllers\CategoryPostController::class, 'postEditCategoryPost']);
         });
 
-        Route::prefix('post-management')->name('post.')->group(function() {
+        Route::prefix('post-management')->name('post.')->group(function () {
             Route::get('list-post', [PostController::class, 'getListPost'])->name('list');
             Route::get('add-post', [PostController::class, 'addPost'])->name('create');
             Route::post('add-post', [PostController::class, 'postAddPost']);
             Route::get('edit-post/{postId}-{postSlug}', [PostController::class, 'editPost'])->name('edit');
             Route::post('edit-post/{postId}-{postSlug}', [PostController::class, 'postEditPost']);
+        });
+
+        Route::prefix('rating')->name('rating.')->group(function () {
+            Route::get('/list-rating', [RatingController::class, 'listRating'])->name('list');
+            Route::get('/{detail_rating_id}', [RatingController::class, 'ratingStylist'])->name('rating');
+            Route::post('/{detail_rating_id}', [RatingController::class, 'saveRating']);
         });
     });
 

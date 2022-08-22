@@ -229,6 +229,7 @@
                     }
                 },
                 eventClick: function (event, element) {
+                    console.log(event['status']);
                     element.preventDefault();
                     var edate = moment(event.start).format("MM-DD-YYYY");
                     var $edetails = $("#event-details");
@@ -248,7 +249,11 @@
                     $("#show_payment").html(event.payment);
                     $("#show_status").html(event.status);
                     $("#show_number").html(event.number);
-                    $("#updateStatus").html('<a class="btn btn-update">Cập nhật trạng thái</a>');
+                    if (event['status'] == 'Đã làm cho khách') {
+                        $("#updateStatus").html('');
+                    } else {
+                        $("#updateStatus").html('<a class="btn btn-update">Cập nhật trạng thái</a>');
+                    }
                     $('#statusSelect').hide();
                     $(".btn-update").click(() => {
                         $('#statusSelect').show()
