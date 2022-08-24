@@ -219,7 +219,8 @@ class HomeController extends Controller
         ])->where('id', $bookingId)->first();
         if ($request->input('vnp_ResponseCode') == "00") {
             $bookingDetail->update([
-                'payment' => Booking::PAYMENT_WITH_CARD,
+                'payment'        => Booking::PAYMENT_WITH_CARD,
+                'payment_status' => Booking::PAYMENT_SUCCESS,
             ]);
         }
         $bookingDetail->update([

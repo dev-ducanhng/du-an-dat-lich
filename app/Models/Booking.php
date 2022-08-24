@@ -23,6 +23,8 @@ class Booking extends Model
     const PAYMENT_WITH_CASH = 0;
     const BOOKING_SUCCESS = 1;
     const BOOKING_FAILED = 0;
+    const PAYMENT_SUCCESS = 1;
+    const PAYMENT_YET = 0;
 
     protected $table = 'bookings';
     protected $guarded = ['id'];
@@ -64,6 +66,13 @@ class Booking extends Model
      * @return HasOne
      */
     public function stylist(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'stylist');
+    }
+    /**
+     * @return HasOne
+     */
+    public function stylistInfo(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'stylist');
     }

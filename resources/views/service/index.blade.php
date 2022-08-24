@@ -5,14 +5,14 @@
     Tên dịch vụ: <input type="text" name="name"><br>
     <label for="">Sắp xếp theo giá</label>
     <select name="order_by">
-        
+
             <option value="asc">Tăng dần</option>
             <option value="desc">Giảm dần</option>
         </select>
         <br>
-   
+
      <button type="submit">TÌM KIẾM</button>
-  
+
  </form>
 
   <main>
@@ -20,11 +20,11 @@
       <div class="row">
         <div class="col-12">
             <div class="mb-3">
-                
+
                     <div class="text-zero top-right-button-container">
-                        <a href="{{route('service.add')}}"  class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm dịch vụ</a>
+                        <a href="{{route('dashboard.service.add')}}"  class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm dịch vụ</a>
                     </div>
-              
+
             </div>
 
             <div class="mb-2">
@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-       
+
     </div>
     <div class="col-lg-12 col-md-12 mb-4">
       <div class="card">
@@ -61,11 +61,11 @@
                           <th scope="col">Giá tiền</th>
                           <th scope="col">Giảm giá</th>
                           <th scope="col">Trạng thái</th>
-                          <th><a class="btn-btn" href="{{ route('service.add') }}">Thêm mới</a></th>
+                          <th><a class="btn-btn" href="{{ route('dashboard.service.add') }}">Thêm mới</a></th>
                       </tr>
                   </thead>
                   <tbody>
-                    
+
                     @foreach ($models as $item)
                     <tr>
                       <th scope="row">{{$item->id}}</th>
@@ -74,7 +74,7 @@
                       <td>{{$item->price}}</td>
                       <td>{{$item->discount}}</td>
                       <td>{{$item->status}}</td>
-                      <td><a href="{{route('service.edit', ['id' => $item->id])}}">Sửa</a></td>
+                      <td><a href="{{route('dashboard.service.edit', ['id' => $item->id])}}">Sửa</a></td>
                   </tr>
                     @endforeach
                   </tbody>
@@ -83,7 +83,7 @@
       </div>
   </div>
   <div class="mt-2">
-    
+
 </div>
 </main>
   @endsection

@@ -12,7 +12,7 @@
             <th>Trạng thái</th>
             <th>Ngày tạo tài khoản</th>
             <th>
-                <a href="{{ route('staff.add') }}">Thêm mới</a>
+                <a href="{{ route('dashboard.staff.add') }}">Thêm mới</a>
             </th>
         </tr>
     </thead>
@@ -31,8 +31,8 @@
                 <td>{{ $item->status == 1 ? 'Đang hoạt động' : 'Không hoạt động' }}</td>
                 <td>{{ date('d/m/Y H:i', strtotime($item->created_at)) }}</td>
                 <td>
-                    <a href="{{ route('staff.edit', ['id' => $item->id]) }}">Sửa</a>
-                    <a href="{{ route('staff.remove', ['id' => $item->id]) }}">Xóa</a>
+                    <a href="{{ route('dashboard.staff.edit', ['id' => $item->id]) }}">Sửa</a>
+                    <a href="{{ route('dashboard.staff.remove', ['id' => $item->id]) }}">Xóa</a>
                 </td>
             </tr>
         @endforeach

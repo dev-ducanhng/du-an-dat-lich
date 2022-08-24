@@ -54,25 +54,9 @@ Route::post('/register', [CustomerController::class, 'saveRegister']);
 Route::get('/change-password', [PasswordController::class, 'formChange'])->name('changePassword');
 Route::post('/change-password', [PasswordController::class, 'postChange']);
 
-Route::prefix('service')->name('service.')->group(function () {
-    Route::get('/', [ServiceController::class, 'getService'])->name('index');
-    Route::get('/add', [ServiceController::class, 'addForm'])->name('add');
-    Route::post('/add', [ServiceController::class, 'saveAdd']);
-    Route::get('/edit/{id}', [ServiceController::class, 'editForm'])->name('edit');
-    Route::post('/edit/{id}', [ServiceController::class, 'saveEdit']);
-});
-
-Route::prefix('staff')->name('staff.')->group(function () {
-    Route::get('/', [StaffController::class, 'getService'])->name('index');
-    Route::get('/add', [StaffController::class, 'addForm'])->name('add');
-    Route::post('/add', [StaffController::class, 'saveAdd']);
-    Route::get('/edit/{id}', [StaffController::class, 'editForm'])->name('edit');
-    Route::post('/edit/{id}', [StaffController::class, 'saveEdit']);
-    Route::get('/remove/{id}', [StaffController::class, 'remove'])->name('remove');
-});
 
 Route::middleware('checkLogin')->group(function () {
-    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::prefix('dashboard')->middleware('checkAdmin')->name('dashboard.')->group(function () {
         Route::get('/', [DashboardController::class, 'dashboard'])->name('index');
         Route::prefix('user-management')->name('user.')->group(function () {
             Route::get('list-user', [\App\Http\Controllers\UserController::class, 'getListUser'])->name('list');
@@ -110,6 +94,8 @@ Route::middleware('checkLogin')->group(function () {
                 Route::get('list-booking', [\App\Http\Controllers\BookingController::class, 'getAllBooking'])->name('list');
                 Route::get('all-list-booking', [\App\Http\Controllers\BookingController::class, 'getBookingListAjax'])->name('getAllBooking');
                 Route::post('update-booking', [\App\Http\Controllers\BookingController::class, 'updateStatus'])->name('updateBooking');
+                Route::get('booking', [\App\Http\Controllers\BookingController::class, 'getListBooking'])->name('index');
+                Route::post('update', [\App\Http\Controllers\BookingController::class, 'updateBooking'])->name('update');
             });
         });
 
@@ -133,6 +119,22 @@ Route::middleware('checkLogin')->group(function () {
             Route::get('/list-rating', [RatingController::class, 'listRating'])->name('list');
             Route::get('/{detail_rating_id}', [RatingController::class, 'ratingStylist'])->name('rating');
             Route::post('/{detail_rating_id}', [RatingController::class, 'saveRating']);
+        });
+        Route::prefix('service')->name('service.')->group(function () {
+            Route::get('/', [ServiceController::class, 'getService'])->name('index');
+            Route::get('/add', [ServiceController::class, 'addForm'])->name('add');
+            Route::post('/add', [ServiceController::class, 'saveAdd']);
+            Route::get('/edit/{id}', [ServiceController::class, 'editForm'])->name('edit');
+            Route::post('/edit/{id}', [ServiceController::class, 'saveEdit']);
+        });
+
+        Route::prefix('staff')->name('staff.')->group(function () {
+            Route::get('/', [StaffController::class, 'getService'])->name('index');
+            Route::get('/add', [StaffController::class, 'addForm'])->name('add');
+            Route::post('/add', [StaffController::class, 'saveAdd']);
+            Route::get('/edit/{id}', [StaffController::class, 'editForm'])->name('edit');
+            Route::post('/edit/{id}', [StaffController::class, 'saveEdit']);
+            Route::get('/remove/{id}', [StaffController::class, 'remove'])->name('remove');
         });
     });
 

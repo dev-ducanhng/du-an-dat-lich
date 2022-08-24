@@ -25,7 +25,7 @@
                                     <p class="text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
-                               
+
                                 <div class="form-group position-relative error-l-75">
                                     <input type="number" class="form-control" name="discount" placeholder="Nhập giảm giá ..."
                                            value="{{old('discount')}}">
@@ -35,13 +35,13 @@
                                 </div>
                                 <div class="form-group has-float-label w-100">
                                     <select class="form-control select2-single" name="status">
-                                        <option value="1" @if(request()->old('status') == 1) selected @endif>Kíc hoạt</option>
-                                        <option value="0" @if(request()->old('status') == 0) selected @endif>Không kíc hoạt</option>
+                                        <option value="1" @if(request()->old('status') == 1) selected @endif>Kích hoạt</option>
+                                        <option value="0" @if(request()->old('status') == 0) selected @endif>Không kích hoạt</option>
                                     </select>
                                     <span>Trạng thái</span>
                                 </div>
-                               
-                                
+
+
                                 <input type="file"  name="image" >
                                 @error('image')
                                 <p class="text-danger mt-2">{{ $message }}</p>
