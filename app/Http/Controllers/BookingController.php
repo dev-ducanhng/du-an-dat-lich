@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\DetailRating;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -70,10 +71,20 @@ class BookingController extends Controller
      */
     public function updateStatus(Request $request): JsonResponse
     {
-
         Booking::where('id', $request->id)->update([
             'status' => $request->status,
         ]);
+
+        $booking = Booking::where('id', $request->id)->first();
+        if ($request->status == 0) {
+            $model_detail_rating = new DetailRating();
+            $model_detail_rating->stylist_id = $booking->stylist;
+            $model_detail_rating->member_id = $booking->user_id;
+            $model_detail_rating->is_rating = DetailRating::RATED_YET;
+            $model_detail_rating->can_edit = DetailRating::CANNOT_EDIT;
+
+            $model_detail_rating->save();
+        }
 
         return response()->json($request);
     }

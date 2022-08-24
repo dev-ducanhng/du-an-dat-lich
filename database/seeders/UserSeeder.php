@@ -61,6 +61,28 @@ class UserSeeder extends Seeder
                 'status' => User::ACTIVE,
                 'role_id' => User::STYLIST_ROLE,
             ],
+            [
+                'name' => 'Phạm Thị Thanh',
+                'email' => 'phamthithanh@gmail.com',
+                'phone' => '0983333333',
+                'password' => Hash::make('12345678'),
+                'gender' => User::FEMALE,
+                'dob' => '2000-12-11',
+                'avatar' => 'users/user-default-avatar.jpg',
+                'status' => User::ACTIVE,
+                'role_id' => User::MEMBER_ROLE,
+            ],
+            [
+                'name' => 'Nguyễn Anh Tuấn',
+                'email' => 'nguyenanhtuan@gmail.com',
+                'phone' => '0984444444',
+                'password' => Hash::make('12345678'),
+                'gender' => User::MALE,
+                'dob' => '1999-12-11',
+                'avatar' => 'users/user-default-avatar.jpg',
+                'status' => User::ACTIVE,
+                'role_id' => User::MEMBER_ROLE,
+            ],
         ];
 
         DB::table('users')->insert($users_default);
