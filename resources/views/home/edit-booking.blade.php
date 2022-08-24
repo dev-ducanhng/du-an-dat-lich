@@ -135,29 +135,6 @@
                     <p class="text-danger py-2 show-error-time"></p>
 
                 </div>
-                <div class="form-group p-3">
-                    <div class="check">
-                        <div class="check__item">
-                            <label>
-                                <input type="checkbox" class="default__check switchbox form-control is-multiple"
-                                       name="multiple_booking"
-                                       @if(request()->old('multiple_booking')) checked
-                                       @elseif($bookingDetail->multiple_booking) checked @endif>
-                                <span class="custom__check"></span>
-                                Bạn đặt cho nhiều người?
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group col-12 ">
-                    <input type="number" min="2" max="5" class="form-control w-100 select-number"
-                           value="{{request()->old('amount_number_booking') ?? $bookingDetail->amount_number_booking}}"
-                           name="amount_number_booking"
-                           placeholder="Nhập số lượng người bạn muốn đặt, chỉ được đặt tối đa 5 người" hidden>
-                    @error('amount_number_booking')
-                    <p class="text-danger py-2">{{$message}}</p>
-                    @enderror
-                </div>
                 <div class="form-group col-12">
                     <input type="text" class="form-control" placeholder="Ghi chú" name="note"
                            value="{{request()->old('note') ?? $bookingDetail->note}}">
@@ -178,6 +155,7 @@
     </div>
 @endsection
 @push('javascript')
+    <script src="https://cdn.jsdelivr.net/momentjs/2.13.0/moment.min.js"></script>
     <script>
         let stylists = document.querySelectorAll('.select-stylist');
         let stylistSelected = document.querySelector('.span-value');
@@ -185,8 +163,6 @@
         let selectStylist = document.querySelector('.option-stylist')
         let selectStylistButton = document.querySelector('#options-view-button')
         let datePicker = document.querySelector('.datepicker')
-        let isMultiple = document.querySelector('.is-multiple')
-        let numberBooking = document.querySelector('.select-number')
         let oldInput = "{{request()->old('booking_time') ?? $bookingDetail->bookingDate->bookingTime[0]->id}}"
         let inputDate = "{{request()->old('booking_date') ?? $bookingDetail->bookingDate->date}}"
         if (inputDate === '') {
@@ -207,20 +183,6 @@
         })
         selectStylistButton.addEventListener('click', () => {
             selectStylist.hidden = false
-        })
-        if (isMultiple.checked == true) {
-            numberBooking.hidden = false
-            isMultiple.value = 1
-        } else {
-            numberBooking.hidden = true
-        }
-        isMultiple.addEventListener('change', () => {
-            if (isMultiple.checked == true) {
-                numberBooking.hidden = false
-                isMultiple.value = 1
-            } else {
-                numberBooking.hidden = true
-            }
         })
 
         let datepicker = MCDatepicker.create({
@@ -243,12 +205,18 @@
         let checked = ''
         let unavailable = ''
         let disable = ''
+        let isAfterClass = ''
+        let today = moment().format()
+        let compareDay = moment(today, 'YYYY-MM-DD').diff(moment(datePicker.value, 'YYYY-MM-DD'))
+        let currentTime = moment().format('h:mm')
         $.ajax({
             type: 'GET', //THIS NEEDS TO BE GET
             url: '{{url('bookingDate')}}/' + datePicker.value,
             success: function (data) {
                 let timeRender = ''
                 data.forEach(item => {
+                    let isAfter = moment(currentTime, 'h:mm').isAfter(moment(item.time, 'h:mm'))
+
                     if (item.status == 1) {
                         string = 'class="disabled-selectime" '
                         unavailable = "- Hết chỗ"
@@ -263,7 +231,14 @@
                     } else {
                         checked = ''
                     }
-                    timeRender += `<label class="col-3">
+                    if (isAfter == true && (compareDay == 0)) {
+                        disable = 'disabled'
+                        isAfterClass = 'is-after'
+                    } else {
+                        disable = ''
+                        isAfterClass = ''
+                    }
+                    timeRender += `<label class="col-3 ${isAfterClass}">
                              <input type="radio" name="booking_time" value="${item.id}" ${checked} ${disable}/>
                                 <span ${string} >${item.time} ${unavailable}</span>
                            </label>`
@@ -275,12 +250,14 @@
             }
         });
         datepicker.onSelect(() => {
+            let compareDiff = moment(today, 'YYYY-MM-DD').diff(moment(datePicker.value, 'YYYY-MM-DD'))
             $.ajax({
                 type: 'GET', //THIS NEEDS TO BE GET
                 url: '{{url('bookingDate')}}/' + datePicker.value,
                 success: function (data) {
                     let timeRender = ''
                     data.forEach(item => {
+                        let isAfterTime = moment(currentTime, 'h:mm').isAfter(moment(item.time, 'h:mm'))
                         if (item.status == 1) {
                             string = 'class="disabled-selectime" disabled'
                             unavailable = "- Hết chỗ"
@@ -295,7 +272,14 @@
                         } else {
                             checked = ''
                         }
-                        timeRender += `<label class="col-3">
+                        if (isAfterTime == true && compareDiff == 0) {
+                            disable = 'disabled'
+                            isAfterClass = 'is-after'
+                        } else {
+                            disable = ''
+                            isAfterClass = ''
+                        }
+                        timeRender += `<label class="col-3 ${isAfterClass}">
                              <input type="radio" name="booking_time" value="${item.id}" ${checked} ${disable}/>
                                 <span ${string}>${item.time} ${unavailable}</span></label>`
                     })
@@ -612,5 +596,13 @@
         }
 
 
+        .is-after {
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        .is-after span {
+            background: rgba(255, 111, 8, 0.61) !important;
+        }
     </style>
 @endpush

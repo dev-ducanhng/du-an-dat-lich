@@ -44,117 +44,102 @@
                     <p class="text-danger py-2 show-error-name"></p>
 
                 </div>
-                <div class="form-field col-12 form-group">
-                    <input id="datepicker" type="text" name="booking_date" value="{{request()->old('booking_date')}}"
-                           class="form-control datepicker"
-                           placeholder="Chọn ngày"/>
-                    @error('booking_date')
-                    <p class="text-danger py-2">{{$message}}</p>
-                    @enderror
-                    <p class="text-danger py-2 show-error-date"></p>
+                <div id="multiple-booking">
+                    <div class="multiple">
+                        <div class="row px-3">
+                            <div class="form-field col-12 form-group">
+                                <input id="datepicker" type="text" name="booking_date"
+                                       value="{{request()->old('booking_date')}}"
+                                       class="form-control datepicker"
+                                       placeholder="Chọn ngày"/>
+                                @error('booking_date')
+                                <p class="text-danger py-2">{{$message}}</p>
+                                @enderror
+                                <p class="text-danger py-2 show-error-date"></p>
 
-                </div>
-
-                <div class="form-group col-12 ">
-                    <div style="border: 1px solid #F28123;" class="text-center">
-                        <label for="exampleFormControlSelect1" class="w-100 text-white"
-                               style="background-color: #F28123; padding: 10px 0; font-size: 16px">Chọn dịch vụ</label>
-                        <div class="checkboxes flex" style="padding: 10px 0">
-                            @foreach($services as $service)
-                                <label class="checkbox">
-                                    <input type="checkbox" name="service[]" value="{{$service->id}}"
-                                           @if(request()->old('service') && in_array($service->id, request()->old('service')) )
-                                           checked
-                                        @endif
-                                    /><span
-                                        class="indicator"
-                                    ></span>
-                                    <b>{{$service->name}}</b>
-                                    - {{number_format($service->price -  $service->price *  $service->discount / 100, 0, '', ',') . 'VNĐ'}}
-                                </label>
-                            @endforeach
+                            </div>
                         </div>
-                    </div>
-                    @error('service')
-                    <p class="text-danger py-2">{{$message}}</p>
-                    @enderror
-                    <p class="text-danger py-2 show-error-service"></p>
 
-                </div>
-                {{--  dịch vụ--}}
-                <div class="form-group col-12 mt-2">
-                    <div class="position-relative mb-2">
-                        <div id="app-cover">
-                            <div id="select-box">
-                                <input type="checkbox" id="options-view-button">
-                                <div id="select-button" class="brd">
-                                    <div id="selected-value">
-                                        <span class="span-value">Chọn stylist</span>
-                                    </div>
-                                    <div id="chevrons">
-                                        <i class="fas fa-chevron-up"></i>
-                                        <i class="fas fa-chevron-down"></i>
-                                    </div>
-                                </div>
-                                <div id="options" class="option-stylist">
-                                    @foreach($stylists as $stylist)
-                                        <div class="option">
-                                            <input class="select-stylist" type="radio" value="{{$stylist->id}}"
-                                                   name="stylist"
-                                                   @if(request()->old('stylist') == $stylist->id) checked @endif>
-                                            <i class="fab fas fa-user-tie"></i>
-                                            <span class="label">{{$stylist->name}}</span>
-                                        </div>
+                        <div class="form-group col-12 ">
+                            <div style="border: 1px solid #F28123;" class="text-center">
+                                <label for="exampleFormControlSelect1" class="w-100 text-white"
+                                       style="background-color: #F28123; padding: 10px 0; font-size: 16px">Chọn dịch
+                                    vụ</label>
+                                <div class="checkboxes flex" style="padding: 10px 0">
+                                    @foreach($services as $service)
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="service[]" value="{{$service->id}}"
+                                                   @if(request()->old('service') && in_array($service->id, request()->old('service')) )
+                                                   checked
+                                                @endif
+                                            /><span
+                                                class="indicator"
+                                            ></span>
+                                            <b>{{$service->name}}</b>
+                                            - {{number_format($service->price -  $service->price *  $service->discount / 100, 0, '', ',') . 'VNĐ'}}
+                                        </label>
                                     @endforeach
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    @error('stylist')
-                    <p class="text-danger py-2">{{$message}}</p>
-                    @enderror
-                    <p class="text-danger py-2 show-error-stylist"></p>
+                            @error('service')
+                            <p class="text-danger py-2">{{$message}}</p>
+                            @enderror
+                            <p class="text-danger py-2 show-error-service"></p>
 
-                </div>
-                <div class="form-group p-3">
-                    <div class="select-time form-group" style="border: 1px solid #F28123">
-                        <p class="text-center text-white"
-                           style="background-color: #F28123; padding: 10px 0; font-size: 16px">
-                            Chọn giờ
-                        </p>
-                        <div class="row p-2" id="timeBooking">
                         </div>
-                    </div>
-                    @error('booking_time')
-                    <p class="text-danger py-2">{{$message}}</p>
-                    @enderror
-                    <p class="text-danger py-2 show-error-time"></p>
+                        {{--  dịch vụ--}}
+                        <div class="form-group col-12 mt-2">
+                            <div class="position-relative mb-2">
+                                <div id="app-cover">
+                                    <div id="select-box">
+                                        <input type="checkbox" id="options-view-button">
+                                        <div id="select-button" class="brd">
+                                            <div id="selected-value">
+                                                <span class="span-value">Chọn stylist</span>
+                                            </div>
+                                            <div id="chevrons">
+                                                <i class="fas fa-chevron-up"></i>
+                                                <i class="fas fa-chevron-down"></i>
+                                            </div>
+                                        </div>
+                                        <div id="options" class="option-stylist">
+                                            @foreach($stylists as $stylist)
+                                                <div class="option">
+                                                    <input class="select-stylist" type="radio" value="{{$stylist->id}}"
+                                                           name="stylist"
+                                                           @if(request()->old('stylist') == $stylist->id) checked @endif>
+                                                    <i class="fab fas fa-user-tie"></i>
+                                                    <span class="label">{{$stylist->name}}</span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @error('stylist')
+                            <p class="text-danger py-2">{{$message}}</p>
+                            @enderror
+                            <p class="text-danger py-2 show-error-stylist"></p>
 
-                </div>
-                <div class="form-group p-3">
-                    <div class="check">
-                        <div class="check__item">
-                            <label>
-                                <input type="checkbox" class="default__check switchbox form-control is-multiple"
-                                       name="multiple_booking"
-                                       @if(request()->old('multiple_booking')) checked @endif>
-                                <span class="custom__check"></span>
-                                Bạn đặt cho nhiều người?
-                            </label>
+                        </div>
+                        <div class="form-group p-3">
+                            <div class="select-time form-group" style="border: 1px solid #F28123">
+                                <p class="text-center text-white"
+                                   style="background-color: #F28123; padding: 10px 0; font-size: 16px">
+                                    Chọn giờ
+                                </p>
+                                <div class="row p-2" id="timeBooking">
+                                </div>
+                            </div>
+                            @error('booking_time')
+                            <p class="text-danger py-2">{{$message}}</p>
+                            @enderror
+                            <p class="text-danger py-2 show-error-time"></p>
+                        </div>
+                        <div class="form-group col-12">
+                            <input type="text" class="form-control" placeholder="Ghi chú" name="note" value="">
                         </div>
                     </div>
-                </div>
-                <div class="form-group col-12 ">
-                    <input type="number" min="2" max="5" class="form-control w-100 select-number"
-                           value="{{request()->old('amount_number_booking')}}"
-                           name="amount_number_booking"
-                           placeholder="Nhập số lượng người bạn muốn đặt, chỉ được đặt tối đa 5 người" hidden>
-                    @error('amount_number_booking')
-                    <p class="text-danger py-2">{{$message}}</p>
-                    @enderror
-                </div>
-                <div class="form-group col-12">
-                    <input type="text" class="form-control" placeholder="Ghi chú" name="note" value="">
                 </div>
                 <div class="summit-button form-group col-4 mx-auto">
                     <button type="submit" data-toggle="modal" data-target="#exampleModal"
@@ -172,6 +157,7 @@
     </div>
 @endsection
 @push('javascript')
+    <script src="https://cdn.jsdelivr.net/momentjs/2.13.0/moment.min.js"></script>
     <script>
         let stylists = document.querySelectorAll('.select-stylist');
         let stylistSelected = document.querySelector('.span-value');
@@ -179,8 +165,6 @@
         let selectStylist = document.querySelector('.option-stylist')
         let selectStylistButton = document.querySelector('#options-view-button')
         let datePicker = document.querySelector('.datepicker')
-        let isMultiple = document.querySelector('.is-multiple')
-        let numberBooking = document.querySelector('.select-number')
         let oldInput = "{{request()->old('booking_time')}}"
         let inputDate = "{{request()->old('booking_date')}}"
         if (inputDate === '') {
@@ -201,14 +185,6 @@
         })
         selectStylistButton.addEventListener('click', () => {
             selectStylist.hidden = false
-        })
-        isMultiple.addEventListener('change', () => {
-            if (isMultiple.checked == true) {
-                numberBooking.hidden = false
-                isMultiple.value = 1
-            } else {
-                numberBooking.hidden = true
-            }
         })
 
         let datepicker = MCDatepicker.create({
@@ -233,12 +209,17 @@
         let checked = ''
         let unavailable = ''
         let disable = ''
+        let isAfterClass = ''
+        let today = moment().format()
+        let compareDay = moment(today, 'YYYY-MM-DD').diff(moment(datePicker.value, 'YYYY-MM-DD'))
+        let currentTime = moment().format('h:mm')
         $.ajax({
             type: 'GET', //THIS NEEDS TO BE GET
             url: '{{url('bookingDate')}}/' + datePicker.value,
             success: function (data) {
                 let timeRender = ''
                 data.forEach(item => {
+                    let isAfter = moment(currentTime, 'h:mm').isAfter(moment(item.time, 'h:mm'))
                     if (item.status == 1) {
                         string = 'class="disabled-selectime" '
                         unavailable = "- Hết chỗ"
@@ -253,7 +234,14 @@
                     } else {
                         checked = ''
                     }
-                    timeRender += `<label class="col-3">
+                    if (isAfter == true && (compareDay == 0)) {
+                        disable = 'disabled'
+                        isAfterClass = 'is-after'
+                    } else {
+                        disable = ''
+                        isAfterClass = ''
+                    }
+                    timeRender += `<label class="col-3 ${isAfterClass}">
                              <input type="radio" name="booking_time" value="${item.id}" ${checked} ${disable}/>
                                 <span ${string} >${item.time} ${unavailable}</span>
                            </label>`
@@ -265,12 +253,14 @@
             }
         });
         datepicker.onSelect(() => {
+            let compareDiff = moment(today, 'YYYY-MM-DD').diff(moment(datePicker.value, 'YYYY-MM-DD'))
             $.ajax({
                 type: 'GET', //THIS NEEDS TO BE GET
                 url: '{{url('bookingDate')}}/' + datePicker.value,
                 success: function (data) {
                     let timeRender = ''
                     data.forEach(item => {
+                        let isAfterTime = moment(currentTime, 'h:mm').isAfter(moment(item.time, 'h:mm'))
                         if (item.status == 1) {
                             string = 'class="disabled-selectime" disabled'
                             unavailable = "- Hết chỗ"
@@ -285,7 +275,14 @@
                         } else {
                             checked = ''
                         }
-                        timeRender += `<label class="col-3">
+                        if (isAfterTime == true && compareDiff == 0) {
+                            disable = 'disabled'
+                            isAfterClass = 'is-after'
+                        } else {
+                            disable = ''
+                            isAfterClass = ''
+                        }
+                        timeRender += `<label class="col-3 ${isAfterClass}">
                              <input type="radio" name="booking_time" value="${item.id}" ${checked} ${disable}/>
                                 <span ${string}>${item.time} ${unavailable}</span></label>`
                     })
@@ -601,6 +598,13 @@
             border-radius: 50rem;
         }
 
+        .is-after {
+            opacity: .5;
+            pointer-events: none;
+        }
 
+        .is-after span {
+            background: rgba(255, 111, 8, 0.61) !important;
+        }
     </style>
 @endpush

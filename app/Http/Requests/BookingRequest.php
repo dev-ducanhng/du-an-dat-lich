@@ -25,9 +25,10 @@ class BookingRequest extends FormRequest
      */
     public function rules(): array
     {
+        $regex = ' /(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b/';
         return [
             'customer_name'         => 'required|min:3|string',
-            'phone_number'          => ['required', 'regex:/(84|0[3|5|7|8|9])+([0-9]{8})\b/'],
+            'phone_number'          => ['required', 'regex:' . $regex],
             'booking_date'          => ['required', 'before_or_equal:' . now()->addDays(7)->toDateString(), 'after_or_equal:' . now()->toDateString(), 'date'],
             'service'               => 'required',
             'stylist'               => 'required',

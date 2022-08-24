@@ -29,9 +29,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-    'nexmo' => [
-        'key' => env('NEXMO_KEY'),
-        'secret' => env('NEXMO_SECRET'),
+    'twilio' => [
+        'key' => env('TWILIO_KEY'),
+        'secret' => env('TWILIO_SECRET'),
+        'phone_number' => env('TWILIO_FROM')
     ],
     'payment' => [
         'key' => env('VNPAY_KEY'),

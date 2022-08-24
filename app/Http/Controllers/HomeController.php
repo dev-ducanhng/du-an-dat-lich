@@ -48,8 +48,8 @@ class HomeController extends Controller
         $postss = [];
         foreach ($posts as $item) {
             $postss[] = [
-                'title' => $item['title'],
-                'content' => $item['content'],
+                'title'            => $item['title'],
+                'content'          => $item['content'],
                 'category_post_id' => $item['category_post_id'],
 
             ];
@@ -96,7 +96,7 @@ class HomeController extends Controller
             $discountCode = Discount::where('code_discount', 'LIKE', "%{$search}%")
                 ->whereDate('end_date', '>=', now()->toDateString())->first();
             if ($search) {
-                if (!$discountCode) {
+                if (! $discountCode) {
                     return redirect()->back()->with('error', 'Mã giảm giá không hợp lệ. Vui lòng nhập lại')->withInput();
                 }
             }
@@ -172,7 +172,7 @@ class HomeController extends Controller
             'bookingService' => function ($queryBookingService) {
                 $queryBookingService->with('service');
             },
-            'bookingDate'
+            'bookingDate',
         ])->where('id', $bookingID)->first();
         $stylish = User::where('id', $bookingDetail->stylist)->first();
         $dateBooking = get_weekday_name($bookingDetail->bookingDate->date);
@@ -188,7 +188,7 @@ class HomeController extends Controller
                 'bookingService' => function ($queryBookingService) {
                     $queryBookingService->with('service');
                 },
-                'bookingDate'
+                'bookingDate',
             ])->where('id', $bookingId)->first();
             if ($request->input('payment_method') == Booking::PAYMENT_WITH_CARD) {
                 $payment = new PaymentModule();
@@ -215,7 +215,7 @@ class HomeController extends Controller
             'bookingService' => function ($queryBookingService) {
                 $queryBookingService->with('service');
             },
-            'bookingDate'
+            'bookingDate',
         ])->where('id', $bookingId)->first();
         if ($request->input('vnp_ResponseCode') == "00") {
             $bookingDetail->update([
@@ -261,7 +261,7 @@ class HomeController extends Controller
                 $queryBookingTime->with(['bookingTime' => function ($bookingTime) use ($booking) {
                     $bookingTime->where('time', date('G:i', strtotime($booking->booking_time)));
                 }]);
-            }
+            },
         ])->where('id', $bookingId)->first();
         $addService = $bookingDetail->bookingDate->bookingTime[0]->max_service + 1;
         $changeBookingTime = BookingTime::where('id', $bookingDetail->bookingDate->bookingTime[0]->id);
@@ -299,7 +299,7 @@ class HomeController extends Controller
                 $queryBookingTime->with(['bookingTime' => function ($bookingTime) use ($booking) {
                     $bookingTime->where('time', date('G:i', strtotime($booking->booking_time)));
                 }]);
-            }
+            },
         ])->where('id', $bookingID)->first();
         $bookingServiceId = [];
         foreach ($bookingDetail->bookingService as $service) {
@@ -345,7 +345,7 @@ class HomeController extends Controller
                     $queryBookingTime->with(['bookingTime' => function ($bookingTime) use ($booking) {
                         $bookingTime->where('time', date('G:i', strtotime($booking->booking_time)));
                     }]);
-                }
+                },
             ])->where('id', $bookingID)->first();
             $addService = $bookingDetail->bookingDate->bookingTime[0]->max_service + 1;
             $bookingTimeChange = BookingTime::where('id', $bookingDetail->bookingDate->bookingTime[0]->id);
