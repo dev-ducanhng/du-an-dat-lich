@@ -2,13 +2,19 @@
 
 namespace App\Modules;
 
-use Vonage\Client;
-use Vonage\Client\Credentials\Basic;
-use Vonage\SMS\Message\SMS;
+use Illuminate\Support\Facades\Log;
+use Twilio\Exceptions\ConfigurationException;
+use Twilio\Exceptions\TwilioException;
+use Twilio\Rest\Client;
 
 class SendSMSModule
 {
-    public function sendSMS($bookingDetail, $isMultiple) {
+    /**
+     * @throws TwilioException
+     * @throws ConfigurationException
+     */
+    public function sendSMS($bookingDetail, $isMultiple)
+    {
         $timeBooking = date('G:i', strtotime($bookingDetail->booking_time));
         $dataBooking = $bookingDetail->toArray();
         $bookingDetails = [
@@ -21,14 +27,20 @@ class SendSMSModule
             Ngày: ${bookingDetails['booking_date']}, Giờ: ${timeBooking}, Mã nhóm của bạn là: ${bookingDetails['booking_code']} Vui lòng sắp xếp thời gian đến đúng giờ. Xin cám ơn!";
         } else {
             $messageSending = "Xin chào ${bookingDetails['customer_name']}, Bạn đã đặt lịch sử dụng dịch vụ thành công. Đây là thông tin đặt lịch của bạn:
-            Ngày: ${bookingDetails['booking_date']}, Giờ: ${timeBooking}. Vui lòng sắp xếp thời gian đến đúng giờ. Xin cám ơn!";
+            Ngày: ${bookingDetails['booking_date']},
+            Giờ: ${timeBooking}.
+            Vui lòng sắp xếp thời gian đến đúng giờ. Xin cám ơn!";
         }
-        $nexmoBasic = new Basic(config('services.nexmo.key'), config('services.nexmo.secret'));
-        $nexmoClient = new Client($nexmoBasic);
-        $phoneNumber = '84' . substr($bookingDetail->phone_number, 1);
-        $nexmoClient->sms()->send(
-            new SMS($phoneNumber, 'ISalon', $messageSending)
-        );
+        $phoneNumber = '+84' . ltrim($bookingDetail->phone_number, '0');
+        $account_sid = config("services.twilio.key");
+        $auth_token = config("services.twilio.secret");
+        $twilio_number = config("services.twilio.phone_number");
+
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create($phoneNumber, [
+            'from' => $twilio_number,
+            'body' => $messageSending,
+        ]);
     }
 
 }

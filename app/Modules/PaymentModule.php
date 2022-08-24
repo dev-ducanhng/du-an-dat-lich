@@ -23,8 +23,9 @@ class PaymentModule
         $vnp_OrderType = 'billpayment';
         $totalAmount = 0;
         foreach ($bookingDetail->bookingService as $detail) {
-            $totalAmount += $detail->service->price;
+            $totalAmount += $detail->service->price - $detail->service->price * $detail->service->discount / 100;
         }
+        dd($totalAmount);
         $vnp_Amount = $totalAmount * 100;
         $vnp_Locale = 'vn';
         $vnp_BankCode = 'NCB';
