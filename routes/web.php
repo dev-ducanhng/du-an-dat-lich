@@ -157,3 +157,4 @@ Route::middleware('checkBooking')->group(function () {
     Route::post('/booking/edit/{bookingID}', [HomeController::class, 'saveEditBooking']);
 });
 Route::post('update-status-booking', [\App\Http\Controllers\HistoryController::class, 'updateBookingStatus'])->name('update-status-booking');
+Route::get('getStatusBooking', [\App\Http\Controllers\BookingController::class, 'checkBooking'])->name('checkBooking');
