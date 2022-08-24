@@ -8,12 +8,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('service.index') }}">
+                    <a href="{{ route('dashboard.service.index') }}">
                         <i class="iconsminds-air-balloon-1"></i> Dịch vụ
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.booking.list') }}">
+                    <a href="#booking">
                         <i class="iconsminds-calendar-4"></i> Đặt lịch
                     </a>
                 </li>
@@ -76,6 +76,18 @@
                     <a href="{{ route('dashboard.post.list') }}">
                         <i class="iconsminds-business-man-woman"></i> <span class="d-inline-block">Danh sách bài
                             viết</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="list-unstyled" data-link="booking">
+                <li>
+                    <a href="{{ route('dashboard.booking.index') }}">
+                        <i class="iconsminds-letter-open"></i> <span class="d-inline-block">Xem thông thường</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.booking.list') }}">
+                        <i class="iconsminds-calendar-4"></i> <span class="d-inline-block">Xem theo lịch</span>
                     </a>
                 </li>
             </ul>

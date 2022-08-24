@@ -44,7 +44,7 @@ class ServiceController extends Controller
         // dd($model);
         $model->save();
 
-        return redirect(route('service.index'));
+        return redirect(route('dashboard.service.index'));
     }
     public function editForm($id)
     {
@@ -71,6 +71,6 @@ class ServiceController extends Controller
             $model->image = $imgPath;
         }
         $model->save();
-        return redirect(route('service.index'));
+        return redirect(route('dashboard.service.index'));
     }
 }

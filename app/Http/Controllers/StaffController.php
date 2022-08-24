@@ -27,7 +27,7 @@ class StaffController extends Controller
         $staff->password = Hash::make('12345678');
         $staff->role_id = User::STAFF_ROLE;
         $staff->save();
-        return redirect()->route('staff.index')->with('message', 'Thêm nhân viên mới thành công!');
+        return redirect()->route('dashboard.staff.index')->with('message', 'Thêm nhân viên mới thành công!');
     }
 
     public function editForm($id)
@@ -41,7 +41,7 @@ class StaffController extends Controller
         $model = User::find($id);
         $model->fill($request->all());
         $model->save();
-        return redirect()->route('staff.edit', ['id' => $id])->with('message', 'Sửa thông tin nhân viên ' . $model->last_name . ' ' . $model->first_name . ' thành công!');
+        return redirect()->route('dashboard.staff.edit', ['id' => $id])->with('message', 'Sửa thông tin nhân viên ' . $model->last_name . ' ' . $model->first_name . ' thành công!');
     }
 
     public function remove($id)
@@ -53,6 +53,6 @@ class StaffController extends Controller
             Storage::delete($model->avatar);
         }
         $model->delete();
-        return redirect()->route('staff.index')->with('message', 'Xóa thông tin nhân viên ' . $model_last_name . ' ' . $model_first_name . ' thành công!');
+        return redirect()->route('dashboard.staff.index')->with('message', 'Xóa thông tin nhân viên ' . $model_last_name . ' ' . $model_first_name . ' thành công!');
     }
 }
