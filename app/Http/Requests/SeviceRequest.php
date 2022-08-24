@@ -31,7 +31,7 @@ class SeviceRequest extends FormRequest
             'price' => 'required|integer|min:1',
             'image' => 'nullable|image',
             'status' => 'required|integer',
-            'discount'=>'required|integer|min:1|max:99'
+            'discount'=>'integer|min:1|max:99'
         ];
         
     }
@@ -44,7 +44,7 @@ class SeviceRequest extends FormRequest
             'price.min'=>'Gía không được nhỏ hơn hoặc bằng 0',
             'image.image'=>'Ảnh chưa đúng định dạng',
             'status.required'=>'Trạng thái chưa được chọn',
-            'discount.required'=>'Giảm giá trống',
+            // 'discount.required'=>'Giảm giá trống',
             'discount.integer'=>'Giảm giá không đúng định dạng',
             'discount.min'=>'Giảm giá nhỏ nhất là 1%',
             'discount.max'=>'Giảm giá lớn nhất là 99%'
