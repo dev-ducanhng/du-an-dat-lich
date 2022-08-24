@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\BookingDate;
 use App\Models\DetailRating;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
@@ -144,5 +145,21 @@ class BookingController extends Controller
         ]);
 
         return response()->json($request);
+    }
+
+    /**
+     * Check booking
+     *
+     * @return JsonResponse
+     */
+    public function checkBooking(Request $request): JsonResponse
+    {
+        $dateInput = BookingDate::where('date', $request['booking_date'])->first();
+        $dataBooking = Booking::with(['stylistInfo', 'bookingDate'])
+            ->where('booking_date', $dateInput->id)
+            ->where('stylist', $request['user_id'])->where('booking_status', Booking::BOOKING_SUCCESS)
+            ->get();
+
+        return response()->json($dataBooking);
     }
 }

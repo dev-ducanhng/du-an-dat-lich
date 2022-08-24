@@ -106,7 +106,7 @@
                                             @foreach($stylists as $stylist)
                                                 <div class="option">
                                                     <input class="select-stylist" type="radio" value="{{$stylist->id}}"
-                                                           name="stylist"
+                                                           name="stylist" onchange="selectedStylish('{{$stylist->id}}')"
                                                            @if(request()->old('stylist') == $stylist->id) checked @endif>
                                                     <i class="fab fas fa-user-tie"></i>
                                                     <span class="label">{{$stylist->name}}</span>
@@ -212,28 +212,14 @@
         let isAfterClass = ''
         let today = moment().format()
         let compareDay = moment(today, 'YYYY-MM-DD').diff(moment(datePicker.value, 'YYYY-MM-DD'))
-        let currentTime = moment().format('h:mm')
+        let currentTime = moment().format('hh:mmA')
         $.ajax({
             type: 'GET', //THIS NEEDS TO BE GET
             url: '{{url('bookingDate')}}/' + datePicker.value,
             success: function (data) {
                 let timeRender = ''
                 data.forEach(item => {
-                    let isAfter = moment(currentTime, 'h:mm').isAfter(moment(item.time, 'h:mm'))
-                    if (item.status == 1) {
-                        string = 'class="disabled-selectime" '
-                        unavailable = "- Hết chỗ"
-                        disable = 'disabled'
-                    } else {
-                        string = ''
-                        unavailable = ""
-                        disable = ''
-                    }
-                    if (oldInput == item.id) {
-                        checked = 'checked '
-                    } else {
-                        checked = ''
-                    }
+                    let isAfter = moment(currentTime, ["hh:mm A", moment.ISO_8601]).isAfter(moment(item.time, 'HH:mm'))
                     if (isAfter == true && (compareDay == 0)) {
                         disable = 'disabled'
                         isAfterClass = 'is-after'
@@ -242,9 +228,9 @@
                         isAfterClass = ''
                     }
                     timeRender += `<label class="col-3 ${isAfterClass}">
-                             <input type="radio" name="booking_time" value="${item.id}" ${checked} ${disable}/>
-                                <span ${string} >${item.time} ${unavailable}</span>
-                           </label>`
+                             <input type="radio" name="booking_time" class="timeSelect" value="${item.id}" ${checked} ${disable}/>
+                                <span ${string} class="labelTime">${item.time} ${unavailable}</span>
+                           </label> <input type="radio" name="time" class="timeValue" value="${item.time}" hidden>`
                 })
                 $('#timeBooking').html(timeRender)
             },
@@ -260,21 +246,7 @@
                 success: function (data) {
                     let timeRender = ''
                     data.forEach(item => {
-                        let isAfterTime = moment(currentTime, 'h:mm').isAfter(moment(item.time, 'h:mm'))
-                        if (item.status == 1) {
-                            string = 'class="disabled-selectime" disabled'
-                            unavailable = "- Hết chỗ"
-                            disable = 'disabled'
-                        } else {
-                            string = ''
-                            unavailable = ""
-                            disable = ''
-                        }
-                        if (oldInput == item.id) {
-                            checked = 'checked'
-                        } else {
-                            checked = ''
-                        }
+                        let isAfterTime = moment(currentTime, ["hh:mm A", moment.ISO_8601]).isAfter(moment(item.time, 'h:mm'))
                         if (isAfterTime == true && compareDiff == 0) {
                             disable = 'disabled'
                             isAfterClass = 'is-after'
@@ -283,8 +255,9 @@
                             isAfterClass = ''
                         }
                         timeRender += `<label class="col-3 ${isAfterClass}">
-                             <input type="radio" name="booking_time" value="${item.id}" ${checked} ${disable}/>
-                                <span ${string}>${item.time} ${unavailable}</span></label>`
+                             <input type="radio" name="booking_time"  class="timeSelect" value="${item.id}" ${checked} ${disable}/>
+                                <span class="labelTime" ${string}>${item.time} ${unavailable}</span></label>
+                            <input type="radio" name="time" class="timeValue" value="${item.time}" hidden>`
                     })
                     $('#timeBooking').html(timeRender)
                 },
@@ -293,6 +266,43 @@
                 }
             });
         });
+
+        function selectedStylish(stylistID) {
+            let timeSelected = document.querySelectorAll('.timeValue')
+            let labelTime = document.querySelectorAll('.labelTime')
+            let timeSelect = document.querySelectorAll('.timeSelect')
+            timeSelected.forEach((item, index) => {
+                timeSelect[index].disabled = false
+                labelTime[index].classList.remove('disable-select')
+                labelTime[index].innerHTML = item.value
+            })
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('checkBooking')}}",
+                type: "GET",
+                async: false,
+                data: {
+                    user_id: stylistID,
+                    booking_date: datePicker.value,
+                },
+                success: (response => {
+                    timeSelected.forEach((item, index) => {
+                        response.forEach(time => {
+                            if (moment(time.booking_time, 'HH:mm').diff(moment(item.value, 'HH:mm')) == 0) {
+                                timeSelect[index].disabled = true
+                                labelTime[index].classList.add('disable-select')
+                                labelTime[index].innerHTML = item.value + ' - Hết chỗ'
+                            }
+                        })
+                    })
+                })
+            })
+        }
+
     </script>
 @endpush
 @push('style')
@@ -604,6 +614,11 @@
         }
 
         .is-after span {
+            background: rgba(255, 111, 8, 0.61) !important;
+        }
+
+        .disable-select {
+            pointer-events: none;
             background: rgba(255, 111, 8, 0.61) !important;
         }
     </style>
