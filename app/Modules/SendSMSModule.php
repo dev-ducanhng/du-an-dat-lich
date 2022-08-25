@@ -2,10 +2,12 @@
 
 namespace App\Modules;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Twilio\Exceptions\ConfigurationException;
 use Twilio\Exceptions\TwilioException;
 use Twilio\Rest\Client;
+use function GuzzleHttp\Promise\all;
 
 class SendSMSModule
 {
@@ -36,7 +38,17 @@ class SendSMSModule
         $auth_token = config("services.twilio.secret");
         $twilio_number = config("services.twilio.phone_number");
 
+        $stylist = User::find($bookingDetail->stylist)->toArray();
+        $phoneStylistNumber = '+84' . ltrim($stylist['phone'], '0');
+
         $client = new Client($account_sid, $auth_token);
+        $messageSendingForStylish = "Xin chào ${stylist['name']}, Bạn có lịch đặt vào lúc: ${timeBooking}" . get_weekday_name($bookingDetails['booking_date']) .
+            " . Bạn vui lòng sắp xếp lịch và đến trước 15p để chuẩn bị làm cho khách.";
+        $client->messages->create($phoneStylistNumber, [
+            'from' => $twilio_number,
+            'body' => $messageSendingForStylish,
+        ]);
+
         $client->messages->create($phoneNumber, [
             'from' => $twilio_number,
             'body' => $messageSending,

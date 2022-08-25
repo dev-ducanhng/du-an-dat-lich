@@ -33,8 +33,8 @@ Route::get('/dich-vu', [HomeController::class, 'listService'])->name('list-servi
 Route::get('/gioi-thieu', [HomeController::class, 'introduce'])->name('introduce');
 Route::get('/lien-he', [HomeController::class, 'contact'])->name('contact');
 Route::get('/bai-viet', [PostController::class, 'getNewestBlog'])->name('blog');
-Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}', [PostController::class, 'getCategoryBlog'])->name('blog-category');
-Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}/{postId}-{postSlug}', [PostController::class, 'detailBlog'])->name('detail-blog');
+Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}.html', [PostController::class, 'getCategoryBlog'])->name('blog-category');
+Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}/{postId}-{postSlug}.html', [PostController::class, 'detailBlog'])->name('detail-blog');
 Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name('detail-service');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
@@ -115,11 +115,6 @@ Route::middleware('checkLogin')->group(function () {
             Route::post('edit-post/{postId}-{postSlug}', [PostController::class, 'postEditPost']);
         });
 
-        Route::prefix('rating')->name('rating.')->group(function () {
-            Route::get('/list-rating', [RatingController::class, 'listRating'])->name('list');
-            Route::get('/{detail_rating_id}', [RatingController::class, 'ratingStylist'])->name('rating');
-            Route::post('/{detail_rating_id}', [RatingController::class, 'saveRating']);
-        });
         Route::prefix('service')->name('service.')->group(function () {
             Route::get('/', [ServiceController::class, 'getService'])->name('index');
             Route::get('/add', [ServiceController::class, 'addForm'])->name('add');
@@ -144,6 +139,12 @@ Route::middleware('checkLogin')->group(function () {
     Route::post('/change-information', [CustomerController::class, 'saveChangeInformation']);
     Route::get('/change-information/change-password', [CustomerController::class, 'changePasswordForm'])->name('change-password');
     Route::post('/change-information/change-password', [CustomerController::class, 'saveNewPassword']);
+
+    Route::prefix('rating')->name('rating.')->group(function () {
+        Route::get('/list-rating', [RatingController::class, 'listRating'])->name('list');
+        Route::get('/{booking_id}', [RatingController::class, 'ratingStylist'])->name('rating');
+        Route::post('/{booking_id}', [RatingController::class, 'saveRating']);
+    });
 });
 Route::post('/booking', [HomeController::class, 'postBooking']);
 Route::get('/bookingDate/{date}', [HomeController::class, 'bookingDate'])->name('bookingDate');

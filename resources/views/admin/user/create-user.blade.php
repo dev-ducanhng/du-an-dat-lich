@@ -46,8 +46,8 @@
                                     <span>Giới tính</span>
                                 </div>
                                 <div class="form-group position-relative error-l-75">
-                                    <input id="demo-responsive-drop" class="form-control" name="date-of-birth"
-                                           data-label-style="stacked" data-input-style="box"
+                                    <input id="datepicker" class="form-control" name="date-of-birth"
+                                           type="text"
                                            placeholder="Nhập ngày tháng năm sinh" value="{{old('date-of-birth')}}"/>
                                     @error('date-of-birth')
                                     <p class="text-danger mt-2">{{ $message }}</p>
@@ -73,29 +73,27 @@
 @endsection
 @push('javascript')
     <script>
-        mobiscroll.setOptions({
-            theme: 'windows',
-            themeVariant: 'light'
-        });
-
-        mobiscroll.datepicker('#demo-responsive-drop', {
-            controls: ['date'],
-            responsive: {
-                xsmall: {
-                    display: 'bottom'
-                },
-                small: {
-                    display: 'anchored'
-                },
-                custom: { // Custom breakpoint
-                    breakpoint: 800,
-                    display: 'anchored',
-                    touchUi: false
+        let datepicker = MCDatepicker.create({
+            el: '#datepicker',
+            dateFormat: 'YYYY-mm-dd',
+            theme: {
+                theme_color: '#F28123',
+                active_text_color: '#F28123',
+                picker_header: {
+                    inactive: '#F28123'
                 }
-            }
-        });
+            },
+            bodyType: 'modal',
+            selectedDate: new Date(),
+            customMonths: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            customWeekDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        })
         $(".dropzone").click(function () {
             $(".upload-image").click();
         });
     </script>
+@endpush
+@push('style')
+    <link href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"></script>
 @endpush
