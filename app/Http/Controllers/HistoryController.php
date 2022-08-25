@@ -41,7 +41,7 @@ class HistoryController extends Controller
                     $dataBookings->where('status', Booking::CANCEL);
                 }
             }
-            $dataBookings = $dataBookings->paginate(10)->withQueryString();
+            $dataBookings = $dataBookings->orWhere('user_id', auth()->id())->paginate(10)->withQueryString();
 
         } else {
             if ($request->filled('phone_number')) {
