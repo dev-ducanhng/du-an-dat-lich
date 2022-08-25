@@ -65,35 +65,37 @@
             </div>
         @endif
         <div class="tab mt-5" role="tabpanel">
-            <form action="" method="GET" id="filterForm" class="d-flex justify-content-between">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation">
-                        <button href="#Section" type="button" class="filterList" name="filterList"
-                                role="tab"
-                                data-toggle="tab">Tất cả lịch đặt
-                        </button>
-                    </li>
-                    <li role="presentation">
-                        <button href="#Section" type="button" class="filterToday" name="filterToday"
-                                role="tab" data-toggle="tab">
-                            Hôm nay
-                        </button>
-                    </li>
-                    <li role="presentation">
-                        <button href="#Section" type="button" class="filterSolve" name="filterSolve"
-                                role="tab"
-                                data-toggle="tab">Chưa cắt
-                        </button>
-                    </li>
-                    <li role="presentation">
-                        <button href="#Section" type="button" class="filterCancel" name="filterCancel"
-                                role="tab"
-                                data-toggle="tab">Khách hủy
-                        </button>
-                    </li>
-                </ul>
-                <input type="text" class="filterValue" value="" name="filterValue" hidden>
-            </form>
+           @if(auth()->user())
+                <form action="" method="GET" id="filterForm" class="d-flex justify-content-between">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation">
+                            <button href="#Section" type="button" class="filterList" name="filterList"
+                                    role="tab"
+                                    data-toggle="tab">Tất cả lịch đặt
+                            </button>
+                        </li>
+                        <li role="presentation">
+                            <button href="#Section" type="button" class="filterToday" name="filterToday"
+                                    role="tab" data-toggle="tab">
+                                Hôm nay
+                            </button>
+                        </li>
+                        <li role="presentation">
+                            <button href="#Section" type="button" class="filterSolve" name="filterSolve"
+                                    role="tab"
+                                    data-toggle="tab">Chưa cắt
+                            </button>
+                        </li>
+                        <li role="presentation">
+                            <button href="#Section" type="button" class="filterCancel" name="filterCancel"
+                                    role="tab"
+                                    data-toggle="tab">Khách hủy
+                            </button>
+                        </li>
+                    </ul>
+                    <input type="text" class="filterValue" value="" name="filterValue" hidden>
+                </form>
+            @endif
 
             <div class="h-full py-2 mb-5">
                 <!-- Table -->
@@ -136,7 +138,7 @@
                                         </thead>
                                         <tbody class="divide-y divide-gray-100">
 
-                                        @if(count($dataBookings) > 0)
+                                        @if($dataBookings && $dataBookings->count() > 0)
                                             @foreach($dataBookings as $booking)
                                                 <tr>
                                                     <td class="p-2 whitespace-nowrap">
@@ -172,11 +174,11 @@
                                                             class="p-2 text-left  badge text-white
                                                 @if($booking->status == \App\Models\Booking::SOLVED_YET)
                                                                 badge-warning
-@elseif($booking->status == \App\Models\Booking::SOLVED_YET)
+                                                        @elseif($booking->status == \App\Models\Booking::SOLVED_YET)
                                                                 badge-success
-@else
+                                                    @else
                                                                 badge-danger
-@endif text-left">{{$booking->present()->getStatus}}</div>
+                                                    @endif text-left">{{$booking->present()->getStatus}}</div>
                                                     </td>
                                                     <td>
                                                         @if(auth()->user() && \Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STYLIST_ROLE)
