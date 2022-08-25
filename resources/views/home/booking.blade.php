@@ -219,6 +219,7 @@
                 let timeRender = ''
                 data.forEach(item => {
                     let isAfter = moment(currentTime, ["hh:mm A", moment.ISO_8601]).isAfter(moment(item.time, 'HH:mm'))
+                    console.log(isAfter)
                     if (isAfter == true && (compareDay == 0)) {
                         disable = 'disabled'
                         isAfterClass = 'is-after'
@@ -245,7 +246,8 @@
                 success: function (data) {
                     let timeRender = ''
                     data.forEach(item => {
-                        let isAfterTime = moment(currentTime, ["hh:mm A", moment.ISO_8601]).isAfter(moment(item.time, 'h:mm'))
+                        let isAfterTime = moment(currentTime, "hh:mm A").isAfter(moment(item.time, 'HH:mm'))
+
                         if (isAfterTime == true && compareDiff == 0) {
                             disable = 'disabled'
                             isAfterClass = 'is-after'

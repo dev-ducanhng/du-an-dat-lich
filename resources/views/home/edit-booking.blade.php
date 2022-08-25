@@ -207,7 +207,7 @@
         let isAfterClass = ''
         let today = moment().format()
         let compareDay = moment(today, 'YYYY-MM-DD').diff(moment(datePicker.value, 'YYYY-MM-DD'))
-        let currentTime = moment().format('h:mm')
+        let currentTime = moment().format('hh:mmA')
         $.ajax({
             type: 'GET', //THIS NEEDS TO BE GET
             url: '{{url('bookingDate')}}/' + datePicker.value,
