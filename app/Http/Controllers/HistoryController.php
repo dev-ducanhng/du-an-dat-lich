@@ -6,7 +6,6 @@ use App\Models\Booking;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -19,44 +18,50 @@ class HistoryController extends Controller
      */
     public function history(Request $request)
     {
-        $dataBookings = [];
         $searchByPhoneNumber = $request->input('phone_number');
         $searchByName = $request->input('name');
-        $searchByCode = $request->input('code');
+        $bookingList = Booking::with([
+            'user',
+            'bookingService' => function ($queryBookingService) {
+                $queryBookingService->with('service');
+            },
+            'bookingDate', 'Stylist', 'discount']);
 
         if (auth()->user()) {
-            $dataBookings = Booking::where('stylist', auth()->id())->orWhere('user_id', auth()->id())->with([
+            $bookingList->where('stylist', auth()->id());
+            if ($request->filled('filterValue')) {
+                if ($request->input('filterValue') == 'today') {
+                    $bookingList->whereHas('bookingDate', function ($query) {
+                        $query->where('date', now()->toDateString());
+                    });
+                }
+                if ($request->input('filterValue') == 'solved') {
+                    $bookingList->where('status', Booking::SOLVED_YET);
+                }
+                if ($request->input('filterValue') == 'cancel') {
+                    $bookingList->where('status', Booking::CANCEL);
+                }
+            }
+            $bookingList->orWhere('user_id', auth()->id());
+
+        } else {
+            $bookingList = Booking::with([
                 'user',
                 'bookingService' => function ($queryBookingService) {
                     $queryBookingService->with('service');
                 },
-                'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS)->paginate(10)->withQueryString();
-        } else {
+                'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS);
             if ($request->filled('phone_number')) {
-                $dataBookings = Booking::where('phone_number', 'LIKE', "%{$searchByPhoneNumber}%")->with([
-                    'user',
-                    'bookingService' => function ($queryBookingService) {
-                        $queryBookingService->with('service');
-                    },
-                    'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS)->paginate(10)->withQueryString();
+                $bookingList->where('phone_number', 'LIKE', "%{$searchByPhoneNumber}%");
             }
-            if ($request->filled('code')) {
-                $dataBookings = Booking::where('customer_name', 'LIKE', "%{$searchByName}%")->with([
-                    'user',
-                    'bookingService' => function ($queryBookingService) {
-                        $queryBookingService->with('service');
-                    },
-                    'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS)->paginate(10)->withQueryString();
-            }
-            if ($request->filled('code')) {
-                $dataBookings = Booking::where('booking_code', 'LIKE', "%{$searchByCode}%")->with([
-                    'user',
-                    'bookingService' => function ($queryBookingService) {
-                        $queryBookingService->with('service');
-                    },
-                    'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS)->paginate(10)->withQueryString();
+            if ($request->filled('name')) {
+                $bookingList->where('customer_name', 'LIKE', "%{$searchByName}%");
+
             }
         }
+        $dataBookings = $bookingList->paginate(10)->withQueryString();
+
+
         return view('home.history', compact('dataBookings'));
     }
 
@@ -73,7 +78,7 @@ class HistoryController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Bạn đã cập nhật trạng thái đặt lịch thành công');
-        } catch (\Exception $exception){
+        } catch (\Exception $exception) {
             Log::info($exception);
 
             return redirect()->back()->with('error', 'Có lỗi hệ thống xảy ra. Vui lòng liên hệ với quản trị viên');

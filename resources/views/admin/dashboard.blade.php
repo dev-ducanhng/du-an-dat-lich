@@ -17,7 +17,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li  class="col-md-3">
+                                    <li class="col-md-3">
                                         <a href="#" class="card">
                                             <div class="card-body text-center">
                                                 <i class="iconsminds-male-female"></i>
@@ -26,7 +26,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li  class="col-md-3">
+                                    <li class="col-md-3">
                                         <a href="#" class="card">
                                             <div class="card-body text-center">
                                                 <i class="iconsminds-arrow-refresh"></i>
@@ -35,7 +35,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li  class="col-md-3">
+                                    <li class="col-md-3">
                                         <a href="#" class="card">
                                             <div class="card-body text-center">
                                                 <i class="iconsminds-pound"></i>
@@ -66,7 +66,7 @@
                                     <div class="chart-pie pt-4 pb-2">
                                         <canvas id="myPieChart" width="400" height="400"
                                                 class="staticByYear"
-                                                data-details = "{{ $countBookingPerMonth }}"></canvas>
+                                                data-details="{{ $months }}"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small" id="pie_chart_footer">
 
@@ -79,10 +79,8 @@
             </div>
 
 
-
-
             <div class="row">
-                <div class="col-lg-4 col-sm-12 mb-4">
+                <div class="col-lg-6 col-sm-12 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Thống kê trạng thái đặt lịch thành công</h5>
@@ -92,7 +90,7 @@
                                     <canvas id="myPieChart"
                                             class="staticByStatusBooking"
                                             width="100%" height="400"
-                                            data-details = "{{ $countBookingByStatus }}"></canvas>
+                                            data-details="{{ $countBookingByStatus }}"></canvas>
                                 </div>
                                 <div class="mt-4 text-center small" id="pie_chart_footer">
 
@@ -100,230 +98,57 @@
                             </div>
 
 
-
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card dashboard-sq-banner justify-content-end">
-                        <div class="card-body justify-content-end d-flex flex-column">
-                            <span class="badge badge-pill badge-theme-3 align-self-start mb-3">DORE</span>
-                            <p class="lead text-white">MAGIC IS IN THE DETAILS</p>
-                            <p class="text-white">Yes, it is indeed!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card dashboard-link-list">
+                <div class="col-sm-12 col-lg-6 mb-4">
+                    <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Cakes</h5>
-                            <div class="d-flex flex-row">
-                                <div class="w-50">
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="mb-1">
-                                            <a href="#">Marble Cake</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Fruitcake</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Chocolate Cake</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Fat Rascal</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Financier</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Genoise</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Gingerbread</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Goose Breast</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Parkin</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Petit Gâteau</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Salzburger Nockerl</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Soufflé</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <h5 class="card-title">Top stylish được đánh giá cao nhất</h5>
+                            <table class="data-table data-table-standard responsive nowrap"
+                                   data-order="[[ 1, &quot;desc&quot; ]]">
+                                <thead>
+                                <tr>
+                                    <th>Tên stylish</th>
+                                    <th>Số đánh giá</th>
+                                    <th>Điểm trung bình</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($dataRating as $key => $rating)
+                                    <tr>
+                                        <td class="d-flex">
+                                            @if($key == 0)
+                                                <span>
+                                                    <i class="iconsminds-trophy list-item-heading text-primary"></i>
+                                                </span>
+                                                <p class="list-item-heading text-danger">{{$rating['stylish']}}</p>
 
-                                <div class="w-50">
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="mb-1">
-                                            <a href="#">Streuselkuchen</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Tea Loaf</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Napoleonshat</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Merveilleux</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Magdalena</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Cremeschnitte</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Cheesecake</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Bebinca</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Fruitcake</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Chocolate Cake</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Fat Rascal</a>
-                                        </li>
-                                        <li class="mb-1">
-                                            <a href="#">Financier</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                                            @elseif($key==1)
+                                                <span>
+                                                    <i class="iconsminds-trophy-2 list-item-heading text-primary"></i>
+                                                </span>
+                                                <p class="list-item-heading text-warning">{{$rating['stylish']}}</p>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="row sortable">
-                <div class="col-xl-3 col-lg-6 mb-4">
-                    <div class="card">
-                        <div class="card-header p-0 position-relative">
-                            <div class="position-absolute handle card-icon">
-                                <i class="simple-icon-shuffle"></i>
-                            </div>
-                        </div>
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Payment Status</h6>
-                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                 data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="40"
-                                 data-show-percent="true">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 mb-4">
-                    <div class="card">
-                        <div class="card-header p-0 position-relative">
-                            <div class="position-absolute handle card-icon">
-                                <i class="simple-icon-shuffle"></i>
-                            </div>
-                        </div>
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Work Progress</h6>
-                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                 data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="64"
-                                 data-show-percent="true">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 mb-4">
-                    <div class="card">
-                        <div class="card-header p-0 position-relative">
-                            <div class="position-absolute handle card-icon">
-                                <i class="simple-icon-shuffle"></i>
-                            </div>
-                        </div>
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Tasks Completed</h6>
-                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                 data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="75"
-                                 data-show-percent="true">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 mb-4">
-                    <div class="card">
-                        <div class="card-header p-0 position-relative">
-                            <div class="position-absolute handle card-icon">
-                                <i class="simple-icon-shuffle"></i>
-                            </div>
-                        </div>
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Payments Done</h6>
-                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                 data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="32"
-                                 data-show-percent="true">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 col-sm-12 mb-4">
-                    <div class="card dashboard-filled-line-chart">
-                        <div class="card-body ">
-                            <div class="float-left float-none-xs">
-                                <div class="d-inline-block">
-                                    <h5 class="d-inline">Website Visits</h5>
-                                    <span class="text-muted text-small d-block">Unique Visitors</span>
-                                </div>
-                            </div>
-                            <div class="btn-group float-right float-none-xs mt-2">
-                                <button class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    This Week
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Last Week</a>
-                                    <a class="dropdown-item" href="#">This Month</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chart card-body pt-0">
-                            <canvas id="visitChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-sm-12 mb-4">
-                    <div class="card dashboard-filled-line-chart">
-                        <div class="card-body ">
-                            <div class="float-left float-none-xs">
-                                <div class="d-inline-block">
-                                    <h5 class="d-inline">Conversion Rates</h5>
-                                    <span class="text-muted text-small d-block">Per Session</span>
-                                </div>
-                            </div>
-                            <div class="btn-group float-right mt-2 float-none-xs">
-                                <button class="btn btn-outline-secondary btn-xs dropdown-toggle" type="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    This Week
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Last Week</a>
-                                    <a class="dropdown-item" href="#">This Month</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chart card-body pt-0">
-                            <canvas id="conversionChart"></canvas>
+                                            @elseif($key==2)
+                                                <span>
+                                                    <i class="iconsminds-medal list-item-heading text-primary"></i>
+                                                </span>
+                                                <p class="list-item-heading">{{$rating['stylish']}}</p>
+                                            @else
+                                                <p class="list-item-heading">{{$rating['stylish']}}</p>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <p class="text-muted text-center">{{$rating['rating']}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-muted text-center">{{$rating['point']}}</p>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -336,6 +161,7 @@
     <script>
         const staticByYear = document.querySelectorAll('.staticByYear')
         const staticByStatusBooking = document.querySelectorAll('.staticByStatusBooking')
+
         function getRandomColor() {
             var letters = '0123456789ABCDEF';
             var color = '#';
@@ -344,15 +170,10 @@
             }
             return color;
         }
+
         Array.from(staticByYear).forEach(cxt => {
             let bookings = JSON.parse(cxt.dataset.details)
-            let labels = bookings.map(item => {
-                return item.month_name
-            })
-
-            let data = bookings.map(item => {
-                return item.count
-            })
+            let labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
 
             new Chart(cxt, {
                 type: 'line',
@@ -360,7 +181,7 @@
                     labels: labels,
                     datasets: [{
                         label: 'Thống kê đặt lịch theo từng năm',
-                        data: data,
+                        data: bookings,
                         fill: false,
                         borderColor: "#00365a",
                         pointBorderColor: "#00365a"

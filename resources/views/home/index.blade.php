@@ -96,32 +96,6 @@
             </div>
         </div> <!-- end features list section -->
     </div>
-    <!-- product section 1 -->
-    <div class="product-section mt-50 mb-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a><img src="assets/img/products/product-img-1.jpg" alt=""></a>
-                        </div>
-                        <h3>Tóc nữ</h3>
-                        <p class="product-price"><span>Ưu đãi</span> -30% </p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a><img src="assets/img/products/product-img-2.jpg" alt=""></a>
-                        </div>
-                        <h3>Tóc nam</h3>
-                        <p class="product-price"><span>Ưu đãi</span> 15% </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end product section 1 -->
 
     <!-- product section 2 -->
     <div class="product-section mt-50 mb-50">
