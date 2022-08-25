@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\Rating;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,13 +21,20 @@ class DashboardController extends Controller
         $services = Service::all();
         $countBookingPerMonth = Booking::select(
             DB::raw("(COUNT(*)) as count"),
-            DB::raw("MONTHNAME(created_at) as month_name"),
+            DB::raw("MONTH(created_at) as month_name, year(created_at) as year"),
             DB::raw('max(created_at) as createdAt'))
             ->whereYear('created_at', date('Y'))
-            ->groupBy('month_name')
+            ->groupBy('month_name', 'year')
             ->orderBy('createdAt', 'ASC')
             ->get();
-        $countBookingByStatus= Booking::select(
+        $months = collect(range(1, 12))->map(
+            function ($month) use ($countBookingPerMonth) {
+                $match = $countBookingPerMonth->firstWhere('month_name', $month);
+                return $match ? $match['count'] : 0;
+            }
+        );
+
+        $countBookingByStatus = Booking::select(
             DB::raw("(COUNT(*)) as count"),
             DB::raw("MONTHNAME(created_at) as month_name"),
             DB::raw('max(created_at) as createdAt'))
@@ -63,7 +71,23 @@ class DashboardController extends Controller
             $totalPrice += $price['price'];
         }
 
+        $ratings = Rating::whereYear('created_at', date('Y'))->select(
+            DB::raw("(COUNT(*)) as rating, user_id, sum(rating) as total"),
+        )->groupBy('user_id')->orderBy('total', 'DESC')->get();
+        $dataRating = [];
+        foreach ($ratings as $rating) {
+            if ($rating->user->status == User::ACTIVE) {
+                $dataRating[] = [
+                    'rating'  => $rating->rating,
+                    'stylish' => $rating->user->name,
+                    'point'   => $rating->total / $rating->rating,
+                    'phone'   => $rating->user->phone,
+                ];
+            }
+        }
+
+
         return view('admin.dashboard',
-            compact('user', 'bookings', 'stylists', 'services', 'countBookingPerMonth', 'totalPrice', 'countBookingByStatus'));
+            compact('user', 'bookings', 'stylists', 'services', 'months', 'totalPrice', 'countBookingByStatus', 'dataRating'));
     }
 }
