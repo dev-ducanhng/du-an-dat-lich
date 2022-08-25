@@ -69,7 +69,7 @@
                     @foreach ($models as $item)
                     <tr>
                       <th scope="row">{{$item->id}}</th>
-                      <td><img src="{{$item->image}}" alt="{{$item->name}}" width="200px"> </td>
+                      <td><img src="{{asset($item->image) }}" alt="{{$item->name}}" width="200px"> </td>
                       <td>{{$item->name}}</td>
                       <td>{{$item->price}}</td>
                       <td>{{$item->discount}}</td>

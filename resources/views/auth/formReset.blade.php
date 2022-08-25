@@ -55,8 +55,8 @@
                         <form method="POST">
                             @csrf
                             <label class="form-group has-float-label mb-4">
-                                <input class="form-control" name="email" placeholder="Email hoặc số điện thoại"/>
-                                <span>E-mail</span>
+                                <input  class="form-control" name="email" placeholder="Email"/>
+                                <span>Số điện thoại</span>
                                 @error('email')
                                 <p class="text-danger mt-2">{{ $message }}</p>
                                 @enderror

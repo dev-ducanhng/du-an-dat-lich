@@ -23,42 +23,32 @@ class PasswordController extends Controller
             'email.required' => 'Tài khoản không được để trống'
         ]);
         $token = rand(11111, 99999);
-        $pos = strpos($request->emai, '@');
-        if ($pos == true) {
-            $email = DB::table('users')
+        
+            $user = DB::table('users')
                 ->where('email', $request->email)
                 ->first();
-            if ($email->email == '' || $email->email == null) {
+            
+            if ($user->email == '' || $user->email == null) {
                 return redirect()->back()->with('msg', 'Tài khoản chưa xác thực Enail');
             }
-            if (!$email) {
+            if (!$user) {
                 return redirect()->back()->with('msg', 'Tài khoản không chính xác');
+            }else if ($user) {
+                $model = User::find($user->id);
+                $model->remember_token = $token;
+                $model->save();
+                Mail::send('email.forgetPassword', ['token' => $token, 'email' => $user->email], function ($message) use ($user) {
+                    $message->to($user->email);
+                    $message->subject('Thông báo đổi mật khẩu');
+                });
             }
-        } else {
-            $email = DB::table('users')
-                ->where('phone', $request->email)
-                ->first();
-            if ($email->email == '' || $email->email == null) {
-                return redirect()->back()->with('msg', 'Tài khoản chưa xác thực Enail');
-            }
-            if (!$email) {
-                return redirect()->back()->with('msg', 'Tài khoản không chính xác');
-            }
-        }
+          
 
-        if ($email) {
-            $model = User::find($email->id);
-            $model->remember_token = $token;
-            $model->save();
-            Mail::send('email.forgetPassword', ['token' => $token, 'email' => $email->email], function ($message) use ($email) {
-                $message->to($email->email);
-                $message->subject('Thông báo đổi mật khẩu');
-            });
-        }
 
+            return redirect()->back()->with('success', 'Một thông báo đã được gửi đến địa chỉ email của bạn');
 
         //   return redirect(route('resetPasswordConfirmation'))->with('email', $email->email);
-        return redirect()->back()->with('success', 'Một thông báo đã được gửi đến địa chỉ email của bạn');
+
     }
     public function formReset($token, $email)
     {
@@ -96,17 +86,19 @@ class PasswordController extends Controller
 
         return redirect(route('login'));
     }
-    public function formChange(){
-        if(Auth::check()==false){
+    public function formChange()
+    {
+        if (Auth::check() == false) {
             return redirect(route('login'));
-        }else{
-           $user=User::find(Auth::id());
-           return view('auth.changePassword');
+        } else {
+            $user = User::find(Auth::id());
+            return view('auth.changePassword');
         }
     }
-    public function postChange(Request $request){
+    public function postChange(Request $request)
+    {
         $request->validate([
-            
+
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required'
         ], [
@@ -116,12 +108,12 @@ class PasswordController extends Controller
             'password.confirmed' => 'Mật khẩu không trùng khớp',
             'password_confirmation.required' => 'Xác nhận mật khẩu không được trống',
         ]);
-        if(Auth::check()==false){
+        if (Auth::check() == false) {
             return redirect(route('login'));
-        }else{
-           $user=User::find(Auth::id());
-          $user->password =  Hash::make($request->password);
-          $user->save();
+        } else {
+            $user = User::find(Auth::id());
+            $user->password =  Hash::make($request->password);
+            $user->save();
         }
         return redirect(route('login'));
     }
