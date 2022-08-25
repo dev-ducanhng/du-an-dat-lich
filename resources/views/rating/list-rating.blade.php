@@ -10,16 +10,15 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($all_stylist as $item)
+        @foreach ($list_ratings as $item)
             <tr>
-                <td>{{ $item['stt'] }}</td>
-                <td>{{ $item['name'] }}</td>
-                <td>{{ $item['rating'] }}</td>
-                <td>{{ $item['is_rating'] == 0 ? 'Bạn chưa đánh giá' : 'Bạn đã đánh giá' }}</td>
+                <td>{{ $item->id }}</td>
+                <td>{{ $array_stylists_name[$item->stylist] }}</td>
+                <td>{{ isset($item->rating) ? $item->rating : 'Chưa đánh giá' }}</td>
+                <td>{{ isset($item->rating) ? 'Đã đánh giá' : 'Chưa đánh giá' }}</td>
                 <td>
-                    @if ($item['is_rating'] == 0)
-                        <a
-                            href="{{ route('dashboard.rating.rating', ['detail_rating_id' => $item['detail_rating_id']]) }}">Sửa</a>
+                    @if (!isset($item->rating))
+                        <a href="{{ route('rating.rating', ['booking_id' => $item->id]) }}">Đánh giá</a>
                     @endif
                 </td>
             </tr>

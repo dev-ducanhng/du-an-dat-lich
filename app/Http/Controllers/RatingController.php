@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\DetailRating;
 use App\Models\Rating;
 use App\Models\User;
@@ -14,63 +15,55 @@ class RatingController extends Controller
     {
         $user = Auth::user();
 
+        $list_ratings = Booking::where('user_id', $user->id)->where('status', 0)->get();
         $stylists = User::where('role_id', User::STYLIST_ROLE)->get();
-        $array_slylist_name = [];
+        $array_stylists_name = [];
         foreach ($stylists as $item) {
-            $array_slylist_name[$item['id']] = $item['name'];
+            $array_stylists_name[$item['id']] = $item['name'];
         }
 
-        $all_ratings = DetailRating::where('member_id', $user->id)->get();
-        $all_stylist = [];
-        foreach ($all_ratings as $key => $item) {
-            $all_stylist[] = [
-                'stt' => ++$key,
-                'name' => $array_slylist_name[$item['stylist_id']],
-                'rating' => Rating::where('user_id', $item['stylist_id'])->first()->rating,
-                'is_rating' => $item['is_rating'],
-                'detail_rating_id' => $item['id'],
-            ];
-        }
-
-        return view('rating.list-rating', compact('user', 'array_slylist_name', 'all_ratings', 'all_stylist'));
+        return view('rating.list-rating', compact('user', 'list_ratings', 'array_stylists_name'));
     }
 
-    public function ratingStylist($detail_rating_id)
+    public function ratingStylist($booking_id)
     {
-        $detail_rating = DetailRating::find($detail_rating_id);
+        $booking = Booking::find($booking_id);
+        $user = Auth::user();
 
         $stylists = User::where('role_id', User::STYLIST_ROLE)->get();
         $array_slylist_name = [];
+        $array_stylist_phone = [];
         foreach ($stylists as $item) {
             $array_slylist_name[$item['id']] = $item['name'];
+            $array_stylist_phone[$item['id']] = $item['phone'];
         }
 
-        if (Auth::user()->id != $detail_rating->member_id) {
-            return redirect()->route('dashboard.rating.list');
+        if ($booking->user_id != $user->id) {
+            return redirect()->route('rating.list');
         }
-        if ($detail_rating->is_rating == 1) {
-            return redirect()->route('dashboard.rating.list');
-        }
-        return view('rating.rating-stylist', compact('detail_rating', 'array_slylist_name'));
+
+        return view('rating.rating-stylist', compact('booking', 'array_slylist_name', 'array_stylist_phone'));
     }
 
-    public function saveRating($detail_rating_id, Request $request)
+    public function saveRating($booking_id, Request $request)
     {
-        $detail_rating = DetailRating::find($detail_rating_id);
-        $detail_rating->fill($request->all());
-        $detail_rating->is_rating = 1;
-        $detail_rating->save();
-
-        $model_rating = Rating::where('user_id', $detail_rating->stylist_id)->first();
-        if (!$model_rating) {
-            $model_rating = new Rating();
-            $model_rating->user_id = $detail_rating->stylist_id;
+        $booking = Booking::find($booking_id);
+        if ($booking->status != 0) {
+            return redirect()->route('rating.list')->with('message', 'Không thể đánh giá khi chưa hoàn thành lịch cắt!');
         }
-        $count_rating = DetailRating::where('stylist_id', $detail_rating->stylist_id)->groupBy('stylist_id')->count();
-        $sum_rating = DetailRating::where('stylist_id', $detail_rating->stylist_id)->groupBy('stylist_id')->sum('rating');
-        $model_rating->rating = ceil($sum_rating / $count_rating);
-        $model_rating->save();
+        $booking->rating = $request->rating;
+        $booking->save();
 
-        return redirect()->route('dashboard.rating.list');
+        $stylist = User::find($booking->stylist);
+        if (isset($stylist->total_rating) && isset($stylist->count_rating)) {
+            $stylist->total_rating += $request->rating;
+            $stylist->count_rating ++;
+        } else {
+            $stylist->total_rating = $request->rating;
+            $stylist->count_rating = 1;
+        }
+        $stylist->save();
+
+        return redirect()->route('rating.list');
     }
 }

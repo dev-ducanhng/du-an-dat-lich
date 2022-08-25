@@ -19,7 +19,7 @@
                             </li>
                             <li><a href="{{ route('introduce') }}">Giới thiệu</a></li>
                             <li><a href="{{ route('list-service') }}">Dịch vụ</a></li>
-                            <li><a href="{{ route('blog') }}">Khám phá tóc mới</a>
+                            <li><a href="{{ route('blog') }}">Blog</a>
                             </li>
 
                             <li><a href="{{ route('contact') }}">Liên hệ</a>
