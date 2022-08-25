@@ -65,7 +65,7 @@
             </div>
         @endif
         <div class="tab mt-5" role="tabpanel">
-           @if(auth()->user())
+           @if(auth()->user() && auth()->user()->role_id == \App\Models\User::STYLIST_ROLE)
                 <form action="" method="GET" id="filterForm" class="d-flex justify-content-between">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation">
