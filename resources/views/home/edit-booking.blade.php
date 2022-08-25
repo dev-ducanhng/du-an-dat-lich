@@ -192,7 +192,6 @@
                 theme_color: '#F28123',
                 active_text_color: '#F28123',
                 picker_header: {
-                    active: '#FFFFFF',
                     inactive: '#F28123'
                 }
             },

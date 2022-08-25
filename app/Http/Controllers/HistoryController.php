@@ -20,48 +20,55 @@ class HistoryController extends Controller
     {
         $searchByPhoneNumber = $request->input('phone_number');
         $searchByName = $request->input('name');
-        $bookingList = Booking::with([
-            'user',
-            'bookingService' => function ($queryBookingService) {
-                $queryBookingService->with('service');
-            },
-            'bookingDate', 'Stylist', 'discount']);
-
+        $dataBookings = [];
         if (auth()->user()) {
-            $bookingList->where('stylist', auth()->id());
-            if ($request->filled('filterValue')) {
-                if ($request->input('filterValue') == 'today') {
-                    $bookingList->whereHas('bookingDate', function ($query) {
-                        $query->where('date', now()->toDateString());
-                    });
-                }
-                if ($request->input('filterValue') == 'solved') {
-                    $bookingList->where('status', Booking::SOLVED_YET);
-                }
-                if ($request->input('filterValue') == 'cancel') {
-                    $bookingList->where('status', Booking::CANCEL);
-                }
-            }
-            $bookingList->orWhere('user_id', auth()->id());
-
-        } else {
-            $bookingList = Booking::with([
+            $dataBookings = Booking::with([
                 'user',
                 'bookingService' => function ($queryBookingService) {
                     $queryBookingService->with('service');
                 },
-                'bookingDate', 'Stylist', 'discount'])->where('booking_status', Booking::BOOKING_SUCCESS);
+                'bookingDate', 'Stylist', 'discount'])->where('stylist', auth()->id());
+            if ($request->filled('filterValue')) {
+                if ($request->input('filterValue') == 'today') {
+                    $dataBookings->whereHas('bookingDate', function ($query) {
+                        $query->where('date', now()->toDateString());
+                    });
+                }
+                if ($request->input('filterValue') == 'solved') {
+                    $dataBookings->where('status', Booking::SOLVED_YET);
+                }
+                if ($request->input('filterValue') == 'cancel') {
+                    $dataBookings->where('status', Booking::CANCEL);
+                }
+            }
+            $dataBookings = $dataBookings->paginate(10)->withQueryString();
+
+        } else {
             if ($request->filled('phone_number')) {
-                $bookingList->where('phone_number', 'LIKE', "%{$searchByPhoneNumber}%");
+                $dataBookings = Booking::with([
+                    'user',
+                    'bookingService' => function ($queryBookingService) {
+                        $queryBookingService->with('service');
+                    },
+                    'bookingDate', 'Stylist', 'discount'])
+                    ->where('booking_status', Booking::BOOKING_SUCCESS)
+                    ->where('phone_number', 'LIKE', "%{$searchByPhoneNumber}%");
+                $dataBookings = $dataBookings->paginate(10)->withQueryString();
+
             }
             if ($request->filled('name')) {
-                $bookingList->where('customer_name', 'LIKE', "%{$searchByName}%");
+                $dataBookings = Booking::with([
+                    'user',
+                    'bookingService' => function ($queryBookingService) {
+                        $queryBookingService->with('service');
+                    },
+                    'bookingDate', 'Stylist', 'discount'])
+                    ->where('booking_status', Booking::BOOKING_SUCCESS)
+                    ->where('customer_name', 'LIKE', "%{$searchByName}%");
+                $dataBookings = $dataBookings->paginate(10)->withQueryString();
 
             }
         }
-        $dataBookings = $bookingList->paginate(10)->withQueryString();
-
-
         return view('home.history', compact('dataBookings'));
     }
 
