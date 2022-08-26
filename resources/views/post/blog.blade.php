@@ -1,3 +1,9 @@
+<style>
+    p.excerpt {
+        height: auto !important;
+    }
+</style>
+
 @extends('layouts.home')
 @section('content')
     <!-- breadcrumb-section -->
@@ -54,6 +60,7 @@
                                     <span class="date"><i class="fas fa-calendar"></i>
                                         {{ date('H:i d/m/Y', strtotime($item->created_at)) }}</span>
                                 </p>
+                                <p class="excerpt">{{ $item->short_description }}</p>
 
                                 <a href="{{ route('detail-blog', [
                                     'categoryPostId' => $item->categoryPost->id,
