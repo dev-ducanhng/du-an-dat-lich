@@ -138,9 +138,7 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('/change-information/change-password', [CustomerController::class, 'changePasswordForm'])->name('change-password');
     Route::post('/change-information/change-password', [CustomerController::class, 'saveNewPassword']);
 
-    // Route::get('/history', [HistoryController::class, 'history'])->name('history');
     Route::prefix('rating')->name('rating.')->group(function () {
-        Route::get('/list-rating', [RatingController::class, 'listRating'])->name('list');
         Route::get('/{booking_id}', [RatingController::class, 'ratingStylist'])->name('rating');
         Route::post('/{booking_id}', [RatingController::class, 'saveRating']);
     });
