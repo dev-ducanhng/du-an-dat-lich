@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -21,7 +22,7 @@ class HistoryController extends Controller
         $searchByPhoneNumber = $request->input('phone_number');
         $searchByName = $request->input('name');
         $dataBookings = [];
-        if (auth()->user()) {
+        if (auth()->user() && auth()->user()->role_id == User::STYLIST_ROLE) {
             $dataBookings = Booking::with([
                 'user',
                 'bookingService' => function ($queryBookingService) {
@@ -42,7 +43,28 @@ class HistoryController extends Controller
                 }
             }
             $dataBookings = $dataBookings->orWhere('user_id', auth()->id())->paginate(10)->withQueryString();
-
+        } else if (auth()->user() && auth()->user()->role_id == User::MEMBER_ROLE
+            || auth()->user() && auth()->user()->role_id == User::STAFF_ROLE) {
+            $dataBookings = Booking::with([
+                'user',
+                'bookingService' => function ($queryBookingService) {
+                    $queryBookingService->with('service');
+                },
+                'bookingDate', 'Stylist', 'discount'])->where('user_id', auth()->id());
+            if ($request->filled('filterValue')) {
+                if ($request->input('filterValue') == 'today') {
+                    $dataBookings->whereHas('bookingDate', function ($query) {
+                        $query->where('date', now()->toDateString());
+                    });
+                }
+                if ($request->input('filterValue') == 'solved') {
+                    $dataBookings->where('status', Booking::SOLVED_YET);
+                }
+                if ($request->input('filterValue') == 'cancel') {
+                    $dataBookings->where('status', Booking::CANCEL);
+                }
+            }
+            $dataBookings = $dataBookings->paginate(10)->withQueryString();
         } else {
             if ($request->filled('phone_number')) {
                 $dataBookings = Booking::with([
