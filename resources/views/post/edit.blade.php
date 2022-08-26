@@ -1,7 +1,8 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
-      integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=" crossorigin="anonymous"/>
+    integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=" crossorigin="anonymous" />
+
 <script type="text/javascript">
     var loadFile = function(event) {
         var image = document.getElementById('output');
@@ -16,11 +17,13 @@
         toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
     });
 </script>
+
 <style>
-    .tox-notifications-container{
+    .tox-notifications-container {
         display: none !important;
     }
 </style>
+
 @extends('layouts.dashboard')
 @section('content')
     <main>
@@ -63,9 +66,16 @@
                                 @enderror
                             </div>
                             <div class="form-group position-relative error-l-50">
+                                <label>Mô tả ngắn</label>
+                                <input type="text" name="short_description" id="short_description" value="{{ $post->short_description }}"
+                                    class="input-sm form-control">
+                                @error('short_description')
+                                    <p class="text-danger mt-2">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="form-group position-relative error-l-50">
                                 <label>Nội dung</label>
-                                <textarea name="content" id="myeditorinstance" rows="5" cols="40"
-                                          class="form-control tinymce-editor">{{ $post->content }}</textarea>
+                                <textarea name="content" id="myeditorinstance" rows="5" cols="40" class="form-control tinymce-editor">{{ $post->content }}</textarea>
                                 @error('content')
                                     <p class="text-danger mt-2">{{ $message }}</p>
                                 @enderror

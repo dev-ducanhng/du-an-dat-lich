@@ -1,3 +1,9 @@
+<style>
+    p.excerpt {
+        height: auto !important;
+    }
+</style>
+
 @extends('layouts.home')
 @section('content')
     <div class="hero-area hero-bg">
@@ -184,19 +190,45 @@
                 @foreach ($posts as $item)
                     <div class="col-lg-4 col-md-6">
                         <div class="single-latest-news">
-                            <a href="single-news.html">
-                                <div class="latest-news-bg ">
+                            <a href="{{ route('detail-blog', [
+                                'categoryPostId' => $item->categoryPost->id,
+                                'categoryPostSlug' => $item->categoryPost->slug,
+                                'postId' => $item->id,
+                                'postSlug' => $item->slug,
+                            ]) }}"
+                                target="_blank">
+                                <div class="latest-news-bg">
                                     <img src="{{ asset('storage/images/posts/' . $item->image) }}" alt="">
                                 </div>
                             </a>
                             <div class="news-text-box">
-                                <h3><a href="single-news.html">{{ $item->title }}</a></h3>
+                                <h3><a href="{{ route('detail-blog', [
+                                    'categoryPostId' => $item->categoryPost->id,
+                                    'categoryPostSlug' => $item->categoryPost->slug,
+                                    'postId' => $item->id,
+                                    'postSlug' => $item->slug,
+                                ]) }}"
+                                        target="_blank">{{ $item->title }}</a></h3>
                                 <p class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> {{ $item->category_post_id }}</span>
+                                    <span class="author"><i class="fas fa-user"></i>{{ $item->user->name }}</span>
+                                    <a class="category"
+                                        href="{{ route('blog-category', [
+                                            'categoryPostId' => $item->categoryPost->id,
+                                            'categoryPostSlug' => $item->categoryPost->slug,
+                                        ]) }}"><i
+                                            class="fas fa-address-book"></i>{{ $item->categoryPost->name }}</a>
+                                    <span class="date"><i class="fas fa-calendar"></i>
+                                        {{ date('H:i d/m/Y', strtotime($item->created_at)) }}</span>
                                 </p>
-                                <p class="excerpt">{{ $item->content }}</p>
-                                <a href="single-news.html" class="read-more-btn">Chi tiết <i
-                                        class="fas fa-angle-right"></i></a>
+                                <p class="excerpt">{{ $item->short_description }}</p>
+
+                                <a href="{{ route('detail-blog', [
+                                    'categoryPostId' => $item->categoryPost->id,
+                                    'categoryPostSlug' => $item->categoryPost->slug,
+                                    'postId' => $item->id,
+                                    'postSlug' => $item->slug,
+                                ]) }}"
+                                    target="_blank" class="read-more-btn">Chi tiết <i class="fas fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -204,7 +236,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <a href="news.html" class="boxed-btn">More News</a>
+                    <a href="{{ route('blog') }}" class="boxed-btn">Bài viết khác</a>
                 </div>
             </div>
         </div>
