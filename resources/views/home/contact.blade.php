@@ -14,18 +14,21 @@
                             @csrf
                             <p>
                                 <input type="text" placeholder="Tên" name="name" id="name" value="{{old('name')}}">
+                 
                             </p>
                             @error('name')
                             <p class="text-danger mt-2">{{ $message }}</p>
                             @enderror
                             <p>
                                 <input style="width: 100%" type="tel" placeholder="Số điện thoại" name="phone_number" id="phone" value="{{old('phone_number')}}">
+
                             </p>
                             @error('phone_number')
                             <p class="text-danger mt-2">{{ $message }}</p>
                             @enderror
                             <p>
                                 <textarea name="content" id="message" cols="30" rows="10" value="{{old('content')}}" placeholder="Nội dung"></textarea></p>
+
                             <input type="hidden" name="token" value="FsWga4&@f6aw" />
                             @error('content')
                             <p class="text-danger mt-2">{{ $message }}</p>
@@ -69,6 +72,10 @@
 
     <!-- google map section -->
     <div class="embed-responsive embed-responsive-21by9">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.7116674747035!2d105.84338685099047!3d21.00419199392265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac76918c364f%3A0x24646ca31f54d544!2zODEgUC4gVHLhuqduIMSQ4bqhaSBOZ2jEqWEsIELDoWNoIEtob2EsIEhhaSBCw6AgVHLGsG5nLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1658570909265!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.7116674747035!2d105.84338685099047!3d21.00419199392265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac76918c364f%3A0x24646ca31f54d544!2zODEgUC4gVHLhuqduIMSQ4bqhaSBOZ2jEqWEsIELDoWNoIEtob2EsIEhhaSBCw6AgVHLGsG5nLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1658570909265!5m2!1svi!2s"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
     <!-- end google map section -->
 @endsection
