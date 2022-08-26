@@ -31,15 +31,17 @@ Route::get('/', function () {
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/dich-vu', [HomeController::class, 'listService'])->name('list-service');
 Route::get('/gioi-thieu', [HomeController::class, 'introduce'])->name('introduce');
-Route::get('/lien-he', [HomeController::class, 'contact'])->name('contact');
+Route::get('/lien-he', [FeedbackController::class, 'feedbackForm'])->name('contact');
+Route::post('/lien-he', [FeedbackController::class, 'sendFeedback']);
 Route::get('/bai-viet', [PostController::class, 'getNewestBlog'])->name('blog');
 Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}.html', [PostController::class, 'getCategoryBlog'])->name('blog-category');
 Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}/{postId}-{postSlug}.html', [PostController::class, 'detailBlog'])->name('detail-blog');
 Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name('detail-service');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
-Route::get('/history', [HistoryController::class, 'history'])->name('history');
-Route::post('lien-he', [FeedbackController::class, 'sendFeedback']);
+Route::get('/history', [\App\Http\Controllers\HistoryController::class, 'history'])->name('history');
+
+
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
