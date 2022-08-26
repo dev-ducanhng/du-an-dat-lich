@@ -71,7 +71,7 @@ class DashboardController extends Controller
             $totalPrice += $price['price'];
         }
 
-        $ratings = Booking::whereYear('created_at', date('Y'))->select(
+        $ratings = Booking::whereNotNull('rating')->whereYear('created_at', date('Y'))->select(
             DB::raw("(COUNT(*)) as rating, stylist, sum(rating) as total"),
         )->groupBy('stylist')->orderBy('total', 'DESC')->get();
         $dataRating = [];
