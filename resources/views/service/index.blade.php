@@ -50,7 +50,7 @@
     <div class="col-lg-12 col-md-12 mb-4">
       <div class="card">
           <div class="card-body">
-              <h5 class="card-title">Striped Rows</h5>
+              <h5 class="card-title"></h5>
 
               <table class="table table-striped">
                   <thead>
@@ -69,7 +69,7 @@
                     @foreach ($models as $item)
                     <tr>
                       <th scope="row">{{$item->id}}</th>
-                      <td><img src="{{asset($item->image) }}" alt="{{$item->name}}" width="200px"> </td>
+                      <td><img src="{{asset($item->image) }}" alt="{{$item->name}}" width="200px" style="max-height: 200px"> </td>
                       <td>{{$item->name}}</td>
                       <td>{{$item->price}}</td>
                       <td>{{$item->discount}}</td>
