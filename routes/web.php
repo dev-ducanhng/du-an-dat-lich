@@ -1,18 +1,18 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\RatingController;
-use App\Models\Rating;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,8 +38,7 @@ Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}/{postId}-{postSlug}.ht
 Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name('detail-service');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
-Route::get('/history', [\App\Http\Controllers\HistoryController::class, 'history'])->name('history');
-
+Route::get('/history', [HistoryController::class, 'history'])->name('history');
 Route::post('lien-he', [FeedbackController::class, 'sendFeedback']);
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
@@ -134,12 +133,12 @@ Route::middleware('checkLogin')->group(function () {
     });
 
     Route::get('/profile', [UserController::class, 'myProfile'])->name('my-profile');
-
     Route::get('/change-information', [CustomerController::class, 'changeInformation'])->name('change-infomation');
     Route::post('/change-information', [CustomerController::class, 'saveChangeInformation']);
     Route::get('/change-information/change-password', [CustomerController::class, 'changePasswordForm'])->name('change-password');
     Route::post('/change-information/change-password', [CustomerController::class, 'saveNewPassword']);
 
+    // Route::get('/history', [HistoryController::class, 'history'])->name('history');
     Route::prefix('rating')->name('rating.')->group(function () {
         Route::get('/list-rating', [RatingController::class, 'listRating'])->name('list');
         Route::get('/{booking_id}', [RatingController::class, 'ratingStylist'])->name('rating');
