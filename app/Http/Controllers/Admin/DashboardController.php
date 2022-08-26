@@ -71,21 +71,20 @@ class DashboardController extends Controller
             $totalPrice += $price['price'];
         }
 
-        $ratings = Rating::whereYear('created_at', date('Y'))->select(
-            DB::raw("(COUNT(*)) as rating, user_id, sum(rating) as total"),
-        )->groupBy('user_id')->orderBy('total', 'DESC')->get();
+        $ratings = Booking::whereYear('created_at', date('Y'))->select(
+            DB::raw("(COUNT(*)) as rating, stylist, sum(rating) as total"),
+        )->groupBy('stylist')->orderBy('total', 'DESC')->get();
         $dataRating = [];
         foreach ($ratings as $rating) {
-            if ($rating->user->status == User::ACTIVE) {
+            if ($rating->status == User::ACTIVE) {
+                $user = User::where('id', $rating->stylist)->first();
                 $dataRating[] = [
                     'rating'  => $rating->rating,
-                    'stylish' => $rating->user->name,
+                    'stylish' => $user->name,
                     'point'   => $rating->total / $rating->rating,
-                    'phone'   => $rating->user->phone,
                 ];
             }
         }
-
 
         return view('admin.dashboard',
             compact('user', 'bookings', 'stylists', 'services', 'months', 'totalPrice', 'countBookingByStatus', 'dataRating'));
