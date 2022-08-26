@@ -194,7 +194,6 @@
                                 <p class="blog-meta">
                                     <span class="author"><i class="fas fa-user"></i> {{ $item->category_post_id }}</span>
                                 </p>
-                                <p class="excerpt">{{ $item->content }}</p>
                                 <a href="single-news.html" class="read-more-btn">Chi tiết <i
                                         class="fas fa-angle-right"></i></a>
                             </div>

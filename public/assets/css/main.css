@@ -131,6 +131,10 @@ h2,
     font-size: 2.5rem;
     line-height: 2.75rem;
   }
+
+  .hero-bg {
+    background-position: unset !important;
+  }
 }
 
 @media only screen and (max-width: 575.96px) {
