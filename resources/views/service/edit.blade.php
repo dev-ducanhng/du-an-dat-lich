@@ -44,7 +44,7 @@
                                 </div>
                                
                                 
-                                <input type="file"  name="image" >
+                                <input  type="file"  name="image" >
                                 @error('image')
                                 <p class="text-danger mt-2">{{ $message }}</p>
                                 @enderror
