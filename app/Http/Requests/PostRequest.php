@@ -28,6 +28,7 @@ class PostRequest extends FormRequest
             'content' => ' required ',
             'category_post_id' => ' required ',
             'status' => ' required ',
+            'short_description' => ' max:100 '
         ];
     }
 
@@ -35,11 +36,12 @@ class PostRequest extends FormRequest
     {
         return [
             'title.required' => 'Vui lòng nhập tiêu đề bài viết',
-            'title.string' => 'Không được phép nhập ký tự đặc biệt',
-            'title.min' => 'Phải có ít nhất 3 ký tự',
+            'title.string' => 'Tiêu đề không được phép nhập ký tự đặc biệt',
+            'title.min' => 'Tiêu đề phải có ít nhất 3 ký tự',
             'content.required' => 'Vui lòng nhập nội dung bài viết',
             'category_post_id.required' => 'Vui lòng chọn chủ đề bài viết',
             'status.required' => 'Vui lòng nhập tiêu đề bài viết',
+            'short_description.max' => 'Mô tả ngắn không được quá 255 ký tự',
         ];
     }
 }
