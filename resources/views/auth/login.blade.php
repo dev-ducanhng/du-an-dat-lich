@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dore jQuery</title>
+    <title>Đăng nhập</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="{{ asset('assets/dashboard/src/font/iconsmind-s/css/iconsminds.css') }}" />
@@ -38,13 +38,10 @@
                             <p class="white mb-0">
                                 Vui lòng đăng nhập tài khoản của bạn.
                                 <br>Nếu bạn không phải thành viên, vui lòng
-                                <a href="#" class="white">đăng ký</a>.
+                                <a href="{{route('register')}}" class="text-primary">đăng ký tài khoản tại đây.</a>
                             </p>
                         </div>
                         <div class="form-side">
-                            <a href="Dashboard.Default.html">
-                                <span class="logo-single"></span>
-                            </a>
                             <h6 class="mb-4">Đăng nhập</h6>
                             @if (Session::has('message_register_success'))
                                 <p class="login-box-msg text-success">{{ Session::get('message_register_success') }}</p>
@@ -60,7 +57,7 @@
                                     <span>Mật khẩu</span>
                                 </label>
                                 @if (session('msg'))
-                                    <div class="alert alert-success" role="alert">
+                                    <div class="alert alert-danger" role="alert">
                                         {{ __('Tài khoản hoặc mật khẩu không chính xác. Vui lòng nhập lại') }}
                                     </div>
                                 @endif

@@ -194,8 +194,9 @@ class HomeController extends Controller
                 'bookingDate',
             ])->where('id', $bookingId)->first();
             if ($request->input('payment_method') == Booking::PAYMENT_WITH_CARD) {
+                $discount = Discount::where('code_discount', 'LIKE', "%{$request->input('discount')}%")->first();
                 $payment = new PaymentModule();
-                $payment->payment($bookingDetail, $bookingId);
+                $payment->payment($bookingDetail, $bookingId, $discount->percent ?? 0);
             }
 
             return redirect()->route('success', $bookingId);

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dore jQuery</title>
+    <title>Thay đổi mật khẩu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="{{asset('assets/dashboard/src/font/iconsmind-s/css/iconsminds.css')}}"/>
@@ -37,36 +37,32 @@
 
                         <p class=" text-white h2">SALON</p>
 
-                        
+
                     </div>
                     <div class="form-side">
-                        <a href="Dashboard.Default.html">
-                            <span class="logo-single"></span>
-                        </a>
-                        
                         @if(Session::has('success'))
-                             <p class="login-box-msg text-success">{{Session::get('success')}}</p>      
+                             <p class="login-box-msg text-success">{{Session::get('success')}}</p>
                              @endif
-                      
+
                         <form method="POST">
                             @csrf
                             <label class="form-group has-float-label mb-4">
                                 <p>Mật khẩu mới</p>
                                 <input type="password" class="form-control" name="password" />
-                                
+
                                 @error('email')
                                 <p class="text-danger mt-2">{{ $message }}</p>
                                 @enderror
                                 <p>Nhập lại mật khẩu</p>
                                 <input type="password" class="form-control" name="password_confirmation" />
                                 @if(Session::has('msg'))
-                             <p class="login-box-msg text-danger">{{Session::get('msg')}}</p>      
+                             <p class="login-box-msg text-danger">{{Session::get('msg')}}</p>
                              @endif
                             </label>
 
-                            
+
                             <div class="d-flex justify-content-between align-items-center">
-                                
+
                                 <button class="btn btn-primary btn-lg btn-shadow" type="submit">Tiếp tục</button>
                             </div>
                         </form>
