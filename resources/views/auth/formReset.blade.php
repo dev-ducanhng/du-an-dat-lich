@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dore jQuery</title>
+    <title>Quên mật khẩu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="{{asset('assets/dashboard/src/font/iconsmind-s/css/iconsminds.css')}}"/>
@@ -44,30 +44,23 @@
                         </p>
                     </div>
                     <div class="form-side">
-                        <a href="Dashboard.Default.html">
-                            <span class="logo-single"></span>
-                        </a>
-                        
                         @if(Session::has('success'))
-                             <p class="login-box-msg text-success">{{Session::get('success')}}</p>      
+                             <p class="login-box-msg alert-success p-2">{{Session::get('success')}}</p>
                              @endif
                         <h6 class="mb-4">Tài khoản</h6>
                         <form method="POST">
                             @csrf
                             <label class="form-group has-float-label mb-4">
                                 <input  class="form-control" name="email" placeholder="Email"/>
-                                <span>Số điện thoại</span>
+                                <span>Email</span>
                                 @error('email')
                                 <p class="text-danger mt-2">{{ $message }}</p>
                                 @enderror
                                 @if(Session::has('msg'))
-                             <p class="login-box-msg text-danger">{{Session::get('msg')}}</p>      
+                             <p class="login-box-msg alert-danger p-2">{{Session::get('msg')}}</p>
                              @endif
                             </label>
-
-                            
                             <div class="d-flex justify-content-between align-items-center">
-                                
                                 <button class="btn btn-primary btn-lg btn-shadow" type="submit">Tiếp tục</button>
                             </div>
                         </form>
