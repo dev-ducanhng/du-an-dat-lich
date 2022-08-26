@@ -53,6 +53,42 @@
                                 <i
                                     class="fas fa-thin fa-phone pr-3"></i>{{ \Illuminate\Support\Facades\Auth::user()->phone }}
                             </p>
+                            @if (auth()->user() && auth()->user()->role_id == \App\Models\User::STYLIST_ROLE)
+                                @if (auth()->user()->total_rating != null && auth()->user()->count_rating != null)
+                                    @if (ceil(auth()->user()->total_rating / auth()->user()->count_rating) == 1)
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star"></div>
+                                        <div class="star"></div>
+                                        <div class="star"></div>
+                                        <div class="star"></div>
+                                    @elseif(ceil(auth()->user()->total_rating / auth()->user()->count_rating) == 2)
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star"></div>
+                                        <div class="star"></div>
+                                        <div class="star"></div>
+                                    @elseif(ceil(auth()->user()->total_rating / auth()->user()->count_rating) == 3)
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star"></div>
+                                        <div class="star"></div>
+                                    @elseif(ceil(auth()->user()->total_rating / auth()->user()->count_rating) == 4)
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star"></div>
+                                    @elseif(ceil(auth()->user()->total_rating / auth()->user()->count_rating) == 5)
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                        <div class="star star_rating_on"></div>
+                                    @endif
+                                @else
+                                @endif
+                            @endif
                         </div>
 
                     </div>
@@ -151,9 +187,13 @@
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">Tình trạng</div>
                                                 </th>
-                                                <th class="p-2 whitespace-nowrap">
-                                                    <div class="font-semibold text-left">Đánh giá</div>
-                                                </th>
+                                                @if (auth()->user() &&
+                                                    (auth()->user()->role_id == \App\Models\User::STAFF_ROLE ||
+                                                        auth()->user()->role_id == \App\Models\User::MEMBER_ROLE))
+                                                    <th class="p-2 whitespace-nowrap">
+                                                        <div class="font-semibold text-left">Đánh giá</div>
+                                                    </th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100">
@@ -200,52 +240,50 @@
                                                                 badge-danger @endif text-left">
                                                                 {{ $booking->present()->getStatus }}</div>
                                                         </td>
-                                                        <td>
-                                                            @if ($booking->rating != null)
-                                                                @if ($booking->rating == 1)
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star"></div>
-                                                                    <div class="star"></div>
-                                                                    <div class="star"></div>
-                                                                    <div class="star"></div>
-                                                                @elseif($booking->rating == 2)
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star"></div>
-                                                                    <div class="star"></div>
-                                                                    <div class="star"></div>
-                                                                @elseif($booking->rating == 3)
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star"></div>
-                                                                    <div class="star"></div>
-                                                                @elseif($booking->rating == 4)
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star"></div>
-                                                                @elseif($booking->rating == 5)
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
-                                                                    <div class="star star_rating_on"></div>
+                                                        @if (auth()->user() &&
+                                                            (auth()->user()->role_id == \App\Models\User::STAFF_ROLE ||
+                                                                auth()->user()->role_id == \App\Models\User::MEMBER_ROLE))
+                                                            <td>
+                                                                @if ($booking->rating != null)
+                                                                    @if ($booking->rating == 1)
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star"></div>
+                                                                        <div class="star"></div>
+                                                                        <div class="star"></div>
+                                                                        <div class="star"></div>
+                                                                    @elseif($booking->rating == 2)
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star"></div>
+                                                                        <div class="star"></div>
+                                                                        <div class="star"></div>
+                                                                    @elseif($booking->rating == 3)
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star"></div>
+                                                                        <div class="star"></div>
+                                                                    @elseif($booking->rating == 4)
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star"></div>
+                                                                    @elseif($booking->rating == 5)
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                        <div class="star star_rating_on"></div>
+                                                                    @endif
+                                                                @elseif($booking->rating == null && $booking->status == 0)
+                                                                    <a href="{{ route('rating.rating', ['booking_id' => $booking->id]) }}"
+                                                                        class="p-2 text-left badge text-white badge-primary text-left">
+                                                                        Đánh giá</a>
+                                                                @else
                                                                 @endif
-                                                            @elseif($booking->rating == null && $booking->status == 0)
-                                                                <a href="{{ route('rating.rating', ['booking_id' => $booking->id]) }}"
-                                                                    class="p-2 text-left badge text-white badge-primary text-left">
-                                                                    Đánh giá</a>
-                                                                {{-- <a href="{{ route('rating.rating', ['booking_id' => $booking->id]) }}"
-                                                                    class=" change-status p-3 text-white"
-                                                                    style="width: 20px; height: 20px; background: #cf6f29">
-                                                                    <i class="fa fa-solid fa-star-half-o"
-                                                                        aria-hidden="true"></i>
-                                                                </a> --}}
-                                                            @else
-                                                            @endif
-                                                        </td>
+                                                            </td>
+                                                        @endif
                                                         <td>
                                                             @if (auth()->user() && \Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STYLIST_ROLE)
                                                                 <a class="with-tooltip change-status p-3 text-white"
