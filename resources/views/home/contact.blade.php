@@ -7,28 +7,30 @@
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="form-title">
                         <h2>Phản hồi về dịch vụ</h2>
-                        @if(session()->has('success'))
-                            <div class="alert alert-success">
-                                {{ session()->get('success') }}
-                            </div>
-                        @endif
                     </div>
                     <div id="form_status"></div>
                     <div class="contact-form">
-                        <form method="post" action="">
+                        <form method="POST" action="">
                             @csrf
                             <p>
-                                <input type="text" placeholder="Name" name="name" id="name">
-{{--                                <input type="email" placeholder="Email" name="email" id="email">--}}
-
+                                <input type="text" placeholder="Tên" name="name" id="name" value="{{old('name')}}">
                             </p>
+                            @error('name')
+                            <p class="text-danger mt-2">{{ $message }}</p>
+                            @enderror
                             <p>
-                                <input style="width: 100%" type="tel" placeholder="Phone" name="phone_number" id="phone">
+                                <input style="width: 100%" type="tel" placeholder="Số điện thoại" name="phone_number" id="phone" value="{{old('phone_number')}}">
                             </p>
+                            @error('phone_number')
+                            <p class="text-danger mt-2">{{ $message }}</p>
+                            @enderror
                             <p>
-                                <textarea name="content" id="message" cols="30" rows="10" placeholder="Message"></textarea></p>
+                                <textarea name="content" id="message" cols="30" rows="10" value="{{old('content')}}" placeholder="Nội dung"></textarea></p>
                             <input type="hidden" name="token" value="FsWga4&@f6aw" />
-                            <p><input type="submit" value="Submit"></p>
+                            @error('content')
+                            <p class="text-danger mt-2">{{ $message }}</p>
+                            @enderror
+                            <p><input type="submit" value="Gửi phản hồi"></p>
                         </form>
                     </div>
                 </div>

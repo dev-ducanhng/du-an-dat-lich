@@ -13,6 +13,8 @@ class Feedback extends Model
     protected $fillable = [
         'name',
         'phone_number',
-        'content'
+        'content',
+        'image',
+        'rating',
     ];
 }
