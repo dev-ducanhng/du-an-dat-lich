@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dore jQuery</title>
+    <title>Quên mật khẩu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="{{asset('assets/dashboard/src/font/iconsmind-s/css/iconsminds.css')}}"/>
@@ -44,44 +44,30 @@
                         </p>
                     </div>
                     <div class="form-side">
-                        <a href="Dashboard.Default.html">
-                            <span class="logo-single"></span>
-                        </a>
-                        
+
                         <form method="POST" action="/reset-password">
                             @csrf
                             <label class="form-group has-float-label mb-4">
-                               
                                 <input class="form-control" value="{{$email}}" name="email" placeholder="Email" hidden/>
-                                
                                 @error('email')
                                 <p class="text-danger mt-2">{{ $message }}</p>
                                 @enderror
-                               
-                              
                                 <input class="form-control" value="{{$token}}"  name="remember_token" hidden />
-                                
-                           
-                                
                                 <p>Mật khẩu mới</p>
-                                <input type="password" class="form-control"  name="password" placeholder="Mã khẩu mới" />
+                                <input type="password" class="form-control"  name="password" placeholder="Mật khẩu mới" />
                                 @error('password')
                                 <p class="text-danger mt-2">{{ $message }}</p>
                                 @enderror
-                             
                                 <p>Nhập lại mật khẩu</p>
-                                <input type="password" class="form-control"  name="password_confirmation" placeholder="Mã xác thực" />
+                                <input type="password" class="form-control"  name="password_confirmation" placeholder="Xác nhận mật khẩu" />
                                 @error('password_confirmation')
                                 <p class="text-danger mt-2">{{ $message }}</p>
                                 @enderror
                                 @if(Session::has('msg'))
-                             <p class="login-box-msg text-danger">{{Session::get('msg')}}</p>      
+                             <p class="login-box-msg text-danger">{{Session::get('msg')}}</p>
                              @endif
                             </label>
-
-                            
                             <div class="d-flex justify-content-between align-items-center">
-                                
                                 <button class="btn btn-primary btn-lg btn-shadow" type="submit">Tiếp tục</button>
                             </div>
                         </form>
