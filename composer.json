@@ -13,7 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "nexmo/client": "^2.4",
-        "twilio/sdk": "^6.40"
+        "twilio/sdk": "^6.41"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

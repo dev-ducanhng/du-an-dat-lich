@@ -54,5 +54,4 @@ class SendSMSModule
             'body' => $messageSending,
         ]);
     }
-
 }

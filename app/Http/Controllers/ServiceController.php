@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SeviceRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Modules\SendSMSModule;
 use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
@@ -41,9 +42,9 @@ class ServiceController extends Controller
         }
 
 
-        // dd($model);
+        // $sendSMS = new SendSMSModule();
+        // $sendSMS->sendSMS($bookingDetail, $bookingDetail->multiple_booking);
         $model->save();
-
         return redirect(route('dashboard.service.index'));
     }
     public function editForm($id)
