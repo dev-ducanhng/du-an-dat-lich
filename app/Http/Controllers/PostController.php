@@ -24,7 +24,8 @@ class PostController extends Controller
         return view('post.add', compact('category_post'));
     }
 
-    public function postAddPost(Request $request) {
+    public function postAddPost(Request $request)
+    {
         $model = new Post();
         $model->fill($request->all());
         $model->slug = $this->createSlugName($request->title);
@@ -39,7 +40,8 @@ class PostController extends Controller
         return redirect()->route('dashboard.post.list')->with('message', 'Thêm mới bài viết thành công!');
     }
 
-    public function editPost($postId, $postSlug) {
+    public function editPost($postId, $postSlug)
+    {
         $post = Post::find($postId);
         if ($postSlug != $post->slug) {
             return redirect()->route('dashboard.post.list')->with('message', 'Không tìm thấy bài viết!');
@@ -48,7 +50,8 @@ class PostController extends Controller
         return view('post.edit', compact('post', 'category_post'));
     }
 
-    public function postEditPost($postId, $postSlug, PostRequest $request){
+    public function postEditPost($postId, $postSlug, PostRequest $request)
+    {
         $model = Post::find($postId);
         if ($postSlug != $model->slug) {
             return redirect()->route('dashboard.post.list')->with('message', 'Không tìm thấy bài viết!');
@@ -72,7 +75,8 @@ class PostController extends Controller
         return view('post.blog', compact('posts'));
     }
 
-    public function getCategoryBlog($categoryPostId, $categoryPostSlug) {
+    public function getCategoryBlog($categoryPostId, $categoryPostSlug)
+    {
         $category_post = CategoryPost::find($categoryPostId);
         if ($categoryPostSlug != $category_post->slug) {
             return redirect()->route('blog')->with('message', 'Không tìm thấy danh mục bài viết!');

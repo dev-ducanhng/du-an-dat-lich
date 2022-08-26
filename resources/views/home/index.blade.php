@@ -220,6 +220,7 @@
                                     <span class="date"><i class="fas fa-calendar"></i>
                                         {{ date('H:i d/m/Y', strtotime($item->created_at)) }}</span>
                                 </p>
+
                                 <p class="excerpt">{{ $item->short_description }}</p>
 
                                 <a href="{{ route('detail-blog', [
