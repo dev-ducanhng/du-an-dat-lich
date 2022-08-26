@@ -7,6 +7,20 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">
 
     <style>
+        .star {
+            display: inline-block;
+            background: url('star-rating/star_rating.png');
+            background-repeat: no-repeat;
+            width: 19px;
+            min-width: 19px;
+            height: 18px;
+            min-height: 18px;
+        }
+
+        .star_rating_on {
+            background: url('star-rating/star_rating_on.png');
+        }
+
         .padding {
             padding: 3rem !important
         }
@@ -59,8 +73,6 @@
         .img-radius {
             border-radius: 5px;
         }
-
-
 
         h6 {
             font-size: 14px;
@@ -191,12 +203,52 @@
                                             </div>
                                             <div class="col-sm-6 m-b-10">
                                                 <p class="f-w-600" style="margin-bottom: 5px;">Giới tính</p>
-                                                <h6 class="text-muted f-w-400">{{ $profile->gender == 1 ? 'Nam' : 'Nữ' }}</h6>
+                                                <h6 class="text-muted f-w-400">{{ $profile->gender == 1 ? 'Nam' : 'Nữ' }}
+                                                </h6>
                                             </div>
                                             <div class="col-sm-6 m-b-10">
                                                 <p class="f-w-600" style="margin-bottom: 5px;">Ngày sinh</p>
-                                                <h6 class="text-muted f-w-400">{{ date('d/m/Y', strtotime($profile->dob)) }}</h6>
+                                                <h6 class="text-muted f-w-400">
+                                                    {{ date('d/m/Y', strtotime($profile->dob)) }}</h6>
                                             </div>
+                                            @if ($profile->role_id == \App\Models\User::STYLIST_ROLE && $profile->total_rating != null && $profile->count_rating != null)
+                                                <div class="col-sm-6 m-b-10">
+                                                    <p class="f-w-600" style="margin-bottom: 5px;">Điểm đánh giá</p>
+                                                    <h6 class="text-muted f-w-400">
+                                                        @if (ceil($profile->total_rating / $profile->count_rating) == 1)
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star"></div>
+                                                            <div class="star"></div>
+                                                            <div class="star"></div>
+                                                            <div class="star"></div>
+                                                        @elseif(ceil($profile->total_rating / $profile->count_rating) == 2)
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star"></div>
+                                                            <div class="star"></div>
+                                                            <div class="star"></div>
+                                                        @elseif(ceil($profile->total_rating / $profile->count_rating) == 3)
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star"></div>
+                                                            <div class="star"></div>
+                                                        @elseif(ceil($profile->total_rating / $profile->count_rating) == 4)
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star"></div>
+                                                        @elseif(ceil($profile->total_rating / $profile->count_rating) == 5)
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                            <div class="star star_rating_on"></div>
+                                                        @endif
+                                                    </h6>
+                                                </div>
+                                            @endif
                                         </div>
                                         <ul class="social-link list-unstyled m-t-40 m-b-10">
                                             <li><a href="#!" data-toggle="tooltip" data-placement="bottom"
