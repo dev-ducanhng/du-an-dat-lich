@@ -38,9 +38,8 @@
                             <p class=" text-white h2">SALON</p>
 
                             <p class="white mb-0">
-                                Vui lòng đăng nhập tài khoản của bạn.
-                                <br>Nếu bạn không phải thành viên, vui lòng
-                                <a href="#" class="white">đăng ký</a>.
+                                Nếu bạn là thành viên của chúng tôi.
+                                <a href="{{route('login')}}" class="text-primary">Hãy đăng nhập tại đây</a>.
                             </p>
                         </div>
                         <div class="form-side">

@@ -41,7 +41,7 @@ class SeedBookingTimeDaily extends Command
     public function handle(): int
     {
         $bookingDate = BookingDate::create([
-            'date' => now()->addDays(7)->toDateString(),
+            'date' => now()->addDays(6)->toDateString(),
         ]);
         BookingTime::insert(
             [

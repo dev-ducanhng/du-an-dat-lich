@@ -13,7 +13,8 @@ class PaymentModule
      * @param $bookingId
      * @return void
      */
-    public function payment ($bookingDetail, $bookingId) {
+    public function payment($bookingDetail, $bookingId, $discount)
+    {
         $vnp_Url = config('services.payment.url');
         $vnp_Returnurl = route('success', $bookingId);
         $vnp_TmnCode = config('services.payment.key');
@@ -25,8 +26,11 @@ class PaymentModule
         foreach ($bookingDetail->bookingService as $detail) {
             $totalAmount += $detail->service->price - $detail->service->price * $detail->service->discount / 100;
         }
-        dd($totalAmount);
-        $vnp_Amount = $totalAmount * 100;
+        if ($discount) {
+            $vnp_Amount = $totalAmount * 100 - ($totalAmount * 100 * $discount / 100);
+        } else {
+            $vnp_Amount = $totalAmount * 100;
+        }
         $vnp_Locale = 'vn';
         $vnp_BankCode = 'NCB';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];

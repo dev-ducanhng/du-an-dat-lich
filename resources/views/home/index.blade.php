@@ -123,9 +123,9 @@
                                     <span>Giảm giá {{ $item->discount }}%</span>
                                     <p>
                                         <span> <span
-                                                style="color: #F28123;font-size: 1.5rem">{{ number_format($item->priceDiscount, 0, '.', ',') }}
-                                                đ </span> <span style="font-weight: bold;font-size: 20px">-</span> <span
-                                                style="color: rgb(214, 211, 211) ;font-size: 1.5rem;text-decoration: line-through">
+                                                style="color: #F28123;font-size: 1.2rem">{{ number_format($item->priceDiscount, 0, '.', ',') }}
+                                                đ </span> <span style="font-weight: bold;font-size: 1rem">-</span> <span
+                                                style="color: rgb(214, 211, 211) ;font-size: 1.2rem;text-decoration: line-through">
                                                 {{ number_format($item->price, 0, '.', ',') }} đ</span> </span>
                                     </p>
                                 @endif
