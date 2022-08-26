@@ -11,20 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class RatingController extends Controller
 {
-    public function listRating()
-    {
-        $user = Auth::user();
-
-        $list_ratings = Booking::where('user_id', $user->id)->where('status', 0)->get();
-        $stylists = User::where('role_id', User::STYLIST_ROLE)->get();
-        $array_stylists_name = [];
-        foreach ($stylists as $item) {
-            $array_stylists_name[$item['id']] = $item['name'];
-        }
-
-        return view('rating.list-rating', compact('user', 'list_ratings', 'array_stylists_name'));
-    }
-
     public function ratingStylist($booking_id)
     {
         $booking = Booking::find($booking_id);
@@ -41,7 +27,7 @@ class RatingController extends Controller
         }
 
         if ($booking->user_id != $user->id) {
-            return redirect()->route('rating.list');
+            return redirect()->route('history')->with('message', 'Bạn không thể đánh giá hóa đơn của người khác!');
         }
 
         return view('rating.rating-stylist', compact('booking', 'array_slylist_name', 'array_stylist_phone', 'array_stylist_avatar'));
@@ -52,7 +38,7 @@ class RatingController extends Controller
         $booking = Booking::find($booking_id);
         $stylist_name = User::find($booking->stylist)->name;
         if ($booking->status != 0) {
-            return redirect()->route('rating.list')->with('message', 'Không thể đánh giá khi chưa hoàn thành lịch cắt!');
+            return redirect()->route('history')->with('message', 'Không thể đánh giá khi chưa hoàn thành lịch cắt!');
         }
         $booking->rating = $request->rating;
         $booking->save();
