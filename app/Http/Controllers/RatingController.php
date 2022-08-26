@@ -33,21 +33,24 @@ class RatingController extends Controller
         $stylists = User::where('role_id', User::STYLIST_ROLE)->get();
         $array_slylist_name = [];
         $array_stylist_phone = [];
+        $array_stylist_avatar = [];
         foreach ($stylists as $item) {
             $array_slylist_name[$item['id']] = $item['name'];
             $array_stylist_phone[$item['id']] = $item['phone'];
+            $array_stylist_avatar[$item['id']] = $item['avatar'];
         }
 
         if ($booking->user_id != $user->id) {
             return redirect()->route('rating.list');
         }
 
-        return view('rating.rating-stylist', compact('booking', 'array_slylist_name', 'array_stylist_phone'));
+        return view('rating.rating-stylist', compact('booking', 'array_slylist_name', 'array_stylist_phone', 'array_stylist_avatar'));
     }
 
     public function saveRating($booking_id, Request $request)
     {
         $booking = Booking::find($booking_id);
+        $stylist_name = User::find($booking->stylist)->name;
         if ($booking->status != 0) {
             return redirect()->route('rating.list')->with('message', 'Không thể đánh giá khi chưa hoàn thành lịch cắt!');
         }
@@ -64,6 +67,6 @@ class RatingController extends Controller
         }
         $stylist->save();
 
-        return redirect()->route('rating.list');
+        return redirect()->route('history')->with('message', 'Bạn đã gửi đánh giá ' . $request->rating . ' sao cho Stylist ' . $stylist_name);
     }
 }
