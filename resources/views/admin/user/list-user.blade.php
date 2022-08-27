@@ -74,8 +74,10 @@
                                     <div class="dropdown-menu mr-5">
                                         <a class="dropdown-item" href="{{ route('dashboard.user.edit', $user->id) }}"><i
                                                 class="iconsminds-pen-2"></i> Sửa</a>
-                                        <a class="dropdown-item" href="{{ route('dashboard.user.delete', $user->id) }}"><i
-                                                class="iconsminds-eraser-2"></i> Xóa</a>
+                                        @if($user->role_id != \App\Models\User::ADMIN_ROLE)
+                                            <a class="dropdown-item" href="{{ route('dashboard.user.delete', $user->id) }}"><i
+                                                    class="iconsminds-eraser-2"></i> Xóa</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

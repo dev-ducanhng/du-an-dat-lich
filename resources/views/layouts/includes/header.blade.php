@@ -27,7 +27,7 @@
                             </li>
                             <li class="float-right">
                                 <div class="header-icons">
-                                    <a class="shopping-cart" href="cart.html"><i
+                                    <a class="shopping-cart" href="cart.html">{{auth()->user() ? auth()->user()->name : ''}}<i
                                             class="fa fa-user-circle-o w-20 h-20"></i>
                                     </a>
                                     <ul class="sub-menu">
@@ -40,22 +40,14 @@
                                             <li><a href="{{ route('dashboard.index') }}">Quản trị</a></li>
                                         @endif
                                         @if (auth()->user())
-                                            <li><a href="{{ route('my-profile') }}">Trang cá nhân</a></li>
                                             <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
                                         @endif
 
                                     </ul>
                                 </div>
                             </li>
-                            <li>
-                                <div class="header-icons">
-                                    <a class="mobile-hide search-bar-icon" href="#"><i
-                                            class="fas fa-search"></i></a>
-                                </div>
-                            </li>
                         </ul>
                     </nav>
-                    <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
                     <div class="mobile-menu"></div>
                     <!-- menu end -->
                 </div>
