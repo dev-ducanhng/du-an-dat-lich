@@ -198,7 +198,7 @@
             bodyType: 'modal',
             selectedDate: new Date(),
             minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
-            maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 7)
+            maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 2)
         })
         let string = ''
         let checked = ''
