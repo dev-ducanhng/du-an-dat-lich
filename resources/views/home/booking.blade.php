@@ -186,6 +186,7 @@
         selectStylistButton.addEventListener('click', () => {
             selectStylist.hidden = false
         })
+        let minMax
 
         let datepicker = MCDatepicker.create({
             el: '#datepicker',
@@ -202,7 +203,7 @@
             customMonths: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             customWeekDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
-            maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 7)
+            maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 2),
         })
         let string = ''
         let checked = ''
