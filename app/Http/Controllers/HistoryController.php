@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
 use App\Models\Booking;
+use App\Models\BookingDate;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class HistoryController extends Controller
 {
     /**
-     * @param Request $request
+     * @param SearchRequest $request
      * @return Application|Factory|View
      */
-    public function history(Request $request)
+    public function history(SearchRequest $request)
     {
         $searchByPhoneNumber = $request->input('phone_number');
         $searchByName = $request->input('name');
@@ -42,7 +45,19 @@ class HistoryController extends Controller
                     $dataBookings->where('status', Booking::CANCEL);
                 }
             }
-            $dataBookings = $dataBookings->orWhere('user_id', auth()->id())->paginate(10)->withQueryString();
+            if ($request->filled('start_date')) {
+                $startDate = $request->input('start_date');
+                $dataBookings->whereHas('bookingDate', function ($query) use ($startDate){
+                    $query->where('date', '>=', $startDate);
+                });
+            }
+            if ($request->filled('end_date')) {
+                $endDate = $request->input('end_date');
+                $dataBookings->whereHas('bookingDate', function ($query) use ($endDate){
+                    $query->where('date', '<=', $endDate);
+                });
+            }
+            $dataBookings = $dataBookings->paginate(10)->withQueryString();
         } else if (auth()->user() && auth()->user()->role_id == User::MEMBER_ROLE
             || auth()->user() && auth()->user()->role_id == User::STAFF_ROLE) {
             $dataBookings = Booking::with([
@@ -91,7 +106,15 @@ class HistoryController extends Controller
 
             }
         }
-        return view('home.history', compact('dataBookings'));
+        $user = Auth::user();
+        if ($user) {
+            $profile = User::find($user->id);
+            $profile->load('role');
+        } else {
+            $profile = null;
+        }
+
+        return view('home.history', compact('dataBookings', 'profile'));
     }
 
     /**
