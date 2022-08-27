@@ -125,7 +125,7 @@
                             </div>
                             <h3>{{ $item->name }}</h3>
                             <p class="product-price">
-                                @if ($item->discount != '' || $item->discount != null)
+                                @if ($item->discount != 0)
                                     <span>Giảm giá {{ $item->discount }}%</span>
                                     <p>
                                         <span> <span
@@ -133,6 +133,11 @@
                                                 đ </span> <span style="font-weight: bold;font-size: 1rem">-</span> <span
                                                 style="color: rgb(214, 211, 211) ;font-size: 1.2rem;text-decoration: line-through">
                                                 {{ number_format($item->price, 0, '.', ',') }} đ</span> </span>
+                                    </p>
+                                    @else
+                                    <span style="color: white">Giảm giá {{$item->discount}}%</span>
+                                    <p>
+                                        <span  style="color: #F28123;font-size: 1.5rem" >{{number_format($item->price,0,'.',',') }} đ </span>
                                     </p>
                                 @endif
                             </p>

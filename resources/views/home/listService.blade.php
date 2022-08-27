@@ -39,19 +39,31 @@
                         </div>
                         <h3>{{$item->name}}</h3>
                         <p class="product-price">
-                            @if ($item->discount !='' || $item->discount != null)
-                            <span>Giảm giá {{$item->discount}}%</span>
+                            @if ( $item->discount !== 0)
+                    
+                            <span >Giảm giá {{$item->discount}}%</span>
                             <p>
                                 <span> <span  style="color: #F28123;font-size: 1.5rem" >{{number_format($item->priceDiscount,0,'.',',') }} đ</span> <span style="font-weight: bold;font-size: 20px">-</span> <span style="color: rgb(214, 211, 211) ;font-size: 1.5rem;text-decoration: line-through"> {{number_format($item->price,0,'.',',') }} đ</span> </span>
                             </p>
+                            @else
+                            <span style="color: white">Giảm giá {{$item->discount}}%</span>
+                            <p>
+                                <span  style="color: #F28123;font-size: 1.5rem" >{{number_format($item->price,0,'.',',') }} đ </span>
+                            </p>
+                            
+                            
                             @endif
+                           
+                            
                         </p>
                         <a href="{{route('booking')}}" class="cart-btn"> Đặt lịch</a>
                     </div>
                 </div>
                 @endforeach
             </div>
-
+            <div class="mt-2">
+                {{$models->links()}}
+            </div>
             {{-- <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="pagination-wrap">

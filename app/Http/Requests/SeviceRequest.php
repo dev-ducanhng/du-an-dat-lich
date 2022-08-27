@@ -24,16 +24,25 @@ class SeviceRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        
+        $requestRule =  [
             'name' => [
-                'required', 'string',
+                'required',
                 Rule::unique('services')->ignore($this->id)
             ],
             'price' => 'required|integer|min:1',
-            'image' => 'nullable|image',
+            'image' => 'image',
             'status' => 'required|integer',
-            'discount' => 'integer|min:1|max:99'
+            'discount' => 'nullable|integer|min:0|max:100'
         ];
+        
+        if($this->id == null){
+            $requestRule['image'] = "required|" . $requestRule['image'];
+        }
+
+        return $requestRule;
+
+       
     }
     public function messages()
     {
@@ -43,11 +52,12 @@ class SeviceRequest extends FormRequest
             'price.integer' => "Gía phải là số",
             'price.min' => 'Gía không được nhỏ hơn hoặc bằng 0',
             'image.image' => 'Ảnh chưa đúng định dạng',
+            'image.required' => 'Ảnh chưa được chọn',
             'status.required' => 'Trạng thái chưa được chọn',
             // 'discount.required'=>'Giảm giá trống',
             'discount.integer' => 'Giảm giá không đúng định dạng',
-            'discount.min' => 'Giảm giá nhỏ nhất là 1%',
-            'discount.max' => 'Giảm giá lớn nhất là 99%'
+            'discount.min' => 'Giảm giá nhỏ nhất là 0%',
+            'discount.max' => 'Giảm giá lớn nhất là 100%'
 
 
         ];

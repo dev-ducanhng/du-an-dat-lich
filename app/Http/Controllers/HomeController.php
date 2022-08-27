@@ -36,12 +36,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $models = Service::all();
+        $models = Service::where('status',1)->limit(12)->get();
         $services = [];
         $priceDiscount = '';
         foreach ($models as $item) {
 
-            if ($item->discount != '' || $item->discount != null) {
+            if ($item->discount != 0) {
                 $priceDiscount = $item->price - (($item->price / 100) * $item->discount);
             }
             $item->priceDiscount = $priceDiscount;
@@ -142,17 +142,18 @@ class HomeController extends Controller
      */
     public function listService()
     {
-        $models = Service::all();
+        $models = Service::where('status',1)->paginate(10);
         $services = [];
         $priceDiscount = '';
         foreach ($models as $item) {
 
-            if ($item->discount != '' || $item->discount != null) {
+            if ( $item->discount != 0) {
+
                 $priceDiscount = $item->price - (($item->price / 100) * $item->discount);
             }
             $item->priceDiscount = $priceDiscount;
         }
-
+        // dd($models); 
         return view('home.listService', compact('models'));
     }
 

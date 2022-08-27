@@ -50,7 +50,7 @@
     <div class="col-lg-12 col-md-12 mb-4">
       <div class="card">
           <div class="card-body">
-              <h5 class="card-title">Striped Rows</h5>
+              <h5 class="card-title"></h5>
 
               <table class="table table-striped">
                   <thead>
@@ -59,9 +59,9 @@
                           <th scope="col">Ảnh</th>
                           <th scope="col">Tên</th>
                           <th scope="col">Giá tiền</th>
-                          <th scope="col">Giảm giá</th>
+                          <th scope="col">Giảm giá (%)</th>
                           <th scope="col">Trạng thái</th>
-                          <th><a class="btn-btn" href="{{ route('dashboard.service.add') }}">Thêm mới</a></th>
+                          <th> Tùy chọn </th>
                       </tr>
                   </thead>
                   <tbody>
@@ -69,11 +69,11 @@
                     @foreach ($models as $item)
                     <tr>
                       <th scope="row">{{$item->id}}</th>
-                      <td><img src="{{asset($item->image) }}" alt="{{$item->name}}" width="200px"> </td>
+                      <td><img src="{{asset($item->image) }}" alt="{{$item->name}}" width="200px" style="height: 150px"> </td>
                       <td>{{$item->name}}</td>
-                      <td>{{$item->price}}</td>
+                      <td>{{number_format($item->price,0,'.',',') }}</td>
                       <td>{{$item->discount}}</td>
-                      <td>{{$item->status}}</td>
+                      <td>{{$item->status== 1 ? 'Hiển thị': 'Không hiển thị'}}</td>
                       <td><a href="{{route('dashboard.service.edit', ['id' => $item->id])}}">Sửa</a></td>
                   </tr>
                     @endforeach
@@ -83,7 +83,7 @@
       </div>
   </div>
   <div class="mt-2">
-
+    {{$models->links()}}
 </div>
 </main>
   @endsection

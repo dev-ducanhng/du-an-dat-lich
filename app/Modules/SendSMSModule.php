@@ -54,5 +54,22 @@ class SendSMSModule
             'body' => $messageSending,
         ]);
     }
+    public function sendSMSTwil($phone, $mess)
+    {
+        
+        $phoneNumber = '+84' . ltrim($phone, '0');
+        $account_sid = config("services.twilio.key");
+        $auth_token = config("services.twilio.secret");
+        $twilio_number = config("services.twilio.phone_number");
+        
+       
 
+        $client = new Client($account_sid, $auth_token);
+       
+
+        $client->messages->create($phoneNumber, [
+            'from' => $twilio_number,
+            'body' => $mess,
+        ]);
+    }
 }

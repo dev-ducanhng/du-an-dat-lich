@@ -46,6 +46,9 @@
                             @if (Session::has('message_register_success'))
                                 <p class="login-box-msg text-success">{{ Session::get('message_register_success') }}</p>
                             @endif
+                            @if(Session::has('mess'))
+                             <p class="login-box-msg text-success">{{Session::get('mess')}}</p>
+                             @endif
                             <form method="POST">
                                 @csrf
                                 <label class="form-group has-float-label mb-4">

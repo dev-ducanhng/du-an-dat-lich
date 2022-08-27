@@ -27,7 +27,7 @@
                                 </div>
 
                                 <div class="form-group position-relative error-l-75">
-                                    <input type="number" class="form-control" name="discount" placeholder="Nhập giảm giá ..."
+                                    <input type="number" class="form-control" name="discount" placeholder="Nhập giảm giá theo % ..."
                                            value="{{old('discount')}}">
                                     @error('discount')
                                     <p class="text-danger mt-2">{{ $message }}</p>
@@ -35,8 +35,8 @@
                                 </div>
                                 <div class="form-group has-float-label w-100">
                                     <select class="form-control select2-single" name="status">
-                                        <option value="1" @if(request()->old('status') == 1) selected @endif>Kích hoạt</option>
-                                        <option value="0" @if(request()->old('status') == 0) selected @endif>Không kích hoạt</option>
+                                        <option value="1" @if(request()->old('status') == 1) selected @endif>Hiển thị</option>
+                                        <option value="0" @if(request()->old('status') == 0) selected @endif>Không hiển thị</option>
                                     </select>
                                     <span>Trạng thái</span>
                                 </div>
