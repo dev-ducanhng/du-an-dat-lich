@@ -61,7 +61,6 @@ class SendSMSModule
         $account_sid = config("services.twilio.key");
         $auth_token = config("services.twilio.secret");
         $twilio_number = config("services.twilio.phone_number");
-
         
        
 

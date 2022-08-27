@@ -33,7 +33,7 @@ class SeviceRequest extends FormRequest
             'price' => 'required|integer|min:1',
             'image' => 'image',
             'status' => 'required|integer',
-            'discount' => 'nullable|integer|min:0|max:99'
+            'discount' => 'nullable|integer|min:0|max:100'
         ];
         
         if($this->id == null){
@@ -57,7 +57,7 @@ class SeviceRequest extends FormRequest
             // 'discount.required'=>'Giảm giá trống',
             'discount.integer' => 'Giảm giá không đúng định dạng',
             'discount.min' => 'Giảm giá nhỏ nhất là 0%',
-            'discount.max' => 'Giảm giá lớn nhất là 99%'
+            'discount.max' => 'Giảm giá lớn nhất là 100%'
 
 
         ];

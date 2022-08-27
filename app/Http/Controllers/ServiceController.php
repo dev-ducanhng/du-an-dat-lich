@@ -13,17 +13,17 @@ class ServiceController extends Controller
 {
     public function getService()
     {
-        $models = Service::all();
+        $models = Service::paginate(10);
 
         if (!empty($_GET)) {
-            // $name= $_GET['name'];
+            
             $name = isset($_GET['name']) ? $_GET['name'] : '';
             $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : 'asc';
             $models = Service::where('name', 'LIKE', "%$name%")
                 ->orderBy('price', "$order_by")
-                ->get();
+                ->paginate(10);
         }
-        // $users = $query->paginate(10)->withQueryString();
+        
         return view('service.index', compact('models'));
     }
     public function addForm()
@@ -36,23 +36,19 @@ class ServiceController extends Controller
 
         $model = new Service();
         $model->fill($request->all());
-        if($request->discount==''|| $request->discount== null){
-            $model->discount= 0;
+        if ($request->discount == '' || $request->discount == null) {
+            $model->discount = 0;
         }
         if ($request->hasFile('image')) {
             $imgPath = $request->file('image')->store('services');
             $imgPath = str_replace('public/', '', $imgPath);
             $model->image = $imgPath;
         }
-
-        // $user = User::where('role_id',4)->first();
-        // dd($user);
        
-            // $sendSMS = new SendSMSModule();
-            // $sendSMS->sendSMSTwil( $user->phone, 'alo ');
-        
 
-        
+
+
+
         $model->save();
         return redirect(route('dashboard.service.index'));
     }
@@ -73,6 +69,9 @@ class ServiceController extends Controller
         $model = Service::find($id);
 
         $model->fill($request->all());
+        if ($request->discount == '' || $request->discount == null) {
+            $model->discount = 0;
+        }
         if ($request->hasFile('image')) {
             Storage::delete($model->image);
 

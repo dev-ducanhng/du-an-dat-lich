@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DiscountRequest;
 use App\Models\Discount;
+use App\Models\User;
+use App\Modules\SendSMSModule;
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
@@ -25,6 +27,15 @@ class DiscountController extends Controller
         $discount->start_date = $start_date;
         $discount->end_date = $end_date;
         $discount->save();
+        // dd($discount);
+        $user = User::all();
+        foreach($user as $item){
+            if($item->role_id ==4){
+                $sendSMS = new SendSMSModule();
+                $sendSMS->sendSMSTwil($item->phone, 'isalon.site thông báo áp dụng trương trình khuyến mãi '.$request->name.' giảm giá các đơn thanh toán từ ngày '. $request->start_date .' đến ngày '.$request->end_date. ' lên đến '.$request->percent . '% khi nhập mã code:'.$request->code_discount   );
+            }
+        }
+       
         return redirect()->route('dashboard.discount.list')->with('message', 'Thêm mới mã giảm giá thành công!');
     }
 
