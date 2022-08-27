@@ -25,7 +25,7 @@ class BookingRequest extends FormRequest
      */
     public function rules(): array
     {
-        $regex = ' /(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b/';
+        $regex = ' /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
         return [
             'customer_name'         => 'required|min:3|string',
             'phone_number'          => ['required', 'regex:' . $regex],

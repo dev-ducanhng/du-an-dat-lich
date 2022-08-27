@@ -17,7 +17,7 @@
     <!-- check out section -->
     <div class="checkout-section mt-150 mb-150">
         <div class="container">
-            <form action="" method="POST">
+            <form action="" method="POST" id="bookingFormConfirm">
                 @csrf
                 <div class="row">
                     <div class="col-lg-8">
@@ -211,15 +211,43 @@
                                 </tfood>
                             </table>
                             <div class="position-relative">
-                                <input type="text" placeholder="Mã giảm giá" name="discount" value="{{request()->old('discount')}}" id="discountCode"
+                                <input type="text" placeholder="Mã giảm giá" name="discount"
+                                       value="{{request()->old('discount')}}" id="discountCode"
                                        class="form-control mt-3 outline-0 border-1 shadow-0">
                                 <span id="checkDiscountCode" class="position-absolute px-3 py-2"
                                       style="top: 4px; right: 3px; background: rgba(234,97,2,0.85); border-radius: 10px; color: white;cursor: pointer"> Kiểm tra </span>
                             </div>
                             <p id="showTextDiscount" class=" py-3"></p>
-                            <button type="submit" name="redirect" class="btn btn-order py-2 font-weight-bold mt-4">Xác
-                                nhận đặt lịch
+                            <!-- Button trigger modal -->
+                            <button type="button" id="confirmBooking" class="btn btn-order py-2 font-weight-bold mt-4"
+                                    data-toggle="modal" data-target="#verifyBox">
+                                Xác nhận đặt lịch
                             </button>
+                            <input name="redirect" hidden>
+                            <!-- Modal -->
+                            <div class="modal fade" id="verifyBox" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận số điện thoại là
+                                                của bạn</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-center">Mã xác nhận đã được gửi đến số điện thoại của bạn. Vui lòng nhập mã tại đây.</p>
+                                            <input type="text" placeholder="Mã xác nhận" name="phoneVerify"
+                                                   class="form-control mt-3 outline-0 border-1 shadow-0 phoneVerify"
+                                                   id="inputPhoneVerify">
+                                            <div class="phoneVerifyError"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="text" id="verifyNumberCode" name="verifyNumberCode" hidden>
+                                            <a class="btn btn-order" id="confirmInput">Xác nhận</a>
+                                            <a class="btn btn-cancel" data-dismiss="modal">Hủy</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="button" class="btn btn-cancel py-2 font-weight-bold mt-3" data-toggle="modal"
                                     data-target="#exampleModalCenter">Hủy
                             </button>
@@ -251,7 +279,34 @@
 @push('javascript')
     <script>
         let price = $(".showPrice").html().replaceAll(',', '').slice(0, -3)
-
+        let phoneNumber = '{{$bookingDetail->phone_number}}'
+        let verifyNumberCode = document.querySelector('#verifyNumberCode')
+        let phoneVerifyError = document.querySelector('.phoneVerifyError')
+        let bookingFormConfirm = document.querySelector('#bookingFormConfirm')
+        $('#confirmBooking').click(() => {
+            $.ajax({
+                url: "{{route('verifyPhone')}}",
+                type: "GET",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    phoneNumber: phoneNumber
+                },
+                success: (response => {
+                    let numberCode = response.numberCode
+                    verifyNumberCode.value = numberCode
+                })
+            })
+        })
+        $('#confirmInput').click(() => {
+            let codeInput = $('#inputPhoneVerify').val()
+            if (codeInput == '') {
+                phoneVerifyError.innerHTML = `<div class="alert alert-danger mt-2" role="alert">Vui lòng nhập mã xác thực</div>`
+            } else if (codeInput != verifyNumberCode.value) {
+                phoneVerifyError.innerHTML = `<div class="alert alert-danger mt-2" role="alert">Mã xác thực không chính xác. Vui lòng nhập lại.</div>`
+            } else {
+                bookingFormConfirm.submit()
+            }
+        })
         $('#checkDiscountCode').click(() => {
             $.ajax({
                 url: "{{route('checkDiscount')}}",
@@ -267,7 +322,10 @@
                         $("#showTextDiscount").addClass('text-success')
                         $("#showTextDiscount").removeClass('text-danger')
                         let priceWithDiscount = price - price * response.percent / 100
-                        let formatCurency = priceWithDiscount.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                        let formatCurency = priceWithDiscount.toLocaleString('it-IT', {
+                            style: 'currency',
+                            currency: 'VND'
+                        });
                         $(".showPrice").html(formatCurency)
                     } else {
                         $("#showTextDiscount").html('Mã giảm giá không hợp lệ hoặc đã quá hạn sử dụng.')

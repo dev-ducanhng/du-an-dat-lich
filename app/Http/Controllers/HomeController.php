@@ -48,15 +48,7 @@ class HomeController extends Controller
         }
 
         $posts = Post::all();
-        $postss = [];
-        foreach ($posts as $item) {
-            $postss[] = [
-                'title'            => $item['title'],
-                'content'          => $item['content'],
-                'category_post_id' => $item['category_post_id'],
-
-            ];
-        }
+        $posts->load('categoryPost', 'user');
         return view('home.index', compact('models', 'posts'));
     }
 

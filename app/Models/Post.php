@@ -18,6 +18,7 @@ class Post extends Model
         'user_id',
         'status',
         'view',
+        'short_description',
     ];
 
     public function categoryPost()
