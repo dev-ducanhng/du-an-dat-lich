@@ -18,7 +18,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group position-relative error-l-50">
-                                    <label>Mã giảm giá</label>
+                                    <label>Mã giảm giá (Mã giảm giá có 8 ký tự)</label>
                                     <input type="text" name="code_discount" id="code_discount" class="input-sm form-control" value="{{$discount->code_discount}}" required="">
                                     <a href="javascript:;" onclick="makeid(8)">Tạo mã giảm giá ngẫu nhiên</a>
                                     @error('code_discount')
