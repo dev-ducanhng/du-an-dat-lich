@@ -27,7 +27,7 @@ class DiscountRequest extends FormRequest
         return [
             'name' => 'required | min:3',
             'code_discount' => [
-                'required', 'string',
+                'required', 'string', 'min:8', 'max:8',
                 Rule::unique('discounts')->ignore($this->discountId)
             ],
             'percent' => 'required | numeric | min: 0 | max: 100'
@@ -41,6 +41,8 @@ class DiscountRequest extends FormRequest
             'name.min' => 'Vui lòng nhập tên mã giảm giá có ít nhất 3 ký tự',
             'code_discount.required' => 'Vui lòng nhập mã giảm giá',
             'code_discount.string' => 'Mã giảm giá có chứa ký tự đặc biệt',
+            'code_discount.min' => 'Mã giảm giá có 8 ký tự',
+            'code_discount.max' => 'Mã giảm giá có 8 ký tự',
             'code_discount.unique' => 'Mã giảm giá đã bị trùng',
             'percent.required' => 'Vui lòng nhập phần trăm giảm giá',
             'percent.numeric' => 'Vui lòng nhập số',
