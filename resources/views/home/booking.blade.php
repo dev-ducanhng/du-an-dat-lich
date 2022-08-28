@@ -51,7 +51,7 @@
                                 <input id="datepicker" type="text" name="booking_date"
                                        value="{{request()->old('booking_date')}}"
                                        class="form-control datepicker"
-                                       placeholder="Chọn ngày"/>
+                                       placeholder="Chọn ngày" autocomplete="off"/>
                                 @error('booking_date')
                                 <p class="text-danger py-2">{{$message}}</p>
                                 @enderror

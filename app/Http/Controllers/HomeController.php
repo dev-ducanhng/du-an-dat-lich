@@ -69,7 +69,7 @@ class HomeController extends Controller
     public function booking()
     {
         $user = Auth::user();
-        $services = Service::all();
+        $services = Service::where('status', 1)->get();
         $stylists = User::where('role_id', User::STYLIST_ROLE)->where('status', User::ACTIVE)->get();
         $bookingDate = BookingDate::with('bookingTime')->get();
 
@@ -153,7 +153,7 @@ class HomeController extends Controller
             }
             $item->priceDiscount = $priceDiscount;
         }
-        // dd($models); 
+        // dd($models);
         return view('home.listService', compact('models'));
     }
 
@@ -283,7 +283,7 @@ class HomeController extends Controller
     public function editBooking($bookingID)
     {
         $user = Auth::user();
-        $services = Service::all();
+        $services = Service::where('status', 1)->get();
         $stylists = User::where('role_id', User::STYLIST_ROLE)->where('status', User::ACTIVE)->get();
         $bookingDate = BookingDate::with('bookingTime')->get();
         $booking = Booking::where('id', $bookingID)->first();

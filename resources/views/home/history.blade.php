@@ -189,14 +189,14 @@
                         <div class="form-group col-md-4">
                             <input id="start" type="text" class="form-control py-3"
                                    value="{{request()->query('start_date')}}" name="start_date"
-                                   placeholder="Từ ngày">
+                                   placeholder="Từ ngày" autocomplete="off">
                             @error('start_date')
                             <p class="text-danger">{{$message}}</p>
                             @enderror
                         </div>
                         <div class="form-group col-md-4">
                             <input id="end" placeholder="đến ngày" type="text" value="{{request()->query('end_date')}}"
-                                   class="form-control py-3" name="end_date">
+                                   class="form-control py-3" name="end_date"  autocomplete="off">
                             @error('end_date')
                             <p class="text-danger">{{$message}}</p>
                             @enderror
