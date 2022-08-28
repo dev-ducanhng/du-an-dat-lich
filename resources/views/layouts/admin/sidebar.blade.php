@@ -38,6 +38,11 @@
                             <i class="iconsminds-speach-bubble-3"></i> Phản hồi
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('dashboard.comment.list') }}">
+                            <i class="iconsminds-speach-bubble-3"></i> Bình luận
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

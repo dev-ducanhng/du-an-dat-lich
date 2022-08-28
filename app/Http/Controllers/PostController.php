@@ -135,7 +135,18 @@ class PostController extends Controller
 
         $model_comment = new CommentPost();
         $model_comment->fill($request->all());
-        $model_comment->is_show = CommentPost::SHOW;
+
+        $array_list_banned_word = [
+            'DM', 'Dm', 'đm',
+            'ĐM', 'Đm', 'đm',
+            'VCL', 'Vcl', 'vcl',
+            'LON', 'Lon', 'lon',
+        ];
+        if (strlen(str_replace($array_list_banned_word, '', $request->content)) != strlen($request->content)) {
+            $model_comment->is_show = CommentPost::HIDDEN;
+        } else {
+            $model_comment->is_show = CommentPost::SHOW;
+        }
         $model_comment->save();
 
         return redirect()->route('detail-blog', [
