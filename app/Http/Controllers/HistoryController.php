@@ -31,7 +31,7 @@ class HistoryController extends Controller
                 'bookingService' => function ($queryBookingService) {
                     $queryBookingService->with('service');
                 },
-                'bookingDate', 'Stylist', 'discount'])->where('stylist', auth()->id());
+                'bookingDate', 'Stylist', 'discount'])->where('stylist', auth()->id())->orderBy('booking_date', 'DESC');
             if ($request->filled('filterValue')) {
                 if ($request->input('filterValue') == 'today') {
                     $dataBookings->whereHas('bookingDate', function ($query) {
@@ -65,7 +65,7 @@ class HistoryController extends Controller
                 'bookingService' => function ($queryBookingService) {
                     $queryBookingService->with('service');
                 },
-                'bookingDate', 'Stylist', 'discount'])->where('user_id', auth()->id());
+                'bookingDate', 'Stylist', 'discount'])->where('user_id', auth()->id())->orderBy('booking_date', 'DESC');
             if ($request->filled('filterValue')) {
                 if ($request->input('filterValue') == 'today') {
                     $dataBookings->whereHas('bookingDate', function ($query) {
@@ -89,7 +89,7 @@ class HistoryController extends Controller
                     },
                     'bookingDate', 'Stylist', 'discount'])
                     ->where('booking_status', Booking::BOOKING_SUCCESS)
-                    ->where('phone_number', 'LIKE', "%{$searchByPhoneNumber}%");
+                    ->where('phone_number', 'LIKE', "%{$searchByPhoneNumber}%")->orderBy('booking_date', 'DESC');
                 $dataBookings = $dataBookings->paginate(10)->withQueryString();
 
             }
@@ -101,7 +101,7 @@ class HistoryController extends Controller
                     },
                     'bookingDate', 'Stylist', 'discount'])
                     ->where('booking_status', Booking::BOOKING_SUCCESS)
-                    ->where('customer_name', 'LIKE', "%{$searchByName}%");
+                    ->where('customer_name', 'LIKE', "%{$searchByName}%")->orderBy('booking_date', 'DESC');
                 $dataBookings = $dataBookings->paginate(10)->withQueryString();
 
             }

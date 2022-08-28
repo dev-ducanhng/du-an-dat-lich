@@ -301,7 +301,7 @@
             let codeInput = $('#inputPhoneVerify').val()
             if (codeInput == '') {
                 phoneVerifyError.innerHTML = `<div class="alert alert-danger mt-2" role="alert">Vui lòng nhập mã xác thực</div>`
-            } else if (codeInput != verifyNumberCode.value || codeInput != '111111') {
+            } else if (codeInput != verifyNumberCode.value) {
                 phoneVerifyError.innerHTML = `<div class="alert alert-danger mt-2" role="alert">Mã xác thực không chính xác. Vui lòng nhập lại.</div>`
             } else {
                 bookingFormConfirm.submit()
