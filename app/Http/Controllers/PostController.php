@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PostRequest;
 use App\Models\CategoryPost;
 use App\Models\CommentPost;
@@ -25,7 +26,7 @@ class PostController extends Controller
         return view('post.add', compact('category_post'));
     }
 
-    public function postAddPost(Request $request)
+    public function postAddPost(PostRequest $request)
     {
         $model = new Post();
         $model->fill($request->all());
@@ -125,7 +126,7 @@ class PostController extends Controller
         ));
     }
 
-    public function sendComment(Request $request)
+    public function sendComment(CommentRequest $request)
     {
         $post = Post::find($request->post_id);
         $category_post = $post->category_post_id;

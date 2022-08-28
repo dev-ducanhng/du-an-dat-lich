@@ -19,6 +19,8 @@
 
     .content_style {
         width: 100%;
+        padding: 10px;
+        border: 1px solid #b0b0b0;
     }
 
     .info_comment {
@@ -92,6 +94,9 @@
                                             <input type="hidden" name="user_id" id="user_id"
                                                 value="{{ auth()->user()->id }}">
                                             <textarea name="content" class="content_style" rows="5" id="content"></textarea>
+                                            @error('content')
+                                                <p class="text-danger mt-2">{{ $message }}</p>
+                                            @enderror
                                             <button type="submit" class="btn btn-primary mt-2"
                                                 onClick="return confirm('Bạn muốn gửi bình luận chứ?');">Gửi bình
                                                 luận</button>
@@ -100,7 +105,7 @@
                                 </div>
                             </div>
                         @else
-                            <h5 class="h5_style">Hãy <a href="{{route('login')}}">đăng nhập</a> để gửi bình luận</h5>
+                            <h5 class="h5_style">Hãy <a href="{{ route('login') }}">đăng nhập</a> để gửi bình luận</h5>
                         @endif
                         <div class="list_comment">
                             @foreach ($comment_by_post as $item)
