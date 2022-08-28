@@ -27,7 +27,8 @@
                             </li>
                             <li class="float-right">
                                 <div class="header-icons">
-                                    <a class="shopping-cart" href="cart.html">{{auth()->user() ? auth()->user()->name : ''}}<i
+                                    <a class="shopping-cart"
+                                        href="javascript:;">{{ auth()->user() ? auth()->user()->name : '' }}<i
                                             class="fa fa-user-circle-o w-20 h-20"></i>
                                     </a>
                                     <ul class="sub-menu">

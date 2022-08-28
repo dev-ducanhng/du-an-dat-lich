@@ -31,19 +31,19 @@ Route::get('/', function () {
 });
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/dich-vu', [HomeController::class, 'listService'])->name('list-service');
+Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name('detail-service');
 Route::get('/gioi-thieu', [HomeController::class, 'introduce'])->name('introduce');
 Route::get('/lien-he', [FeedbackController::class, 'feedbackForm'])->name('contact');
 Route::post('/lien-he', [FeedbackController::class, 'sendFeedback']);
+
 Route::get('/bai-viet', [PostController::class, 'getNewestBlog'])->name('blog');
 Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}.html', [PostController::class, 'getCategoryBlog'])->name('blog-category');
 Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}/{postId}-{postSlug}.html', [PostController::class, 'detailBlog'])->name('detail-blog');
 Route::post('send-comment', [PostController::class, 'sendComment'])->name('send-comment');
-Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name('detail-service');
+
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
 Route::get('/history', [\App\Http\Controllers\HistoryController::class, 'history'])->name('history');
-
-
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
@@ -56,7 +56,6 @@ Route::get('/register', [CustomerController::class, 'registerForm'])->name('regi
 Route::post('/register', [CustomerController::class, 'saveRegister']);
 Route::get('/change-password', [PasswordController::class, 'formChange'])->name('changePassword');
 Route::post('/change-password', [PasswordController::class, 'postChange']);
-
 
 Route::middleware('checkLogin')->group(function () {
     Route::prefix('dashboard')->middleware('checkAdmin')->name('dashboard.')->group(function () {
@@ -139,6 +138,7 @@ Route::middleware('checkLogin')->group(function () {
             Route::get('/list-comment', [CommentPostController::class, 'getListComment'])->name('list');
             Route::get('/edit-comment/{id}', [CommentPostController::class, 'commentForm'])->name('edit');
             Route::post('/edit-comment/{id}', [CommentPostController::class, 'saveEdit']);
+            Route::get('/remove/{id}', [CommentPostController::class, 'remove'])->name('remove');
         });
     });
 
