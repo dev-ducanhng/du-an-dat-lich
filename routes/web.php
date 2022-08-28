@@ -36,6 +36,7 @@ Route::post('/lien-he', [FeedbackController::class, 'sendFeedback']);
 Route::get('/bai-viet', [PostController::class, 'getNewestBlog'])->name('blog');
 Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}.html', [PostController::class, 'getCategoryBlog'])->name('blog-category');
 Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}/{postId}-{postSlug}.html', [PostController::class, 'detailBlog'])->name('detail-blog');
+Route::post('send-comment', [PostController::class, 'sendComment'])->name('send-comment');
 Route::get('/chi-tiet-dich-vu', [HomeController::class, 'detailService'])->name('detail-service');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
