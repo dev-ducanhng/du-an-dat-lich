@@ -41,7 +41,7 @@ Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}.html', [PostController
 Route::get('/bai-viet/{categoryPostId}-{categoryPostSlug}/{postId}-{postSlug}.html', [PostController::class, 'detailBlog'])->name('detail-blog');
 Route::post('send-comment', [PostController::class, 'sendComment'])->name('send-comment');
 
-Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
+Route::get('/booking', [HomeController::class, 'booking'])->name('booking')->middleware('checkStylist');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
 Route::get('/history', [\App\Http\Controllers\HistoryController::class, 'history'])->name('history');
 

@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\AuthLogin;
 use App\Http\Middleware\CheckAdminMiddleware;
 use App\Http\Middleware\CheckBookingMiddleware;
+use App\Http\Middleware\CheckStylistMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'checkLogin'       => AuthLogin::class,
         'checkAdmin'       => CheckAdminMiddleware::class,
         'checkBooking'     => CheckBookingMiddleware::class,
+        'checkStylist'     => CheckStylistMiddleware::class,
     ];
 }
