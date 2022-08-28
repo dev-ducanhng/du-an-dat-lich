@@ -21,81 +21,79 @@
                 <p class="login-box-msg text-danger">{{ Session::get('message') }}</p>
             @endif
             <div class="row">
-                @foreach ($posts_by_category as $item)
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-latest-news">
-                            <a href="{{ route('detail-blog', [
-                                'categoryPostId' => $item->categoryPost->id,
-                                'categoryPostSlug' => $item->categoryPost->slug,
-                                'postId' => $item->id,
-                                'postSlug' => $item->slug,
-                            ]) }}"
-                                target="_blank">
-                                <div class="latest-news-bg">
-                                    <img src="{{ asset('storage/images/posts/' . $item->image) }}" alt="">
-                                </div>
-                            </a>
-                            <div class="news-text-box">
-                                <h3><a href="{{ route('detail-blog', [
-                                    'categoryPostId' => $item->categoryPost->id,
-                                    'categoryPostSlug' => $item->categoryPost->slug,
-                                    'postId' => $item->id,
-                                    'postSlug' => $item->slug,
-                                ]) }}"
-                                        target="_blank">{{ $item->title }}</a></h3>
-                                <p class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i>{{ $item->user->name }}</span>
-                                    <a class="category"
-                                        href="{{ route('blog-category', [
-                                            'categoryPostId' => $item->categoryPost->id,
-                                            'categoryPostSlug' => $item->categoryPost->slug,
-                                        ]) }}"><i
-                                            class="fas fa-address-book"></i>{{ $item->categoryPost->name }}</a>
-                                    <span class="date"><i class="fas fa-calendar"></i>
-                                        {{ date('H:i d/m/Y', strtotime($item->created_at)) }}</span>
-                                </p>
-
-                                <a href="{{ route('detail-blog', [
-                                    'categoryPostId' => $item->categoryPost->id,
-                                    'categoryPostSlug' => $item->categoryPost->slug,
-                                    'postId' => $item->id,
-                                    'postSlug' => $item->slug,
-                                ]) }}"
-                                    target="_blank" class="read-more-btn">Chi tiết <i class="fas fa-angle-right"></i></a>
-                            </div>
+                <div class="d-none d-md-block col-12 col-md-3">
+                    <div class="sidebar-section">
+                        <div class="recent-posts">
+                            <h4>Danh mục bài viết khác</h4>
+                            <ul>
+                                @foreach ($other_category_post as $item)
+                                    <li><a
+                                            href="{{ route('blog-category', [
+                                                'categoryPostId' => $item->id,
+                                                'categoryPostSlug' => $item->slug,
+                                            ]) }}">{{ $item->name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-    <!-- end latest news -->
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="row">
+                        @foreach ($posts_by_category as $item)
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-latest-news">
+                                    <a href="{{ route('detail-blog', [
+                                        'categoryPostId' => $item->categoryPost->id,
+                                        'categoryPostSlug' => $item->categoryPost->slug,
+                                        'postId' => $item->id,
+                                        'postSlug' => $item->slug,
+                                    ]) }}"
+                                        target="_blank">
+                                        <div class="latest-news-bg">
+                                            <img src="{{ asset('storage/images/posts/' . $item->image) }}" alt="">
+                                        </div>
+                                    </a>
+                                    <div class="news-text-box">
+                                        <h3><a href="{{ route('detail-blog', [
+                                            'categoryPostId' => $item->categoryPost->id,
+                                            'categoryPostSlug' => $item->categoryPost->slug,
+                                            'postId' => $item->id,
+                                            'postSlug' => $item->slug,
+                                        ]) }}"
+                                                target="_blank">{{ $item->title }}</a></h3>
+                                        <p class="blog-meta">
+                                            <span class="author"><i class="fas fa-user"></i>{{ $item->user->name }}</span>
+                                            <a class="category"
+                                                href="{{ route('blog-category', [
+                                                    'categoryPostId' => $item->categoryPost->id,
+                                                    'categoryPostSlug' => $item->categoryPost->slug,
+                                                ]) }}"><i
+                                                    class="fas fa-address-book"></i>{{ $item->categoryPost->name }}</a>
+                                            <span class="date"><i class="fas fa-calendar"></i>
+                                                {{ date('H:i d/m/Y', strtotime($item->created_at)) }}</span>
+                                        </p>
 
-    <!-- logo carousel -->
-    <div class="logo-carousel-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="logo-carousel-inner">
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/1.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/2.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/3.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/4.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/5.png" alt="">
-                        </div>
+                                        <a href="{{ route('detail-blog', [
+                                            'categoryPostId' => $item->categoryPost->id,
+                                            'categoryPostSlug' => $item->categoryPost->slug,
+                                            'postId' => $item->id,
+                                            'postSlug' => $item->slug,
+                                        ]) }}"
+                                            target="_blank" class="read-more-btn">Chi tiết <i
+                                                class="fas fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end logo carousel -->
+    <!-- end latest news -->
+
+    <div class="mt-2">
+        {{ $posts_by_category->links() }}
+    </div>
 @endsection

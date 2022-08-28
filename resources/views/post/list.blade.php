@@ -1,3 +1,9 @@
+<style>
+    .row .view-pager {
+        display: none;
+    }
+</style>
+
 @extends('layouts.dashboard')
 @section('content')
     <main>
