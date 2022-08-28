@@ -4,7 +4,7 @@
             <div class="scroll">
                 <ul class="list-unstyled">
                     <li>
-                        <a href="{{ route('dashboard.index') }}">
+                        <a  href="#statistic">
                             <i class="iconsminds-statistic"></i> Thống kê
                         </a>
                     </li>
@@ -49,6 +49,18 @@
 
         <div class="sub-menu">
             <div class="scroll">
+                <ul class="list-unstyled" data-link="statistic">
+                    <li>
+                        <a href="{{ route('dashboard.index') }}">
+                        <i class="iconsminds-bar-chart-4"></i> <span class="d-inline-block">Thống kê chung</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('dashboard.statistic.index') }}">
+                            <i class="iconsminds-financial"></i> <span class="d-inline-block">Thống kê khác</span>
+                        </a>
+                    </li>
+                </ul>
                 <ul class="list-unstyled" data-link="user">
                     <li>
                         <a href="{{ route('dashboard.user.list') }}">

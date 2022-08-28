@@ -33,6 +33,8 @@
     <script src="{{asset('assets/dashboard/datetime-picker/js/mobiscroll.javascript.min.js')}}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
     <link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
+    <link href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"></script>
     @stack('style')
 </head>
 <body id="app-container" class="menu-default show-spinner">

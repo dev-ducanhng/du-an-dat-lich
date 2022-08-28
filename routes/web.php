@@ -45,6 +45,7 @@ Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/list-service', [HomeController::class, 'listService'])->name('listService');
 Route::get('/history', [\App\Http\Controllers\HistoryController::class, 'history'])->name('history');
 
+
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'postLogin']);
 Route::get('/logout', [LoginController::class, 'logOut'])->name('logout');
@@ -134,11 +135,18 @@ Route::middleware('checkLogin')->group(function () {
             Route::get('/remove/{id}', [StaffController::class, 'remove'])->name('remove');
         });
 
-        Route::prefix('comment-management')->name('comment.')->group(function() {
+        Route::prefix('comment-management')->name('comment.')->group(function () {
             Route::get('/list-comment', [CommentPostController::class, 'getListComment'])->name('list');
             Route::get('/edit-comment/{id}', [CommentPostController::class, 'commentForm'])->name('edit');
             Route::post('/edit-comment/{id}', [CommentPostController::class, 'saveEdit']);
             Route::get('/remove/{id}', [CommentPostController::class, 'remove'])->name('remove');
+        });
+
+        Route::prefix('statistic')->name('statistic.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\StatisticOtherController::class, 'statisticOther'])->name('index');
+            Route::post('/statistic-by-stylist', [\App\Http\Controllers\StatisticOtherController::class, 'staticByStylist'])->name('staticByStylist');
+            Route::post('/statistic-by-turnover', [\App\Http\Controllers\StatisticOtherController::class, 'staticTurnover'])->name('staticTurnover');
+
         });
     });
 

@@ -29,7 +29,7 @@ class BookingRequest extends FormRequest
         return [
             'customer_name'         => 'required|min:3|string',
             'phone_number'          => ['required', 'regex:' . $regex],
-            'booking_date'          => ['required', 'before_or_equal:' . now()->addDays(7)->toDateString(), 'after_or_equal:' . now()->toDateString(), 'date'],
+            'booking_date'          => ['required', 'before_or_equal:' . now()->addDays(3)->toDateString(), 'after_or_equal:' . now()->toDateString(), 'date'],
             'service'               => 'required',
             'stylist'               => 'required',
             'booking_time'          => 'required',
