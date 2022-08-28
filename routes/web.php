@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\CommentPostController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HistoryController;
@@ -132,6 +133,12 @@ Route::middleware('checkLogin')->group(function () {
             Route::get('/edit/{id}', [StaffController::class, 'editForm'])->name('edit');
             Route::post('/edit/{id}', [StaffController::class, 'saveEdit']);
             Route::get('/remove/{id}', [StaffController::class, 'remove'])->name('remove');
+        });
+
+        Route::prefix('comment-management')->name('comment.')->group(function() {
+            Route::get('/list-comment', [CommentPostController::class, 'getListComment'])->name('list');
+            Route::get('/edit-comment/{id}', [CommentPostController::class, 'commentForm'])->name('edit');
+            Route::post('/edit-comment/{id}', [CommentPostController::class, 'saveEdit']);
         });
     });
 

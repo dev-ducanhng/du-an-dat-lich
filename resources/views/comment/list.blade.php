@@ -10,11 +10,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <h1>Danh sách mã giảm giá</h1>
-                    <div class="text-zero top-right-button-container">
-                        <a href="{{ route('dashboard.discount.create') }}"
-                            class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm mã giảm giá</a>
-                    </div>
+                    <h1>Danh sách bình luận</h1>
                 </div>
             </div>
             <div class="row mb-4">
@@ -25,48 +21,59 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Tên mã giảm giá</th>
-                                        <th>Mã giảm giá</th>
-                                        <th>Phần trăm giảm giá</th>
-                                        <th>Ngày bắt đầu</th>
-                                        <th>Ngày kết thúc</th>
+                                        <th>Nội dung</th>
+                                        <th>Người gửi</th>
+                                        <th>Tên bài viết</th>
+                                        <th>Thời gian gửi</th>
                                         <th>Trạng thái</th>
+                                        <th>Chứa từ cấm</th>
                                         <th>Tùy chọn</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($discounts as $item)
+                                    @foreach ($comments as $item)
                                         <tr>
                                             <td>
                                                 <p class="list-item-heading">
-                                                    {{ ($discounts->currentPage() - 1) * $discounts->perPage() + $loop->iteration }}
+                                                    {{ ($comments->currentPage() - 1) * $comments->perPage() + $loop->iteration }}
                                                 </p>
                                             </td>
                                             <td>
-                                                <p class="list-item-heading">{{ $item->name }}</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-muted">{{ $item->code_discount }}</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-muted">{{ $item->percent }} %</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-muted">{{ date('d-m-Y', strtotime($item->start_date)) }}
+                                                <p class="list-item-heading">
+                                                    {{ strlen($item->content) > 50 ? substr($item->content, 0, 50) . '...' : $item->content }}
                                                 </p>
                                             </td>
                                             <td>
-                                                <p class="text-muted">{{ date('d-m-Y', strtotime($item->end_date)) }}</p>
+                                                <p class="text-muted">{{ $item->user->name }}</p>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('detail-blog', [
+                                                    'categoryPostId' => $item->post->category_post_id,
+                                                    'categoryPostSlug' => $array_category_post_slug[$item->post->category_post_id],
+                                                    'postId' => $item->post_id,
+                                                    'postSlug' => $item->post->slug,
+                                                ]) }}"
+                                                    class="text-muted">{{ $item->post->title }}</a>
+                                            </td>
+                                            <td>
+                                                <p class="text-muted">{{ date('H:i d-m-Y', strtotime($item->created_at)) }}
+                                                </p>
                                             </td>
                                             <td>
                                                 <span
-                                                    class="badge badge-pill {{ strtotime($item->end_date) < strtotime(date('d-m-Y')) ? 'badge-warning' : 'badge-success' }}">
-                                                    {{ strtotime($item->end_date) < strtotime(date('d-m-Y')) ? 'Hết hạn' : 'Còn hạn' }}
+                                                    class="badge badge-pill {{ $item->is_show == 0 ? 'badge-warning' : 'badge-success' }}">
+                                                    {{ $item->is_show == 0 ? 'Ẩn' : 'Hiện' }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="badge badge-pill {{ strlen(str_replace($array_list_banned_word, '', $item->content)) != strlen($item->content) ? 'badge-warning' : 'badge-success' }}">
+                                                    {{ strlen(str_replace($array_list_banned_word, '', $item->content)) != strlen($item->content) ? 'Có' : 'Không' }}
                                                 </span>
                                             </td>
                                             <td>
                                                 <a class="dropdown-item"
-                                                    href="{{ route('dashboard.discount.edit', $item->id) }}">
+                                                    href="{{ route('dashboard.comment.edit', $item->id) }}">
                                                     <i class="iconsminds-pen-2"></i>Sửa
                                                 </a>
                                             </td>
@@ -79,7 +86,7 @@
                 </div>
             </div>
             <div class="mt-2">
-                {{ $discounts->links() }}
+                {{ $comments->links() }}
             </div>
         </div>
     </main>
