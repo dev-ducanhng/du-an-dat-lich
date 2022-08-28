@@ -11,6 +11,9 @@
             <div class="row">
                 <div class="col-12">
                     <h1>Danh sách mã giảm giá</h1>
+                    @if (Session::has('message'))
+                        <p class="login-box-msg text-success">{{ Session::get('message') }}</p>
+                    @endif
                     <div class="text-zero top-right-button-container">
                         <a href="{{ route('dashboard.discount.create') }}"
                             class="btn btn-primary btn-lg top-right-button mr-1 text-white">Thêm mã giảm giá</a>

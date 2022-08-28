@@ -20,6 +20,7 @@ class CommentPostController extends Controller
         }
 
         $array_list_banned_word = [
+            'DIT', 'Dit', 'dit',
             'DM', 'Dm', 'đm',
             'ĐM', 'Đm', 'đm',
             'VCL', 'Vcl', 'vcl',
@@ -48,5 +49,14 @@ class CommentPostController extends Controller
         $comment->fill($request->all());
         $comment->save();
         return redirect()->route('dashboard.comment.list')->with('message', 'Cập nhật trạng thái bình luận thành công!');
+    }
+
+    public function remove($id) {
+        $comment = CommentPost::find($id);
+        if (!$comment) {
+            return redirect('dashboard.comment.list')->with('message', 'Không tìm thấy bình luận!');
+        }
+        $comment->delete();
+        return redirect()->route('dashboard.comment.list')->with('message', 'Xóa bình luận thành công!');
     }
 }

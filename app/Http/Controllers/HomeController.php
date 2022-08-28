@@ -47,7 +47,7 @@ class HomeController extends Controller
             $item->priceDiscount = $priceDiscount;
         }
 
-        $posts = Post::all();
+        $posts = Post::limit(6)->orderBy('created_at', 'asc')->get();
         $posts->load('categoryPost', 'user');
         return view('home.index', compact('models', 'posts'));
     }

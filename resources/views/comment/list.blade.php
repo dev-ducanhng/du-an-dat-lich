@@ -2,6 +2,10 @@
     .row .view-pager {
         display: none;
     }
+
+    .btn_action {
+        display: inline-flex !important;
+    }
 </style>
 
 @extends('layouts.dashboard')
@@ -11,6 +15,9 @@
             <div class="row">
                 <div class="col-12">
                     <h1>Danh sách bình luận</h1>
+                    @if (Session::has('message'))
+                        <p class="login-box-msg text-success">{{ Session::get('message') }}</p>
+                    @endif
                 </div>
             </div>
             <div class="row mb-4">
@@ -71,11 +78,12 @@
                                                     {{ strlen(str_replace($array_list_banned_word, '', $item->content)) != strlen($item->content) ? 'Có' : 'Không' }}
                                                 </span>
                                             </td>
-                                            <td>
-                                                <a class="dropdown-item"
-                                                    href="{{ route('dashboard.comment.edit', $item->id) }}">
-                                                    <i class="iconsminds-pen-2"></i>Sửa
-                                                </a>
+                                            <td class="btn_action">
+                                                <a class="dropdown-item badge badge-pill badge-primary"
+                                                    href="{{ route('dashboard.comment.edit', $item->id) }}">Sửa</a>
+                                                <a class="dropdown-item badge badge-pill badge-danger"
+                                                    href="{{ route('dashboard.comment.remove', $item->id) }}"
+                                                    onClick="return confirm('Bạn muốn xóa bình luận chứ?');">Xóa </a>
                                             </td>
                                         </tr>
                                     @endforeach

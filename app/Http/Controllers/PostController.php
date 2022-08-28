@@ -137,6 +137,7 @@ class PostController extends Controller
         $model_comment->fill($request->all());
 
         $array_list_banned_word = [
+            'DIT', 'Dit', 'dit',
             'DM', 'Dm', 'đm',
             'ĐM', 'Đm', 'đm',
             'VCL', 'Vcl', 'vcl',
@@ -234,5 +235,21 @@ class PostController extends Controller
             }
         }
         return $alias_url;
+    }
+
+    public static function limitWords($string, $maxOut)
+    {
+        if ($string == '')
+            return '';
+        $string2Array = explode(' ', $string, ($maxOut + 1));
+
+        if (count($string2Array) > $maxOut) {
+            array_pop($string2Array);
+            $output = implode(' ', $string2Array) . ' ...';
+        } else {
+            $output = $string;
+        }
+
+        return $output;
     }
 }
