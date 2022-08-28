@@ -29,7 +29,7 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Tiêu đề</th>
-                                        <th>Đường dẫn</th>
+                                        <th>Slug</th>
                                         <th>Ảnh</th>
                                         <th>Người đăng bài</th>
                                         <th>Danh mục</th>
@@ -48,7 +48,13 @@
                                                 </p>
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="w-40 w-sm-100">
+                                                <a href="{{ route('detail-blog', [
+                                                    'categoryPostId' => $item->categoryPost->id,
+                                                    'categoryPostSlug' => $item->categoryPost->slug,
+                                                    'postId' => $item->id,
+                                                    'postSlug' => $item->slug,
+                                                ]) }}" target="_blank"
+                                                    class="w-40 w-sm-100">
                                                     <p class="list-item-heading mb-0 truncate">{{ $item->title }}</p>
                                                 </a>
                                             </td>
@@ -68,7 +74,13 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <p class="text-muted">{{ $item->categoryPost->name }}</p>
+                                                <a href="{{ route('blog-category', [
+                                                    'categoryPostId' => $item->categoryPost->id,
+                                                    'categoryPostSlug' => $item->categoryPost->slug,
+                                                ]) }}" target="_blank"
+                                                    class="w-40 w-sm-100">
+                                                    <p class="list-item-heading mb-0 truncate">{{ $item->categoryPost->name }}</p>
+                                                </a>
                                             </td>
                                             <td>
                                                 <p class="text-muted">{{ $item->view . ' lượt xem' }}</p>

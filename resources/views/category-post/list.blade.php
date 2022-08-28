@@ -1,3 +1,9 @@
+<style>
+    .row .view-pager {
+        display: none;
+    }
+</style>
+
 @extends('layouts.dashboard')
 @section('content')
     <main>
@@ -37,7 +43,13 @@
                                                 </p>
                                             </td>
                                             <td>
-                                                <p class="text-muted">{{ $item->name }}</p>
+                                                <a href="{{ route('blog-category', [
+                                                    'categoryPostId' => $item->id,
+                                                    'categoryPostSlug' => $item->slug,
+                                                ]) }}" target="_blank"
+                                                    class="w-40 w-sm-100">
+                                                    <p class="list-item-heading mb-0 truncate">{{ $item->name }}</p>
+                                                </a>
                                             </td>
                                             <td>
                                                 <p class="text-muted">{{ $item->slug }}</p>
